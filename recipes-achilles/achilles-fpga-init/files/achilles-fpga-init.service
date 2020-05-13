@@ -1,0 +1,9 @@
+[Unit]
+Description=REFLEX CES Achilles SOM FPGA Initialization
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/achilles-fpga-init.sh
+
+[Install]
+WantedBy=basic.target
