@@ -1,6 +1,6 @@
-From 904ae7e18e4f8b8594687bc11d70a09bf398a563 Mon Sep 17 00:00:00 2001
+From 8dca7e83f5bcf3cb1d668e1815c0585c1b5e1e20 Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
-Date: Tue, 5 May 2020 10:57:51 -0400
+Date: Wed, 13 May 2020 15:48:18 -0400
 Subject: [PATCH 1/1] add achilles support for u-boot-socfpga-v2019.10
 
 Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
@@ -19,8 +19,8 @@ Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
  board/reflexces/achilles/fit_uboot.its        |  43 +++
  board/reflexces/achilles/socfpga.c            |   6 +
  configs/socfpga_arria10_achilles_defconfig    |  51 +++
- include/configs/socfpga_arria10_achilles.h    | 146 ++++++++
- 15 files changed, 960 insertions(+)
+ include/configs/socfpga_arria10_achilles.h    | 141 ++++++++
+ 15 files changed, 955 insertions(+)
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_emmc.dts
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_handoff.dtsi
@@ -966,10 +966,10 @@ index 0000000000..0188716588
 +CONFIG_SYS_PROMPT="ACHILLES_A10SOM # "
 diff --git a/include/configs/socfpga_arria10_achilles.h b/include/configs/socfpga_arria10_achilles.h
 new file mode 100644
-index 0000000000..94662e3a47
+index 0000000000..40931e806a
 --- /dev/null
 +++ b/include/configs/socfpga_arria10_achilles.h
-@@ -0,0 +1,146 @@
+@@ -0,0 +1,141 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + *  Copyright (C) 2020 REFLEX CES <www.reflexces.com>
@@ -1019,11 +1019,6 @@ index 0000000000..94662e3a47
 +
 +/* SPL memory allocation configuration, this is for FAT implementation */
 +#define CONFIG_SYS_SPL_MALLOC_SIZE	0x00015000
-+
-+/* SPL SDMMC boot support */
-+/* change from default partition 1 in socfpga_common.h */
-+/* compile warnings due to same assignment in socfpga_common.h; removing here */ 
-+/* #define CONFIG_SYS_MMCSD_FS_BOOT_PARTITION	2 */
 +
 +/* QSPI BOOT not tested; NAND BOOT not available on Achilles */
 +#if defined(CONFIG_QSPI_BOOT) || defined(CONFIG_NAND_BOOT)
