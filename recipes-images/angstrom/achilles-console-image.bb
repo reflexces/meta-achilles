@@ -1,6 +1,11 @@
 require recipes-images/angstrom/achilles-extended-console-image.bb
 
 IMAGE_INSTALL += " \
+	achilles-firmware \
+	achilles-fpga-init \
+	achilles-test-scripts \
+	achilles-usb-gadget \
+	achilles-webcontent \
 "
 export IMAGE_BASENAME = "achilles-console-image"
 
@@ -12,18 +17,7 @@ rootfs_update_timestamp () {
 
 EXPORT_FUNCTIONS rootfs_update_timestamp
 
-# add these back in under IMAGE_INSTALL when these recipes are developed
-#	achilles-fpga-init \
-#	achilles-lighttpd-conf \
-#	achilles-linux-firmware \
-#	achilles-usb-gadget \
-#	achilles-webcontent \
+# add these to file achilles-xfce-image.bb under IMAGE_INSTALL when these recipes are developed
 #	achilles-x11vnc-init \
 #	achilles-xfce-default-config \
 #	achilles-xfce-init \
-#
-# ERROR: Nothing RPROVIDES error message on these packages
-#	iperf \
-#
-# carry-over from Chameleon96	
-#	achilles-fpga-leds \
