@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM="file://${COMMON_LICENSE_DIR}/BSD-3-Clause;md5=550794465ba0ec53
 PR = "r0"
 FILES_${PN} = "/www/pages/* /home/*"
 
-SRC_URI += "file://achilles-board-image.jpg "
+SRC_URI += "file://achilles-board-image.png "
 SRC_URI += "file://grnled.jpg "
 SRC_URI += "file://helper_script.js "
 SRC_URI += "file://index.sh "
@@ -21,7 +21,7 @@ S = "${WORKDIR}"
 do_install() {
 	install -d ${D}/www/pages/cgi-bin
 	install -d ${D}/home/root/intelFPGA
-	install -m 0755 achilles-board-image.jpg ${D}/www/pages/
+	install -m 0755 achilles-board-image.png ${D}/www/pages/
 	install -m 0755 grnled.jpg ${D}/www/pages/
 	install -m 0755 helper_script.js ${D}/www/pages/
 	install -m 0755 not_found.html ${D}/www/pages/
