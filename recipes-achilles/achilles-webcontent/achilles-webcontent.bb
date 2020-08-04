@@ -2,7 +2,7 @@ DESCRIPTION = "REFLEX CES Achilles SOM web server home page"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM="file://${COMMON_LICENSE_DIR}/BSD-3-Clause;md5=550794465ba0ec5312d6919e203a55f9"
 PR = "r0"
-FILES_${PN} = "/www/pages/* /home/*"
+FILES_${PN} = "/www/pages/*"
 
 SRC_URI += "file://achilles-board-image.png "
 SRC_URI += "file://grnled.jpg "
@@ -20,7 +20,6 @@ S = "${WORKDIR}"
 
 do_install() {
 	install -d ${D}/www/pages/cgi-bin
-	install -d ${D}/home/root/intelFPGA
 	install -m 0755 achilles-board-image.png ${D}/www/pages/
 	install -m 0755 grnled.jpg ${D}/www/pages/
 	install -m 0755 helper_script.js ${D}/www/pages/
