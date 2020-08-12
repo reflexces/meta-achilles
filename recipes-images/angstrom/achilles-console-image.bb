@@ -3,6 +3,7 @@ require recipes-images/angstrom/achilles-extended-console-image.bb
 IMAGE_INSTALL += " \
 	achilles-firmware \
 	achilles-fpga-init \
+	achilles-lighttpd-conf \
 	achilles-test-scripts \
 	achilles-usb-gadget \
 	achilles-webcontent \
