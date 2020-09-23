@@ -36,7 +36,7 @@ fi
 DTBO_NAME=""
 case "$BOARD_MODEL" in
 	"REFLEX CES Achilles SOM")
-		DTBO_NAME="achilles.dtbo"
+		DTBO_NAME="achilles_ghrd_base.dtbo"
 	;;
 	*)
 		echo "NO BOARD MODEL MATCH"
