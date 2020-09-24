@@ -18,7 +18,6 @@ SRC_URI += " \
 do_install () {
 	cd ${WORKDIR}/hardware
 	install -d ${D}${base_libdir}/firmware
-	install -m 0644 output_files/achilles_ghrd.pr_partition.rbf ${D}${base_libdir}/firmware
 	install -m 0644 output_files/blink_led_default.pr_partition.rbf ${D}${base_libdir}/firmware
 	install -m 0644 output_files/blink_led_fast.pr_partition.rbf ${D}${base_libdir}/firmware
 	install -m 0644 output_files/blink_led_slow.pr_partition.rbf ${D}${base_libdir}/firmware
