@@ -1,6 +1,6 @@
-From 8dca7e83f5bcf3cb1d668e1815c0585c1b5e1e20 Mon Sep 17 00:00:00 2001
+From ff4e3d99cb23fdb2d98f6e3d6bf16a114be13cca Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
-Date: Wed, 13 May 2020 15:48:18 -0400
+Date: Fri, 25 Sep 2020 20:14:30 -0400
 Subject: [PATCH 1/1] add achilles support for u-boot-socfpga-v2019.10
 
 Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
@@ -14,13 +14,13 @@ Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
  board/reflexces/achilles/MAINTAINERS          |   6 +
  board/reflexces/achilles/Makefile             |   5 +
  board/reflexces/achilles/fit_kernel_emmc.its  |  44 +++
- board/reflexces/achilles/fit_spl_fpga.its     |  38 ++
- .../achilles/fit_spl_fpga_periph_only.its     |  38 ++
+ board/reflexces/achilles/fit_spl_fpga.its     |  30 ++
+ .../achilles/fit_spl_fpga_periph_only.its     |  30 ++
  board/reflexces/achilles/fit_uboot.its        |  43 +++
  board/reflexces/achilles/socfpga.c            |   6 +
  configs/socfpga_arria10_achilles_defconfig    |  51 +++
  include/configs/socfpga_arria10_achilles.h    | 141 ++++++++
- 15 files changed, 955 insertions(+)
+ 15 files changed, 939 insertions(+)
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_emmc.dts
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_handoff.dtsi
@@ -760,10 +760,10 @@ index 0000000000..aea6c078c1
 +};
 diff --git a/board/reflexces/achilles/fit_spl_fpga.its b/board/reflexces/achilles/fit_spl_fpga.its
 new file mode 100644
-index 0000000000..c19ffe4167
+index 0000000000..ef3fe39c9c
 --- /dev/null
 +++ b/board/reflexces/achilles/fit_spl_fpga.its
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 + /*
 + * Copyright (C) 2019 Intel Corporation <www.intel.com>
@@ -773,18 +773,10 @@ index 0000000000..c19ffe4167
 +/dts-v1/;
 +
 +/ {
-+	description = "FIT image with FPGA bistream";
++	description = "FIT image with FPGA core bistream";
 +	#address-cells = <1>;
 +
 +	images {
-+		fpga-periph-1 {
-+			description = "FPGA peripheral bitstream";
-+			data = /incbin/("../../../achilles_ghrd.periph.rbf");
-+			type = "fpga";
-+			arch = "arm";
-+			compression = "none";
-+		};
-+
 +		fpga-core-1 {
 +			description = "FPGA core bitstream";
 +			data = /incbin/("../../../achilles_ghrd.core.rbf");
@@ -797,17 +789,17 @@ index 0000000000..c19ffe4167
 +	configurations {
 +		default = "config-1";
 +		config-1 {
-+			description = "Boot with FPGA early IO release config";
-+			fpga = "fpga-periph-1", "fpga-core-1";
++			description = "Configure FPGA core image";
++			fpga = "fpga-core-1";
 +		};
 +	};
 +};
 diff --git a/board/reflexces/achilles/fit_spl_fpga_periph_only.its b/board/reflexces/achilles/fit_spl_fpga_periph_only.its
 new file mode 100644
-index 0000000000..76359bd23a
+index 0000000000..9330afe370
 --- /dev/null
 +++ b/board/reflexces/achilles/fit_spl_fpga_periph_only.its
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 + /*
 + * Copyright (C) 2019 Intel Corporation <www.intel.com>
@@ -817,21 +809,13 @@ index 0000000000..76359bd23a
 +/dts-v1/;
 +
 +/ {
-+	description = "FIT image with FPGA bistream";
++	description = "FIT image with FPGA peripheral bistream";
 +	#address-cells = <1>;
 +
 +	images {
 +		fpga-periph-1 {
 +			description = "FPGA peripheral bitstream";
 +			data = /incbin/("../../../achilles_ghrd.periph.rbf");
-+			type = "fpga";
-+			arch = "arm";
-+			compression = "none";
-+		};
-+
-+		fpga-core-1 {
-+			description = "FPGA core bitstream";
-+			data = /incbin/("../../../achilles_ghrd.core.rbf");
 +			type = "fpga";
 +			arch = "arm";
 +			compression = "none";
