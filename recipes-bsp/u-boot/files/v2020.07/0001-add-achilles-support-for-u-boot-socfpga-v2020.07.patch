@@ -1,7 +1,7 @@
-From ff4e3d99cb23fdb2d98f6e3d6bf16a114be13cca Mon Sep 17 00:00:00 2001
+From effdbbe2ae67b2d6b20ecfec750f9edea2a4fa6f Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
-Date: Fri, 25 Sep 2020 20:14:30 -0400
-Subject: [PATCH 1/1] add achilles support for u-boot-socfpga-v2019.10
+Date: Fri, 29 Jan 2021 15:13:52 -0500
+Subject: [PATCH 1/1] add achilles support for u-boot-socfpga-v2020.07
 
 Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
 ---
@@ -36,12 +36,12 @@ Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
  create mode 100644 include/configs/socfpga_arria10_achilles.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index c6587dce31..2f955a17bc 100644
+index 1e3f1d9a03..5e20896203 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -313,6 +313,7 @@ dtb-$(CONFIG_ARCH_SOCFPGA) +=				\
- 	socfpga_agilex_socdk_nand.dtb                   \
+@@ -346,6 +346,7 @@ dtb-$(CONFIG_ARCH_SOCFPGA) +=				\
  	socfpga_agilex_socdk_qspi.dtb			\
+ 	socfpga_arria5_secu1.dtb			\
  	socfpga_arria5_socdk.dtb			\
 +	socfpga_arria10_achilles_emmc.dtb		\
  	socfpga_arria10_socdk_nand.dtb			\
@@ -623,12 +623,12 @@ index 0000000000..767097ab30
 +	};
 +};
 diff --git a/arch/arm/mach-socfpga/Kconfig b/arch/arm/mach-socfpga/Kconfig
-index a983952732..51db41bed8 100644
+index 14fa1c279f..6e83f46b59 100644
 --- a/arch/arm/mach-socfpga/Kconfig
 +++ b/arch/arm/mach-socfpga/Kconfig
-@@ -119,6 +119,10 @@ config TARGET_SOCFPGA_AGILEX_SOCDK
- 	bool "Intel SOCFPGA SoCDK (Agilex)"
- 	select TARGET_SOCFPGA_AGILEX
+@@ -157,6 +157,10 @@ config TARGET_SOCFPGA_ARIES_MCVEVK
+ 	bool "Aries MCVEVK (Cyclone V)"
+ 	select TARGET_SOCFPGA_CYCLONE5
  
 +config TARGET_SOCFPGA_ARRIA10_ACHILLES
 +	bool "Altera SOCFPGA Achilles SOM (Arria 10)"
@@ -637,30 +637,30 @@ index a983952732..51db41bed8 100644
  config TARGET_SOCFPGA_ARRIA10_SOCDK
  	bool "Altera SOCFPGA SoCDK (Arria 10)"
  	select TARGET_SOCFPGA_ARRIA10
-@@ -176,6 +180,7 @@ endchoice
+@@ -218,6 +222,7 @@ config TARGET_SOCFPGA_TERASIC_SOCKIT
+ endchoice
  
  config SYS_BOARD
- 	default "agilex-socdk" if TARGET_SOCFPGA_AGILEX_SOCDK
 +	default "achilles" if TARGET_SOCFPGA_ARRIA10_ACHILLES
+ 	default "agilex-socdk" if TARGET_SOCFPGA_AGILEX_SOCDK
  	default "arria5-socdk" if TARGET_SOCFPGA_ARRIA5_SOCDK
  	default "arria10-socdk" if TARGET_SOCFPGA_ARRIA10_SOCDK
- 	default "cyclone5-socdk" if TARGET_SOCFPGA_CYCLONE5_SOCDK
-@@ -200,6 +205,7 @@ config SYS_VENDOR
- 	default "aries" if TARGET_SOCFPGA_ARIES_MCVEVK
+@@ -247,6 +252,7 @@ config SYS_VENDOR
  	default "devboards" if TARGET_SOCFPGA_DEVBOARDS_DBM_SOC1
  	default "ebv" if TARGET_SOCFPGA_EBV_SOCRATES
+ 	default "keymile" if TARGET_SOCFPGA_ARRIA5_SECU1
 +	default "reflexces" if TARGET_SOCFPGA_ARRIA10_ACHILLES
- 	default "samtec" if TARGET_SOCFPGA_SAMTEC_VINING_FPGA
+ 	default "softing" if TARGET_SOCFPGA_SOFTING_VINING_FPGA
  	default "terasic" if TARGET_SOCFPGA_TERASIC_DE0_NANO
  	default "terasic" if TARGET_SOCFPGA_TERASIC_DE1_SOC
-@@ -211,6 +217,7 @@ config SYS_SOC
- 
- config SYS_CONFIG_NAME
+@@ -260,6 +266,7 @@ config SYS_CONFIG_NAME
  	default "socfpga_agilex_socdk" if TARGET_SOCFPGA_AGILEX_SOCDK
-+	default "socfpga_arria10_achilles" if TARGET_SOCFPGA_ARRIA10_ACHILLES
+ 	default "socfpga_arria5_secu1" if TARGET_SOCFPGA_ARRIA5_SECU1
  	default "socfpga_arria5_socdk" if TARGET_SOCFPGA_ARRIA5_SOCDK
++	default "socfpga_arria10_achilles" if TARGET_SOCFPGA_ARRIA10_ACHILLES
  	default "socfpga_arria10_socdk" if TARGET_SOCFPGA_ARRIA10_SOCDK
  	default "socfpga_cyclone5_socdk" if TARGET_SOCFPGA_CYCLONE5_SOCDK
+ 	default "socfpga_dbm_soc1" if TARGET_SOCFPGA_DEVBOARDS_DBM_SOC1
 diff --git a/board/reflexces/achilles/Kconfig b/board/reflexces/achilles/Kconfig
 new file mode 100644
 index 0000000000..6a85892a86
@@ -1096,5 +1096,5 @@ index 0000000000..40931e806a
 +
 +#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_H__ */
 -- 
-2.17.1
+2.25.1
 
