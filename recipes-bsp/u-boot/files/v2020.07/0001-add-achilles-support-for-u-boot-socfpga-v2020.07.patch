@@ -1,16 +1,18 @@
-From effdbbe2ae67b2d6b20ecfec750f9edea2a4fa6f Mon Sep 17 00:00:00 2001
+From 8b09a2960ea8585c81b90da37be297c64b79f388 Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
-Date: Fri, 29 Jan 2021 15:13:52 -0500
+Date: Thu, 4 Feb 2021 15:21:31 -0500
 Subject: [PATCH 1/1] add achilles support for u-boot-socfpga-v2020.07
 
 Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
 ---
  arch/arm/dts/Makefile                         |   1 +
- arch/arm/dts/socfpga_arria10_achilles.dtsi    | 154 +++++++++
- .../arm/dts/socfpga_arria10_achilles_emmc.dts |  76 ++++
- .../dts/socfpga_arria10_achilles_handoff.dtsi | 327 ++++++++++++++++++
+ .../dts/socfpga_arria10_achilles-u-boot.dtsi  |  32 ++
+ arch/arm/dts/socfpga_arria10_achilles.dtsi    | 139 ++++++++
+ .../socfpga_arria10_achilles_emmc-u-boot.dtsi |  59 ++++
+ .../arm/dts/socfpga_arria10_achilles_emmc.dts |  39 +++
+ .../dts/socfpga_arria10_achilles_handoff.h    | 305 ++++++++++++++++++
  arch/arm/mach-socfpga/Kconfig                 |   7 +
- board/reflexces/achilles/Kconfig              |  18 +
+ board/reflexces/achilles/Kconfig              |  18 ++
  board/reflexces/achilles/MAINTAINERS          |   6 +
  board/reflexces/achilles/Makefile             |   5 +
  board/reflexces/achilles/fit_kernel_emmc.its  |  44 +++
@@ -18,12 +20,14 @@ Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
  .../achilles/fit_spl_fpga_periph_only.its     |  30 ++
  board/reflexces/achilles/fit_uboot.its        |  43 +++
  board/reflexces/achilles/socfpga.c            |   6 +
- configs/socfpga_arria10_achilles_defconfig    |  51 +++
+ configs/socfpga_arria10_achilles_defconfig    |  57 ++++
  include/configs/socfpga_arria10_achilles.h    | 141 ++++++++
- 15 files changed, 939 insertions(+)
+ 17 files changed, 962 insertions(+)
+ create mode 100644 arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles.dtsi
+ create mode 100644 arch/arm/dts/socfpga_arria10_achilles_emmc-u-boot.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_emmc.dts
- create mode 100644 arch/arm/dts/socfpga_arria10_achilles_handoff.dtsi
+ create mode 100644 arch/arm/dts/socfpga_arria10_achilles_handoff.h
  create mode 100644 board/reflexces/achilles/Kconfig
  create mode 100644 board/reflexces/achilles/MAINTAINERS
  create mode 100644 board/reflexces/achilles/Makefile
@@ -47,14 +51,52 @@ index 1e3f1d9a03..5e20896203 100644
  	socfpga_arria10_socdk_nand.dtb			\
  	socfpga_arria10_socdk_qspi.dtb			\
  	socfpga_arria10_socdk_sdmmc.dtb			\
+diff --git a/arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi b/arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
+new file mode 100644
+index 0000000000..1e396a39b8
+--- /dev/null
++++ b/arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
+@@ -0,0 +1,32 @@
++/*
++ * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
++#include "socfpga_arria10-u-boot.dtsi"
++
++/ {
++	aliases {
++		bootargs = "console=ttyS0,115200";
++	};
++};
++
++&uart0 {
++	u-boot,dm-pre-reloc;
++};
++
++&watchdog1 {
++        u-boot,dm-pre-reloc;
++};
 diff --git a/arch/arm/dts/socfpga_arria10_achilles.dtsi b/arch/arm/dts/socfpga_arria10_achilles.dtsi
 new file mode 100644
-index 0000000000..23c695f117
+index 0000000000..a7d9c20436
 --- /dev/null
 +++ b/arch/arm/dts/socfpga_arria10_achilles.dtsi
-@@ -0,0 +1,154 @@
+@@ -0,0 +1,139 @@
 +/*
-+ * Copyright (C) 2019 REFLEX CES <www.reflexces.com>
++ * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
 + *
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License as published by
@@ -90,8 +132,7 @@ index 0000000000..23c695f117
 +	memory@0 {
 +		name = "memory";
 +		device_type = "memory";
-+		reg = <0x0 0xC0000000>; /* 3GB */
-+		u-boot,dm-pre-reloc;
++		reg = <0x0 0x80000000>; /* 2GB */
 +	};
 +};
 +
@@ -148,7 +189,7 @@ index 0000000000..23c695f117
 +	rxdv-skew-ps = <420>; /* 0ps */
 +	rxc-skew-ps = <1680>; /* 780ps */
 +	max-frame-size = <3800>;
-+//	status = "okay";
++	status = "okay";
 +};
 +
 +&gpio1 {
@@ -182,7 +223,6 @@ index 0000000000..23c695f117
 +};
 +
 +&uart0 {
-+	u-boot,dm-pre-reloc;
 +	status = "okay";
 +};
 +
@@ -194,27 +234,14 @@ index 0000000000..23c695f117
 +&watchdog1 {
 +	status = "okay";
 +};
-+
-+/* Clock available early */
-+&main_periph_ref_clk {
-+	u-boot,dm-pre-reloc;
-+};
-+
-+&l4_mp_clk {
-+	u-boot,dm-pre-reloc;
-+};
-+
-+&l4_sp_clk {
-+	u-boot,dm-pre-reloc;
-+};
-diff --git a/arch/arm/dts/socfpga_arria10_achilles_emmc.dts b/arch/arm/dts/socfpga_arria10_achilles_emmc.dts
+diff --git a/arch/arm/dts/socfpga_arria10_achilles_emmc-u-boot.dtsi b/arch/arm/dts/socfpga_arria10_achilles_emmc-u-boot.dtsi
 new file mode 100644
-index 0000000000..71f12d7fe9
+index 0000000000..88d05833ca
 --- /dev/null
-+++ b/arch/arm/dts/socfpga_arria10_achilles_emmc.dts
-@@ -0,0 +1,76 @@
++++ b/arch/arm/dts/socfpga_arria10_achilles_emmc-u-boot.dtsi
+@@ -0,0 +1,59 @@
 +/*
-+ * Copyright (C) 2020 REFLEX CES <www.reflexces.com>
++ * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
 + *
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License as published by
@@ -230,10 +257,10 @@ index 0000000000..71f12d7fe9
 + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 + */
 +
-+/dts-v1/;
-+#include "socfpga_arria10_achilles.dtsi"
-+#include "socfpga_arria10_achilles_handoff.dtsi"
++#include "socfpga_arria10_achilles_handoff.h"
++#include "socfpga_arria10-handoff.dtsi"
 +#include "socfpga_arria10_handoff_u-boot.dtsi"
++#include "socfpga_arria10_achilles-u-boot.dtsi"
 +
 +/ {
 +	chosen {
@@ -254,23 +281,6 @@ index 0000000000..71f12d7fe9
 +
 +&mmc {
 +	u-boot,dm-pre-reloc;
-+	status = "okay";
-+	num-slots = <1>;
-+	cap-sd-highspeed;
-+	broken-cd;
-+	bus-width = <8>;
-+};
-+
-+&eccmgr {
-+	sdmmca-ecc@ff8c2c00 {
-+		compatible = "altr,socfpga-sdmmc-ecc";
-+		reg = <0xff8c2c00 0x400>;
-+		altr,ecc-parent = <&mmc>;
-+		interrupts = <15 IRQ_TYPE_LEVEL_HIGH>,
-+			     <47 IRQ_TYPE_LEVEL_HIGH>,
-+			     <16 IRQ_TYPE_LEVEL_HIGH>,
-+			     <48 IRQ_TYPE_LEVEL_HIGH>;
-+	};
 +};
 +
 +/* Clock available early */
@@ -289,339 +299,362 @@ index 0000000000..71f12d7fe9
 +&sdmmc_clk {
 +	u-boot,dm-pre-reloc;
 +};
-diff --git a/arch/arm/dts/socfpga_arria10_achilles_handoff.dtsi b/arch/arm/dts/socfpga_arria10_achilles_handoff.dtsi
+diff --git a/arch/arm/dts/socfpga_arria10_achilles_emmc.dts b/arch/arm/dts/socfpga_arria10_achilles_emmc.dts
 new file mode 100644
-index 0000000000..767097ab30
+index 0000000000..e48465c75d
 --- /dev/null
-+++ b/arch/arm/dts/socfpga_arria10_achilles_handoff.dtsi
-@@ -0,0 +1,327 @@
-+// SPDX-License-Identifier: GPL-2.0+ OR X11
++++ b/arch/arm/dts/socfpga_arria10_achilles_emmc.dts
+@@ -0,0 +1,39 @@
 +/*
-+ * Copyright (C) 2020 REFLEX CES
++ * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
 + *
-+ *	This code was generated by SoC EDS v19.3
-+ *	based on handoffs from both Qsys and Quartus.
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
 + *
-+ *	Changes to this file may be lost if
-+ *	the code is regenerated.
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 + */
 +
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	model = "REFLEX CES Achilles SOM";	/* Bootloader setting: uboot.model */
++/dts-v1/;
++#include "socfpga_arria10_achilles.dtsi"
 +
-+	/* Clock sources */
-+	clocks {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
++&mmc {
++	status = "okay";
++	cap-sd-highspeed;
++    cap-mmc-highspeed;
++	broken-cd;
++	bus-width = <8>;
++};
 +
-+		/* Clock source: altera_arria10_hps_eosc1 */
-+		altera_arria10_hps_eosc1: altera_arria10_hps_eosc1 {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <25000000>;
-+			clock-output-names = "altera_arria10_hps_eosc1-clk";
-+		};
-+
-+		/* Clock source: altera_arria10_hps_cb_intosc_ls */
-+		altera_arria10_hps_cb_intosc_ls: altera_arria10_hps_cb_intosc_ls {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <60000000>;
-+			clock-output-names = "altera_arria10_hps_cb_intosc_ls-clk";
-+		};
-+
-+		/* Clock source: altera_arria10_hps_f2h_free */
-+		altera_arria10_hps_f2h_free: altera_arria10_hps_f2h_free {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <200000000>;
-+			clock-output-names = "altera_arria10_hps_f2h_free-clk";
-+		};
-+	};
-+
-+	/*
-+	 * Driver: altera_arria10_soc_clock_manager_arria10_uboot_driver
-+	 * Version: 1.0
-+	 * Binding: device
-+	 */
-+	i_clk_mgr: clock_manager@0xffd04000 {
-+		compatible = "altr,socfpga-a10-clk-init";
-+		reg = <0xffd04000 0x00000200>;
-+		reg-names = "soc_clock_manager_OCP_SLV";
-+
-+		/* Address Block: soc_clock_manager_OCP_SLV.i_clk_mgr_mainpllgrp */
-+		mainpll {
-+			vco0-psrc = <0>;	/* Field: vco0.psrc */
-+			vco1-denom = <1>;	/* Field: vco1.denom */
-+			vco1-numer = <239>;	/* Field: vco1.numer */
-+			mpuclk-cnt = <0>;	/* Field: mpuclk.cnt */
-+			mpuclk-src = <0>;	/* Field: mpuclk.src */
-+			nocclk-cnt = <0>;	/* Field: nocclk.cnt */
-+			nocclk-src = <0>;	/* Field: nocclk.src */
-+			cntr2clk-cnt = <900>;	/* Field: cntr2clk.cnt */
-+			cntr3clk-cnt = <900>;	/* Field: cntr3clk.cnt */
-+			cntr4clk-cnt = <900>;	/* Field: cntr4clk.cnt */
-+			cntr5clk-cnt = <900>;	/* Field: cntr5clk.cnt */
-+			cntr6clk-cnt = <14>;	/* Field: cntr6clk.cnt */
-+			cntr7clk-cnt = <900>;	/* Field: cntr7clk.cnt */
-+			cntr7clk-src = <0>;	/* Field: cntr7clk.src */
-+			cntr8clk-cnt = <900>;	/* Field: cntr8clk.cnt */
-+			cntr9clk-cnt = <900>;	/* Field: cntr9clk.cnt */
-+			cntr9clk-src = <0>;	/* Field: cntr9clk.src */
-+			cntr15clk-cnt = <900>;	/* Field: cntr15clk.cnt */
-+			nocdiv-l4mainclk = <2>;	/* Field: nocdiv.l4mainclk */
-+			nocdiv-l4mpclk = <2>;	/* Field: nocdiv.l4mpclk */
-+			nocdiv-l4spclk = <2>;	/* Field: nocdiv.l4spclk */
-+			nocdiv-csatclk = <2>;	/* Field: nocdiv.csatclk */
-+			nocdiv-cstraceclk = <0>;	/* Field: nocdiv.cstraceclk */
-+			nocdiv-cspdbgclk = <0>;	/* Field: nocdiv.cspdbgclk */
-+		};
-+
-+		/* Address Block: soc_clock_manager_OCP_SLV.i_clk_mgr_perpllgrp */
-+		perpll {
-+			vco0-psrc = <0>;	/* Field: vco0.psrc */
-+			vco1-denom = <1>;	/* Field: vco1.denom */
-+			vco1-numer = <239>;	/* Field: vco1.numer */
-+			cntr2clk-cnt = <11>;	/* Field: cntr2clk.cnt */
-+			cntr2clk-src = <1>;	/* Field: cntr2clk.src */
-+			cntr3clk-cnt = <900>;	/* Field: cntr3clk.cnt */
-+			cntr3clk-src = <1>;	/* Field: cntr3clk.src */
-+			cntr4clk-cnt = <29>;	/* Field: cntr4clk.cnt */
-+			cntr4clk-src = <1>;	/* Field: cntr4clk.src */
-+			cntr5clk-cnt = <749>;	/* Field: cntr5clk.cnt */
-+			cntr5clk-src = <1>;	/* Field: cntr5clk.src */
-+			cntr6clk-cnt = <900>;	/* Field: cntr6clk.cnt */
-+			cntr6clk-src = <0>;	/* Field: cntr6clk.src */
-+			cntr7clk-cnt = <900>;	/* Field: cntr7clk.cnt */
-+			cntr8clk-cnt = <900>;	/* Field: cntr8clk.cnt */
-+			cntr8clk-src = <0>;	/* Field: cntr8clk.src */
-+			cntr9clk-cnt = <900>;	/* Field: cntr9clk.cnt */
-+			emacctl-emac0sel = <0>;	/* Field: emacctl.emac0sel */
-+			emacctl-emac1sel = <0>;	/* Field: emacctl.emac1sel */
-+			emacctl-emac2sel = <0>;	/* Field: emacctl.emac2sel */
-+			gpiodiv-gpiodbclk = <32000>;	/* Field: gpiodiv.gpiodbclk */
-+		};
-+
-+		/* Address Block: soc_clock_manager_OCP_SLV.i_clk_mgr_alteragrp */
-+		alteragrp {
-+			nocclk = <0x03840005>;	/* Register: nocclk */
-+			mpuclk = <0x03840001>;	/* Register: mpuclk */
-+		};
-+	};
-+
-+	/*
-+	 * Driver: altera_arria10_soc_3v_io48_pin_mux_arria10_uboot_driver
-+	 * Version: 1.0
-+	 * Binding: pinmux
-+	 */
-+	i_io48_pin_mux: pinmux@0xffd07000 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "pinctrl-single";
-+		reg = <0xffd07000 0x00000800>;
-+		reg-names = "soc_3v_io48_pin_mux_OCP_SLV";
-+
-+		/* Address Block: soc_3v_io48_pin_mux_OCP_SLV.i_io48_pin_mux_shared_3v_io_grp */
-+		shared {
-+			reg = <0xffd07000 0x00000200>;
-+			pinctrl-single,register-width = <32>;
-+			pinctrl-single,function-mask = <0x0000000f>;
-+			pinctrl-single,pins =
-+				<0x00000000 0x0000000d>,	/* Register: pinmux_shared_io_q1_1 */
-+				<0x00000004 0x0000000d>,	/* Register: pinmux_shared_io_q1_2 */
-+				<0x00000008 0x0000000d>,	/* Register: pinmux_shared_io_q1_3 */
-+				<0x0000000c 0x0000000d>,	/* Register: pinmux_shared_io_q1_4 */
-+				<0x00000010 0x00000000>,	/* Register: pinmux_shared_io_q1_5 */
-+				<0x00000014 0x00000000>,	/* Register: pinmux_shared_io_q1_6 */
-+				<0x00000018 0x00000001>,	/* Register: pinmux_shared_io_q1_7 */
-+				<0x0000001c 0x00000001>,	/* Register: pinmux_shared_io_q1_8 */
-+				<0x00000020 0x00000001>,	/* Register: pinmux_shared_io_q1_9 */
-+				<0x00000024 0x00000001>,	/* Register: pinmux_shared_io_q1_10 */
-+				<0x00000028 0x0000000a>,	/* Register: pinmux_shared_io_q1_11 */
-+				<0x0000002c 0x0000000a>,	/* Register: pinmux_shared_io_q1_12 */
-+				<0x00000030 0x00000008>,	/* Register: pinmux_shared_io_q2_1 */
-+				<0x00000034 0x00000008>,	/* Register: pinmux_shared_io_q2_2 */
-+				<0x00000038 0x00000008>,	/* Register: pinmux_shared_io_q2_3 */
-+				<0x0000003c 0x00000008>,	/* Register: pinmux_shared_io_q2_4 */
-+				<0x00000040 0x00000008>,	/* Register: pinmux_shared_io_q2_5 */
-+				<0x00000044 0x00000008>,	/* Register: pinmux_shared_io_q2_6 */
-+				<0x00000048 0x00000008>,	/* Register: pinmux_shared_io_q2_7 */
-+				<0x0000004c 0x00000008>,	/* Register: pinmux_shared_io_q2_8 */
-+				<0x00000050 0x00000008>,	/* Register: pinmux_shared_io_q2_9 */
-+				<0x00000054 0x00000008>,	/* Register: pinmux_shared_io_q2_10 */
-+				<0x00000058 0x00000008>,	/* Register: pinmux_shared_io_q2_11 */
-+				<0x0000005c 0x00000008>,	/* Register: pinmux_shared_io_q2_12 */
-+				<0x00000060 0x00000008>,	/* Register: pinmux_shared_io_q3_1 */
-+				<0x00000064 0x00000008>,	/* Register: pinmux_shared_io_q3_2 */
-+				<0x00000068 0x00000008>,	/* Register: pinmux_shared_io_q3_3 */
-+				<0x0000006c 0x00000008>,	/* Register: pinmux_shared_io_q3_4 */
-+				<0x00000070 0x00000008>,	/* Register: pinmux_shared_io_q3_5 */
-+				<0x00000074 0x00000008>,	/* Register: pinmux_shared_io_q3_6 */
-+				<0x00000078 0x00000008>,	/* Register: pinmux_shared_io_q3_7 */
-+				<0x0000007c 0x00000008>,	/* Register: pinmux_shared_io_q3_8 */
-+				<0x00000080 0x00000008>,	/* Register: pinmux_shared_io_q3_9 */
-+				<0x00000084 0x00000008>,	/* Register: pinmux_shared_io_q3_10 */
-+				<0x00000088 0x00000008>,	/* Register: pinmux_shared_io_q3_11 */
-+				<0x0000008c 0x00000008>,	/* Register: pinmux_shared_io_q3_12 */
-+				<0x00000090 0x00000008>,	/* Register: pinmux_shared_io_q4_1 */
-+				<0x00000094 0x00000008>,	/* Register: pinmux_shared_io_q4_2 */
-+				<0x00000098 0x00000008>,	/* Register: pinmux_shared_io_q4_3 */
-+				<0x0000009c 0x00000008>,	/* Register: pinmux_shared_io_q4_4 */
-+				<0x000000a0 0x00000008>,	/* Register: pinmux_shared_io_q4_5 */
-+				<0x000000a4 0x00000008>,	/* Register: pinmux_shared_io_q4_6 */
-+				<0x000000a8 0x00000008>,	/* Register: pinmux_shared_io_q4_7 */
-+				<0x000000ac 0x00000008>,	/* Register: pinmux_shared_io_q4_8 */
-+				<0x000000b0 0x00000008>,	/* Register: pinmux_shared_io_q4_9 */
-+				<0x000000b4 0x00000008>,	/* Register: pinmux_shared_io_q4_10 */
-+				<0x000000b8 0x00000008>,	/* Register: pinmux_shared_io_q4_11 */
-+				<0x000000bc 0x00000008>;	/* Register: pinmux_shared_io_q4_12 */
-+		};
-+
-+		/* Address Block: soc_3v_io48_pin_mux_OCP_SLV.i_io48_pin_mux_dedicated_io_grp */
-+		dedicated {
-+			reg = <0xffd07200 0x00000200>;
-+			pinctrl-single,register-width = <32>;
-+			pinctrl-single,function-mask = <0x0000000f>;
-+			pinctrl-single,pins =
-+				<0x0000000c 0x00000008>,	/* Register: pinmux_dedicated_io_4 */
-+				<0x00000010 0x00000008>,	/* Register: pinmux_dedicated_io_5 */
-+				<0x00000014 0x00000008>,	/* Register: pinmux_dedicated_io_6 */
-+				<0x00000018 0x00000008>,	/* Register: pinmux_dedicated_io_7 */
-+				<0x0000001c 0x00000008>,	/* Register: pinmux_dedicated_io_8 */
-+				<0x00000020 0x00000008>,	/* Register: pinmux_dedicated_io_9 */
-+				<0x00000024 0x0000000a>,	/* Register: pinmux_dedicated_io_10 */
-+				<0x00000028 0x0000000a>,	/* Register: pinmux_dedicated_io_11 */
-+				<0x0000002c 0x00000008>,	/* Register: pinmux_dedicated_io_12 */
-+				<0x00000030 0x00000008>,	/* Register: pinmux_dedicated_io_13 */
-+				<0x00000034 0x00000008>,	/* Register: pinmux_dedicated_io_14 */
-+				<0x00000038 0x00000008>,	/* Register: pinmux_dedicated_io_15 */
-+				<0x0000003c 0x0000000f>,	/* Register: pinmux_dedicated_io_16 */
-+				<0x00000040 0x0000000f>;	/* Register: pinmux_dedicated_io_17 */
-+		};
-+
-+		/* Address Block: soc_3v_io48_pin_mux_OCP_SLV.i_io48_pin_mux_dedicated_io_grp */
-+		dedicated_cfg {
-+			reg = <0xffd07200 0x00000200>;
-+			pinctrl-single,register-width = <32>;
-+			pinctrl-single,function-mask = <0x003f3f3f>;
-+			pinctrl-single,pins =
-+				<0x00000100 0x00000101>,	/* Register: configuration_dedicated_io_bank */
-+				<0x00000104 0x000b080a>,	/* Register: configuration_dedicated_io_1 */
-+				<0x00000108 0x000b080a>,	/* Register: configuration_dedicated_io_2 */
-+				<0x0000010c 0x000b080a>,	/* Register: configuration_dedicated_io_3 */
-+				<0x00000110 0x000a282a>,	/* Register: configuration_dedicated_io_4 */
-+				<0x00000114 0x000a282a>,	/* Register: configuration_dedicated_io_5 */
-+				<0x00000118 0x0008282a>,	/* Register: configuration_dedicated_io_6 */
-+				<0x0000011c 0x000a282a>,	/* Register: configuration_dedicated_io_7 */
-+				<0x00000120 0x000a282a>,	/* Register: configuration_dedicated_io_8 */
-+				<0x00000124 0x000a282a>,	/* Register: configuration_dedicated_io_9 */
-+				<0x00000128 0x00090000>,	/* Register: configuration_dedicated_io_10 */
-+				<0x0000012c 0x00090000>,	/* Register: configuration_dedicated_io_11 */
-+				<0x00000130 0x000a282a>,	/* Register: configuration_dedicated_io_12 */
-+				<0x00000134 0x000a282a>,	/* Register: configuration_dedicated_io_13 */
-+				<0x00000138 0x000a282a>,	/* Register: configuration_dedicated_io_14 */
-+				<0x0000013c 0x000a282a>,	/* Register: configuration_dedicated_io_15 */
-+				<0x00000140 0x000a282a>,	/* Register: configuration_dedicated_io_16 */
-+				<0x00000144 0x000a282a>;	/* Register: configuration_dedicated_io_17 */
-+		};
-+
-+		/* Address Block: soc_3v_io48_pin_mux_OCP_SLV.i_io48_pin_mux_fpga_interface_grp */
-+		fpga {
-+			reg = <0xffd07400 0x00000100>;
-+			pinctrl-single,register-width = <32>;
-+			pinctrl-single,function-mask = <0x00000001>;
-+			pinctrl-single,pins =
-+				<0x00000000 0x00000000>,	/* Register: pinmux_emac0_usefpga */
-+				<0x00000004 0x00000000>,	/* Register: pinmux_emac1_usefpga */
-+				<0x00000008 0x00000000>,	/* Register: pinmux_emac2_usefpga */
-+				<0x0000000c 0x00000000>,	/* Register: pinmux_i2c0_usefpga */
-+				<0x00000010 0x00000000>,	/* Register: pinmux_i2c1_usefpga */
-+				<0x00000014 0x00000000>,	/* Register: pinmux_i2c_emac0_usefpga */
-+				<0x00000018 0x00000000>,	/* Register: pinmux_i2c_emac1_usefpga */
-+				<0x0000001c 0x00000000>,	/* Register: pinmux_i2c_emac2_usefpga */
-+				<0x00000020 0x00000000>,	/* Register: pinmux_nand_usefpga */
-+				<0x00000024 0x00000000>,	/* Register: pinmux_qspi_usefpga */
-+				<0x00000028 0x00000000>,	/* Register: pinmux_sdmmc_usefpga */
-+				<0x0000002c 0x00000000>,	/* Register: pinmux_spim0_usefpga */
-+				<0x00000030 0x00000000>,	/* Register: pinmux_spim1_usefpga */
-+				<0x00000034 0x00000000>,	/* Register: pinmux_spis0_usefpga */
-+				<0x00000038 0x00000000>,	/* Register: pinmux_spis1_usefpga */
-+				<0x0000003c 0x00000000>,	/* Register: pinmux_uart0_usefpga */
-+				<0x00000040 0x00000000>;	/* Register: pinmux_uart1_usefpga */
-+		};
-+	};
-+
-+	/*
-+	 * Driver: altera_arria10_soc_noc_arria10_uboot_driver
-+	 * Version: 1.0
-+	 * Binding: device
-+	 */
-+	i_noc: noc@0xffd10000 {
-+		compatible = "altr,socfpga-a10-noc";
-+		reg = <0xffd10000 0x00008000>;
-+		reg-names = "mpu_m0";
-+
-+		firewall {
-+			/*
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.mpuregion0addr.base
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.mpuregion0addr.limit
-+			 */
-+			mpu0 = <0x00000000 0x0000ffff>;
-+			/*
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_l3_ddr_scr.hpsregion0addr.base
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_l3_ddr_scr.hpsregion0addr.limit
-+			 */
-+			l3-0 = <0x00000000 0x0000ffff>;
-+			/*
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.fpga2sdram0region0addr.base
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.fpga2sdram0region0addr.limit
-+			 */
-+			fpga2sdram0-0 = <0x00000000 0x0000ffff>;
-+			/*
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.fpga2sdram1region0addr.base
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.fpga2sdram1region0addr.limit
-+			 */
-+			fpga2sdram1-0 = <0x00000000 0x0000ffff>;
-+			/*
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.fpga2sdram2region0addr.base
-+			 * Driver setting: altera_arria10_soc_noc_arria10_uboot_driver.I_NOC.mpu_m0.noc_fw_ddr_mpu_fpga2sdram_ddr_scr.fpga2sdram2region0addr.limit
-+			 */
-+			fpga2sdram2-0 = <0x00000000 0x0000ffff>;
-+		};
-+	};
-+
-+	hps_fpgabridge0: fpgabridge@0 {
-+		compatible = "altr,socfpga-hps2fpga-bridge";
-+		init-val = <0>;
-+	};
-+
-+	hps_fpgabridge1: fpgabridge@1 {
-+		compatible = "altr,socfpga-lwhps2fpga-bridge";
-+		init-val = <1>;
-+	};
-+
-+	hps_fpgabridge2: fpgabridge@2 {
-+		compatible = "altr,socfpga-fpga2hps-bridge";
-+		init-val = <0>;
-+	};
-+
-+	hps_fpgabridge3: fpgabridge@3 {
-+		compatible = "altr,socfpga-fpga2sdram0-bridge";
-+		init-val = <0>;
-+	};
-+
-+	hps_fpgabridge4: fpgabridge@4 {
-+		compatible = "altr,socfpga-fpga2sdram1-bridge";
-+		init-val = <0>;
-+	};
-+
-+	hps_fpgabridge5: fpgabridge@5 {
-+		compatible = "altr,socfpga-fpga2sdram2-bridge";
-+		init-val = <0>;
++&eccmgr {
++	sdmmca-ecc@ff8c2c00 {
++		compatible = "altr,socfpga-sdmmc-ecc";
++		reg = <0xff8c2c00 0x400>;
++		altr,ecc-parent = <&mmc>;
++		interrupts = <15 IRQ_TYPE_LEVEL_HIGH>,
++			     <47 IRQ_TYPE_LEVEL_HIGH>,
++			     <16 IRQ_TYPE_LEVEL_HIGH>,
++			     <48 IRQ_TYPE_LEVEL_HIGH>;
 +	};
 +};
+diff --git a/arch/arm/dts/socfpga_arria10_achilles_handoff.h b/arch/arm/dts/socfpga_arria10_achilles_handoff.h
+new file mode 100644
+index 0000000000..6a827dcc12
+--- /dev/null
++++ b/arch/arm/dts/socfpga_arria10_achilles_handoff.h
+@@ -0,0 +1,305 @@
++/* SPDX-License-Identifier: BSD-3-Clause */
++/*
++ * Altera Arria10 SoCFPGA configuration
++ */
++
++#ifndef __SOCFPGA_ARRIA10_CONFIG_H__
++#define __SOCFPGA_ARRIA10_CONFIG_H__
++
++/* Clocks */
++#define CB_INTOSC_LS_CLK_HZ 60000000
++#define EMAC0_CLK_HZ 250000000
++#define EMAC1_CLK_HZ 250000000
++#define EMAC2_CLK_HZ 250000000
++#define EOSC1_CLK_HZ 25000000
++#define F2H_FREE_CLK_HZ 200000000
++#define H2F_USER0_CLK_HZ 100000000
++#define H2F_USER1_CLK_HZ 100000000
++#define L3_MAIN_FREE_CLK_HZ 500000000
++#define SDMMC_CLK_HZ 200000000
++#define TPIU_CLK_HZ 100000000
++#define MAINPLLGRP_CNTR15CLK_CNT 900
++#define MAINPLLGRP_CNTR2CLK_CNT 900
++#define MAINPLLGRP_CNTR3CLK_CNT 900
++#define MAINPLLGRP_CNTR4CLK_CNT 900
++#define MAINPLLGRP_CNTR5CLK_CNT 900
++#define MAINPLLGRP_CNTR6CLK_CNT 14
++#define MAINPLLGRP_CNTR7CLK_CNT 900
++#define MAINPLLGRP_CNTR7CLK_SRC 0
++#define MAINPLLGRP_CNTR8CLK_CNT 900
++#define MAINPLLGRP_CNTR9CLK_CNT 900
++#define MAINPLLGRP_CNTR9CLK_SRC 0
++#define MAINPLLGRP_MPUCLK_CNT 0
++#define MAINPLLGRP_MPUCLK_SRC 0
++#define MAINPLLGRP_NOCCLK_CNT 0
++#define MAINPLLGRP_NOCCLK_SRC 0
++#define MAINPLLGRP_NOCDIV_CSATCLK 2
++#define MAINPLLGRP_NOCDIV_CSPDBGCLK 0
++#define MAINPLLGRP_NOCDIV_CSTRACECLK 0
++#define MAINPLLGRP_NOCDIV_L4MAINCLK 2
++#define MAINPLLGRP_NOCDIV_L4MPCLK 2
++#define MAINPLLGRP_NOCDIV_L4SPCLK 2
++#define MAINPLLGRP_VCO0_PSRC 0
++#define MAINPLLGRP_VCO1_DENOM 1
++#define MAINPLLGRP_VCO1_NUMER 239
++#define PERPLLGRP_CNTR2CLK_CNT 11
++#define PERPLLGRP_CNTR2CLK_SRC 1
++#define PERPLLGRP_CNTR3CLK_CNT 900
++#define PERPLLGRP_CNTR3CLK_SRC 1
++#define PERPLLGRP_CNTR4CLK_CNT 29
++#define PERPLLGRP_CNTR4CLK_SRC 1
++#define PERPLLGRP_CNTR5CLK_CNT 749
++#define PERPLLGRP_CNTR5CLK_SRC 1
++#define PERPLLGRP_CNTR6CLK_CNT 900
++#define PERPLLGRP_CNTR6CLK_SRC 0
++#define PERPLLGRP_CNTR7CLK_CNT 900
++#define PERPLLGRP_CNTR8CLK_CNT 900
++#define PERPLLGRP_CNTR8CLK_SRC 0
++#define PERPLLGRP_CNTR9CLK_CNT 900
++#define PERPLLGRP_EMACCTL_EMAC0SEL 0
++#define PERPLLGRP_EMACCTL_EMAC1SEL 0
++#define PERPLLGRP_EMACCTL_EMAC2SEL 0
++#define PERPLLGRP_GPIODIV_GPIODBCLK 32000
++#define PERPLLGRP_VCO0_PSRC 0
++#define PERPLLGRP_VCO1_DENOM 1
++#define PERPLLGRP_VCO1_NUMER 239
++#define CLKMGR_TESTIOCTRL_DEBUGCLKSEL 16
++#define CLKMGR_TESTIOCTRL_MAINCLKSEL 8
++#define CLKMGR_TESTIOCTRL_PERICLKSEL 8
++#define ALTERAGRP_MPUCLK_MAINCNT 1
++#define ALTERAGRP_MPUCLK_PERICNT 900
++#define ALTERAGRP_NOCCLK_MAINCNT 5
++#define ALTERAGRP_NOCCLK_PERICNT 900
++#define ALTERAGRP_MPUCLK ((ALTERAGRP_MPUCLK_PERICNT << 16) | \
++	(ALTERAGRP_MPUCLK_MAINCNT))
++#define ALTERAGRP_NOCCLK ((ALTERAGRP_NOCCLK_PERICNT << 16) | \
++	(ALTERAGRP_NOCCLK_MAINCNT))
++
++/* Pin Mux Configuration */
++#define CONFIG_IO_10_INPUT_BUF_EN 0
++#define CONFIG_IO_10_PD_DRV_STRG 0
++#define CONFIG_IO_10_PD_SLW_RT 0
++#define CONFIG_IO_10_PU_DRV_STRG 0
++#define CONFIG_IO_10_PU_SLW_RT 0
++#define CONFIG_IO_10_RTRIM 1
++#define CONFIG_IO_10_WK_PU_EN 1
++#define CONFIG_IO_11_INPUT_BUF_EN 0
++#define CONFIG_IO_11_PD_DRV_STRG 0
++#define CONFIG_IO_11_PD_SLW_RT 0
++#define CONFIG_IO_11_PU_DRV_STRG 0
++#define CONFIG_IO_11_PU_SLW_RT 0
++#define CONFIG_IO_11_RTRIM 1
++#define CONFIG_IO_11_WK_PU_EN 1
++#define CONFIG_IO_12_INPUT_BUF_EN 1
++#define CONFIG_IO_12_PD_DRV_STRG 10
++#define CONFIG_IO_12_PD_SLW_RT 1
++#define CONFIG_IO_12_PU_DRV_STRG 8
++#define CONFIG_IO_12_PU_SLW_RT 1
++#define CONFIG_IO_12_RTRIM 1
++#define CONFIG_IO_12_WK_PU_EN 0
++#define CONFIG_IO_13_INPUT_BUF_EN 1
++#define CONFIG_IO_13_PD_DRV_STRG 10
++#define CONFIG_IO_13_PD_SLW_RT 1
++#define CONFIG_IO_13_PU_DRV_STRG 8
++#define CONFIG_IO_13_PU_SLW_RT 1
++#define CONFIG_IO_13_RTRIM 1
++#define CONFIG_IO_13_WK_PU_EN 0
++#define CONFIG_IO_14_INPUT_BUF_EN 1
++#define CONFIG_IO_14_PD_DRV_STRG 10
++#define CONFIG_IO_14_PD_SLW_RT 1
++#define CONFIG_IO_14_PU_DRV_STRG 8
++#define CONFIG_IO_14_PU_SLW_RT 1
++#define CONFIG_IO_14_RTRIM 1
++#define CONFIG_IO_14_WK_PU_EN 0
++#define CONFIG_IO_15_INPUT_BUF_EN 1
++#define CONFIG_IO_15_PD_DRV_STRG 10
++#define CONFIG_IO_15_PD_SLW_RT 1
++#define CONFIG_IO_15_PU_DRV_STRG 8
++#define CONFIG_IO_15_PU_SLW_RT 1
++#define CONFIG_IO_15_RTRIM 1
++#define CONFIG_IO_15_WK_PU_EN 0
++#define CONFIG_IO_16_INPUT_BUF_EN 1
++#define CONFIG_IO_16_PD_DRV_STRG 10
++#define CONFIG_IO_16_PD_SLW_RT 1
++#define CONFIG_IO_16_PU_DRV_STRG 8
++#define CONFIG_IO_16_PU_SLW_RT 1
++#define CONFIG_IO_16_RTRIM 1
++#define CONFIG_IO_16_WK_PU_EN 0
++#define CONFIG_IO_17_INPUT_BUF_EN 1
++#define CONFIG_IO_17_PD_DRV_STRG 10
++#define CONFIG_IO_17_PD_SLW_RT 1
++#define CONFIG_IO_17_PU_DRV_STRG 8
++#define CONFIG_IO_17_PU_SLW_RT 1
++#define CONFIG_IO_17_RTRIM 1
++#define CONFIG_IO_17_WK_PU_EN 0
++#define CONFIG_IO_1_INPUT_BUF_EN 1
++#define CONFIG_IO_1_PD_DRV_STRG 10
++#define CONFIG_IO_1_PD_SLW_RT 0
++#define CONFIG_IO_1_PU_DRV_STRG 8
++#define CONFIG_IO_1_PU_SLW_RT 0
++#define CONFIG_IO_1_RTRIM 1
++#define CONFIG_IO_1_WK_PU_EN 1
++#define CONFIG_IO_2_INPUT_BUF_EN 1
++#define CONFIG_IO_2_PD_DRV_STRG 10
++#define CONFIG_IO_2_PD_SLW_RT 0
++#define CONFIG_IO_2_PU_DRV_STRG 8
++#define CONFIG_IO_2_PU_SLW_RT 0
++#define CONFIG_IO_2_RTRIM 1
++#define CONFIG_IO_2_WK_PU_EN 1
++#define CONFIG_IO_3_INPUT_BUF_EN 1
++#define CONFIG_IO_3_PD_DRV_STRG 10
++#define CONFIG_IO_3_PD_SLW_RT 0
++#define CONFIG_IO_3_PU_DRV_STRG 8
++#define CONFIG_IO_3_PU_SLW_RT 0
++#define CONFIG_IO_3_RTRIM 1
++#define CONFIG_IO_3_WK_PU_EN 1
++#define CONFIG_IO_4_INPUT_BUF_EN 1
++#define CONFIG_IO_4_PD_DRV_STRG 10
++#define CONFIG_IO_4_PD_SLW_RT 1
++#define CONFIG_IO_4_PU_DRV_STRG 8
++#define CONFIG_IO_4_PU_SLW_RT 1
++#define CONFIG_IO_4_RTRIM 1
++#define CONFIG_IO_4_WK_PU_EN 0
++#define CONFIG_IO_5_INPUT_BUF_EN 1
++#define CONFIG_IO_5_PD_DRV_STRG 10
++#define CONFIG_IO_5_PD_SLW_RT 1
++#define CONFIG_IO_5_PU_DRV_STRG 8
++#define CONFIG_IO_5_PU_SLW_RT 1
++#define CONFIG_IO_5_RTRIM 1
++#define CONFIG_IO_5_WK_PU_EN 0
++#define CONFIG_IO_6_INPUT_BUF_EN 0
++#define CONFIG_IO_6_PD_DRV_STRG 10
++#define CONFIG_IO_6_PD_SLW_RT 1
++#define CONFIG_IO_6_PU_DRV_STRG 8
++#define CONFIG_IO_6_PU_SLW_RT 1
++#define CONFIG_IO_6_RTRIM 1
++#define CONFIG_IO_6_WK_PU_EN 0
++#define CONFIG_IO_7_INPUT_BUF_EN 1
++#define CONFIG_IO_7_PD_DRV_STRG 10
++#define CONFIG_IO_7_PD_SLW_RT 1
++#define CONFIG_IO_7_PU_DRV_STRG 8
++#define CONFIG_IO_7_PU_SLW_RT 1
++#define CONFIG_IO_7_RTRIM 1
++#define CONFIG_IO_7_WK_PU_EN 0
++#define CONFIG_IO_8_INPUT_BUF_EN 1
++#define CONFIG_IO_8_PD_DRV_STRG 10
++#define CONFIG_IO_8_PD_SLW_RT 1
++#define CONFIG_IO_8_PU_DRV_STRG 8
++#define CONFIG_IO_8_PU_SLW_RT 1
++#define CONFIG_IO_8_RTRIM 1
++#define CONFIG_IO_8_WK_PU_EN 0
++#define CONFIG_IO_9_INPUT_BUF_EN 1
++#define CONFIG_IO_9_PD_DRV_STRG 10
++#define CONFIG_IO_9_PD_SLW_RT 1
++#define CONFIG_IO_9_PU_DRV_STRG 8
++#define CONFIG_IO_9_PU_SLW_RT 1
++#define CONFIG_IO_9_RTRIM 1
++#define CONFIG_IO_9_WK_PU_EN 0
++#define CONFIG_IO_BANK_VOLTAGE_SEL_CLKRST_IO 1
++#define CONFIG_IO_BANK_VOLTAGE_SEL_PERI_IO 1
++#define PINMUX_DEDICATED_IO_10_SEL 10
++#define PINMUX_DEDICATED_IO_11_SEL 10
++#define PINMUX_DEDICATED_IO_12_SEL 8
++#define PINMUX_DEDICATED_IO_13_SEL 8
++#define PINMUX_DEDICATED_IO_14_SEL 8
++#define PINMUX_DEDICATED_IO_15_SEL 8
++#define PINMUX_DEDICATED_IO_16_SEL 15
++#define PINMUX_DEDICATED_IO_17_SEL 15
++#define PINMUX_DEDICATED_IO_4_SEL 8
++#define PINMUX_DEDICATED_IO_5_SEL 8
++#define PINMUX_DEDICATED_IO_6_SEL 8
++#define PINMUX_DEDICATED_IO_7_SEL 8
++#define PINMUX_DEDICATED_IO_8_SEL 8
++#define PINMUX_DEDICATED_IO_9_SEL 8
++#define PINMUX_I2C0_USEFPGA_SEL 0
++#define PINMUX_I2C1_USEFPGA_SEL 0
++#define PINMUX_I2CEMAC0_USEFPGA_SEL 0
++#define PINMUX_I2CEMAC1_USEFPGA_SEL 0
++#define PINMUX_I2CEMAC2_USEFPGA_SEL 0
++#define PINMUX_NAND_USEFPGA_SEL 0
++#define PINMUX_PLL_CLOCK_OUT_USEFPGA_SEL 0
++#define PINMUX_QSPI_USEFPGA_SEL 0
++#define PINMUX_RGMII0_USEFPGA_SEL 0
++#define PINMUX_RGMII1_USEFPGA_SEL 0
++#define PINMUX_RGMII2_USEFPGA_SEL 0
++#define PINMUX_SDMMC_USEFPGA_SEL 0
++#define PINMUX_SHARED_IO_Q1_10_SEL 1
++#define PINMUX_SHARED_IO_Q1_11_SEL 10
++#define PINMUX_SHARED_IO_Q1_12_SEL 10
++#define PINMUX_SHARED_IO_Q1_1_SEL 13
++#define PINMUX_SHARED_IO_Q1_2_SEL 13
++#define PINMUX_SHARED_IO_Q1_3_SEL 13
++#define PINMUX_SHARED_IO_Q1_4_SEL 13
++#define PINMUX_SHARED_IO_Q1_5_SEL 0
++#define PINMUX_SHARED_IO_Q1_6_SEL 0
++#define PINMUX_SHARED_IO_Q1_7_SEL 1
++#define PINMUX_SHARED_IO_Q1_8_SEL 1
++#define PINMUX_SHARED_IO_Q1_9_SEL 1
++#define PINMUX_SHARED_IO_Q2_10_SEL 8
++#define PINMUX_SHARED_IO_Q2_11_SEL 8
++#define PINMUX_SHARED_IO_Q2_12_SEL 8
++#define PINMUX_SHARED_IO_Q2_1_SEL 8
++#define PINMUX_SHARED_IO_Q2_2_SEL 8
++#define PINMUX_SHARED_IO_Q2_3_SEL 8
++#define PINMUX_SHARED_IO_Q2_4_SEL 8
++#define PINMUX_SHARED_IO_Q2_5_SEL 8
++#define PINMUX_SHARED_IO_Q2_6_SEL 8
++#define PINMUX_SHARED_IO_Q2_7_SEL 8
++#define PINMUX_SHARED_IO_Q2_8_SEL 8
++#define PINMUX_SHARED_IO_Q2_9_SEL 8
++#define PINMUX_SHARED_IO_Q3_10_SEL 8
++#define PINMUX_SHARED_IO_Q3_11_SEL 8
++#define PINMUX_SHARED_IO_Q3_12_SEL 8
++#define PINMUX_SHARED_IO_Q3_1_SEL 8
++#define PINMUX_SHARED_IO_Q3_2_SEL 8
++#define PINMUX_SHARED_IO_Q3_3_SEL 8
++#define PINMUX_SHARED_IO_Q3_4_SEL 8
++#define PINMUX_SHARED_IO_Q3_5_SEL 8
++#define PINMUX_SHARED_IO_Q3_6_SEL 8
++#define PINMUX_SHARED_IO_Q3_7_SEL 8
++#define PINMUX_SHARED_IO_Q3_8_SEL 8
++#define PINMUX_SHARED_IO_Q3_9_SEL 8
++#define PINMUX_SHARED_IO_Q4_10_SEL 8
++#define PINMUX_SHARED_IO_Q4_11_SEL 8
++#define PINMUX_SHARED_IO_Q4_12_SEL 8
++#define PINMUX_SHARED_IO_Q4_1_SEL 8
++#define PINMUX_SHARED_IO_Q4_2_SEL 8
++#define PINMUX_SHARED_IO_Q4_3_SEL 8
++#define PINMUX_SHARED_IO_Q4_4_SEL 8
++#define PINMUX_SHARED_IO_Q4_5_SEL 8
++#define PINMUX_SHARED_IO_Q4_6_SEL 8
++#define PINMUX_SHARED_IO_Q4_7_SEL 8
++#define PINMUX_SHARED_IO_Q4_8_SEL 8
++#define PINMUX_SHARED_IO_Q4_9_SEL 8
++#define PINMUX_SPIM0_USEFPGA_SEL 0
++#define PINMUX_SPIM1_USEFPGA_SEL 0
++#define PINMUX_SPIS0_USEFPGA_SEL 0
++#define PINMUX_SPIS1_USEFPGA_SEL 0
++#define PINMUX_UART0_USEFPGA_SEL 0
++#define PINMUX_UART1_USEFPGA_SEL 0
++#define PINMUX_USB0_USEFPGA_SEL 0
++#define PINMUX_USB1_USEFPGA_SEL 0
++
++/* Bridge Configuration */
++#define F2H_AXI_SLAVE 0
++#define F2SDRAM0_AXI_SLAVE 0
++#define F2SDRAM1_AXI_SLAVE 0
++#define F2SDRAM2_AXI_SLAVE 0
++#define H2F_AXI_MASTER 0
++#define LWH2F_AXI_MASTER 1
++
++/* Voltage Select for Config IO */
++#define CONFIG_IO_BANK_VSEL \
++	(((CONFIG_IO_BANK_VOLTAGE_SEL_CLKRST_IO & 0x3) << 8) | \
++	(CONFIG_IO_BANK_VOLTAGE_SEL_PERI_IO & 0x3))
++
++/* Macro for Config IO bit mapping */
++#define CONFIG_IO_MACRO(NAME) (((NAME ## _RTRIM & 0xff) << 19) | \
++	((NAME ## _INPUT_BUF_EN & 0x3) << 17) | \
++	((NAME ## _WK_PU_EN & 0x1) << 16) | \
++	((NAME ## _PU_SLW_RT & 0x1) << 13) | \
++	((NAME ## _PU_DRV_STRG & 0xf) << 8) | \
++	((NAME ## _PD_SLW_RT & 0x1) << 5) | \
++	(NAME ## _PD_DRV_STRG & 0x1f))
++
++#endif /* __SOCFPGA_ARRIA10_CONFIG_H__ */
 diff --git a/arch/arm/mach-socfpga/Kconfig b/arch/arm/mach-socfpga/Kconfig
 index 14fa1c279f..6e83f46b59 100644
 --- a/arch/arm/mach-socfpga/Kconfig
@@ -893,17 +926,20 @@ index 0000000000..4c466cb944
 +#include <common.h>
 diff --git a/configs/socfpga_arria10_achilles_defconfig b/configs/socfpga_arria10_achilles_defconfig
 new file mode 100644
-index 0000000000..0188716588
+index 0000000000..4dfb865975
 --- /dev/null
 +++ b/configs/socfpga_arria10_achilles_defconfig
-@@ -0,0 +1,51 @@
+@@ -0,0 +1,57 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SOCFPGA=y
++CONFIG_ENV_SIZE=0x2000
++CONFIG_ENV_OFFSET=0x4400
++CONFIG_DM_GPIO=y
++CONFIG_SPL_TEXT_BASE=0xFFE00000
 +CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
 +CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES=y
 +CONFIG_IDENT_STRING="socfpga_arria10"
 +CONFIG_SPL_FS_FAT=y
-+CONFIG_SPL_TEXT_BASE=0xFFE00000
 +CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_FIT=y
 +CONFIG_SPL_FIT=y
@@ -913,7 +949,7 @@ index 0000000000..0188716588
 +CONFIG_SYS_CONSOLE_IS_IN_ENV=y
 +CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE=y
 +CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
-+CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles.dtb"
++CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_emmc.dtb"
 +CONFIG_VERSION_VARIABLE=y
 +CONFIG_DISPLAY_BOARDINFO_LATE=y
 +CONFIG_SPL_ENV_SUPPORT=y
@@ -921,6 +957,7 @@ index 0000000000..0188716588
 +CONFIG_CMD_ASKENV=y
 +CONFIG_CMD_GREPENV=y
 +# CONFIG_CMD_FLASH is not set
++CONFIG_CMD_FPGA_LOADMK=y
 +CONFIG_CMD_GPIO=y
 +CONFIG_CMD_MMC=y
 +CONFIG_CMD_CACHE=y
@@ -929,14 +966,13 @@ index 0000000000..0188716588
 +CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_emmc"
 +CONFIG_OF_SPL_REMOVE_PROPS="interrupts interrupt-parent dmas dma-names"
 +CONFIG_ENV_IS_IN_MMC=y
-+CONFIG_NET_RANDOM_ETHADDR=y
 +CONFIG_SPL_DM_SEQ_ALIAS=y
-+CONFIG_DM_GPIO=y
++CONFIG_SYS_RELOC_GD_ENV_ADDR=y
 +CONFIG_DWAPB_GPIO=y
 +CONFIG_FS_LOADER=y
 +CONFIG_DM_MMC=y
 +CONFIG_MMC_DW=y
-+CONFIG_MTD_DEVICE=y
++CONFIG_MTD=y
 +CONFIG_PHY_MICREL=y
 +CONFIG_PHY_MICREL_KSZ90X1=y
 +CONFIG_DM_ETH=y
@@ -944,9 +980,12 @@ index 0000000000..0188716588
 +CONFIG_MII=y
 +CONFIG_SPI=y
 +CONFIG_TIMER=y
++CONFIG_NET_RANDOM_ETHADDR=y
 +CONFIG_SPL_TIMER=y
 +CONFIG_DESIGNWARE_APB_TIMER=y
-+CONFIG_CMD_FPGA_LOADMK=y
++CONFIG_USB=y
++CONFIG_DM_USB=y
++CONFIG_USB_DWC2=y
 +CONFIG_SYS_PROMPT="ACHILLES_A10SOM # "
 diff --git a/include/configs/socfpga_arria10_achilles.h b/include/configs/socfpga_arria10_achilles.h
 new file mode 100644
