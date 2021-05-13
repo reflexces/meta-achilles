@@ -1,4 +1,4 @@
-require recipes-images/angstrom/achilles-extended-console-image.bb
+require recipes-images/poky/achilles-extended-console-image.bb
 
 IMAGE_INSTALL += " \
 	achilles-firmware \
