@@ -35,7 +35,6 @@ IMAGE_INSTALL += " \
 	packagegroup-sdk-target \
 	pciutils \
 	perl \
-	python \
 	tar \
 	tcpdump \
 	usbutils \
@@ -51,3 +50,5 @@ export IMAGE_BASENAME = "extended-console-image"
 #	achilles-x11vnc-init \
 #	achilles-xfce-default-config \
 #	achilles-xfce-init \
+# these ones removed for gatesgarth update
+#	python \
