@@ -1,5 +1,8 @@
-#require recipes-images/angstrom/core-image-minimal.bb
 require recipes-core/images/core-image-minimal.bb
+#altera recipe uses this line below instead of line above
+#require recipes-core/images/core-image-base.bb
+#this is in altera image recipe; delete this comment after you look this up to know what it does
+#require core-image-essential.inc
 
 DEPENDS += "bash perl gcc i2c-tools \
 "
@@ -52,3 +55,6 @@ export IMAGE_BASENAME = "extended-console-image"
 #	achilles-xfce-init \
 # these ones removed for gatesgarth update
 #	python \
+
+# this one added by Intel GSRD but not in mine
+#	pciutils \
