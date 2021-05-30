@@ -53,8 +53,3 @@ export IMAGE_BASENAME = "extended-console-image"
 #	achilles-x11vnc-init \
 #	achilles-xfce-default-config \
 #	achilles-xfce-init \
-# these ones removed for gatesgarth update
-#	python \
-
-# this one added by Intel GSRD but not in mine
-#	pciutils \
