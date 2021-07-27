@@ -12,7 +12,7 @@ SRCREV_hardware = "${AUTOREV}"
 PV="${PN}+git${SRCPV}"
 
 SRC_URI += " \
-	git://github.com/reflexces/achilles-hardware.git;destsuffix=hardware;name=hardware;protocol=https;branch=ghrd-v20.3-pr \
+	git://github.com/reflexces/achilles-hardware.git;destsuffix=hardware;name=hardware;protocol=https;branch=ghrd-v21.1-pr \
 "
 
 do_install () {
