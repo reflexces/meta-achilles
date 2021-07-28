@@ -1,6 +1,6 @@
-From af085ef1e6f930d95c61542bc8e8e4fb8152b1b3 Mon Sep 17 00:00:00 2001
+From 287ace71a74c593a77435dcc177c39e923338415 Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
-Date: Tue, 27 Jul 2021 17:19:12 -0400
+Date: Thu, 22 Jul 2021 12:04:45 -0400
 Subject: [PATCH 1/1] add achilles support for u-boot-socfpga_v2021.01
 
 Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
@@ -20,9 +20,9 @@ Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
  .../achilles/fit_spl_fpga_periph_only.its     |  30 ++
  board/reflexces/achilles/fit_uboot.its        |  43 +++
  board/reflexces/achilles/socfpga.c            |   6 +
- configs/socfpga_arria10_achilles_defconfig    |  57 ++++
+ configs/socfpga_arria10_achilles_defconfig    |  61 ++++
  include/configs/socfpga_arria10_achilles.h    | 141 ++++++++
- 17 files changed, 962 insertions(+)
+ 17 files changed, 966 insertions(+)
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_emmc-u-boot.dtsi
@@ -926,10 +926,10 @@ index 0000000000..4c466cb944
 +#include <common.h>
 diff --git a/configs/socfpga_arria10_achilles_defconfig b/configs/socfpga_arria10_achilles_defconfig
 new file mode 100644
-index 0000000000..4dfb865975
+index 0000000000..e85618eb51
 --- /dev/null
 +++ b/configs/socfpga_arria10_achilles_defconfig
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,61 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SOCFPGA=y
 +CONFIG_ENV_SIZE=0x2000
@@ -940,34 +940,36 @@ index 0000000000..4dfb865975
 +CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES=y
 +CONFIG_IDENT_STRING="socfpga_arria10"
 +CONFIG_SPL_FS_FAT=y
++CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_emmc"
 +CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_FIT=y
 +CONFIG_SPL_FIT=y
++# CONFIG_USE_SPL_FIT_GENERATOR is not set
 +CONFIG_USE_BOOTARGS=y
 +CONFIG_BOOTARGS="console=ttyS0,115200"
 +CONFIG_BOOTCOMMAND="run fatscript;run prog_core;bridge enable;run distro_bootcmd"
++CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_emmc.dtb"
 +CONFIG_SYS_CONSOLE_IS_IN_ENV=y
 +CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE=y
 +CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
-+CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_emmc.dtb"
-+CONFIG_VERSION_VARIABLE=y
 +CONFIG_DISPLAY_BOARDINFO_LATE=y
 +CONFIG_SPL_ENV_SUPPORT=y
-+CONFIG_SPL_FPGA_SUPPORT=y
++CONFIG_SPL_FPGA=y
 +CONFIG_CMD_ASKENV=y
 +CONFIG_CMD_GREPENV=y
 +# CONFIG_CMD_FLASH is not set
 +CONFIG_CMD_FPGA_LOADMK=y
 +CONFIG_CMD_GPIO=y
 +CONFIG_CMD_MMC=y
++CONFIG_CMD_USB=y
 +CONFIG_CMD_CACHE=y
 +CONFIG_CMD_EXT4_WRITE=y
 +CONFIG_MTDIDS_DEFAULT="nor0=ff705000.spi.0"
-+CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_emmc"
 +CONFIG_OF_SPL_REMOVE_PROPS="interrupts interrupt-parent dmas dma-names"
 +CONFIG_ENV_IS_IN_MMC=y
-+CONFIG_SPL_DM_SEQ_ALIAS=y
 +CONFIG_SYS_RELOC_GD_ENV_ADDR=y
++CONFIG_VERSION_VARIABLE=y
++CONFIG_SPL_DM_SEQ_ALIAS=y
 +CONFIG_DWAPB_GPIO=y
 +CONFIG_FS_LOADER=y
 +CONFIG_DM_MMC=y
@@ -978,14 +980,16 @@ index 0000000000..4dfb865975
 +CONFIG_DM_ETH=y
 +CONFIG_ETH_DESIGNWARE=y
 +CONFIG_MII=y
++CONFIG_NET_RANDOM_ETHADDR=y
 +CONFIG_SPI=y
 +CONFIG_TIMER=y
-+CONFIG_NET_RANDOM_ETHADDR=y
 +CONFIG_SPL_TIMER=y
 +CONFIG_DESIGNWARE_APB_TIMER=y
++# CONFIG_SPL_WDT is not set
 +CONFIG_USB=y
 +CONFIG_DM_USB=y
 +CONFIG_USB_DWC2=y
++# CONFIG_USE_TINY_PRINTF is not set
 +CONFIG_SYS_PROMPT="ACHILLES_A10SOM # "
 diff --git a/include/configs/socfpga_arria10_achilles.h b/include/configs/socfpga_arria10_achilles.h
 new file mode 100644
