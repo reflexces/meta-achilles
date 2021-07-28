@@ -359,7 +359,7 @@ echo -e "</FORM>"
 #RETRY_COUNT=1
 #while [ $RETRY_COUNT -le ${CONST_IP_CHECK_RETRIES} ]
 #; do
-	IP=`ifconfig eth0 | head -n 2 | tail -n 1 | sed s/inet\ addr:// | sed s/\ Bcast.*// | sed s/\ *//g`
+	IP=`ifconfig eth0 | head -n 2 | tail -n 1 | sed s/inet\ // | sed s/\ netmask.*// | sed s/\ *//g`
 #	IP_CHECK=`echo $IP | sed 's/\(\([0-9]\{1,3\}\)\.\)\{3\}\([0-9]\{1,3\}\)//g'`
 #	if [ "$IP_CHECK" != "" ]; then
 #		IP="No IP obtained"
