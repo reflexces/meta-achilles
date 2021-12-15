@@ -4,7 +4,7 @@ AUTHOR = "Dan Negvesky <dnegvesky@reflexces.com>"
 SECTION = "achilles"
 
 PR = "r1"
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 inherit systemd
 
