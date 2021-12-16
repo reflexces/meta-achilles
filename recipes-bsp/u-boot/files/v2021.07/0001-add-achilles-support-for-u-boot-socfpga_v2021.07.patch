@@ -1,6 +1,6 @@
-From e1750842ca059ad0fd6ba21fb8deabfbd254eea6 Mon Sep 17 00:00:00 2001
+From 3aec64bd664e6a80d0e9cf48aacdd047efa9fb73 Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
-Date: Wed, 15 Dec 2021 09:06:16 -0500
+Date: Thu, 16 Dec 2021 14:09:48 -0500
 Subject: [PATCH 1/1] add achilles support for u-boot-socfpga_v2021.07
 
 Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
@@ -40,10 +40,10 @@ Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
  create mode 100644 include/configs/socfpga_arria10_achilles.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 685dd71cab..b06870288a 100644
+index f0a2a9d2ac..7ea26183ac 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -366,6 +366,7 @@ dtb-$(CONFIG_ARCH_SOCFPGA) +=				\
+@@ -384,6 +384,7 @@ dtb-$(CONFIG_ARCH_SOCFPGA) +=				\
  	socfpga_agilex_socdk_qspi.dtb			\
  	socfpga_arria5_secu1.dtb			\
  	socfpga_arria5_socdk.dtb			\
@@ -656,10 +656,10 @@ index 0000000000..99169d4fa4
 +
 +#endif /* __SOCFPGA_ARRIA10_CONFIG_H__ */
 diff --git a/arch/arm/mach-socfpga/Kconfig b/arch/arm/mach-socfpga/Kconfig
-index f71389f8d2..8d681b70ed 100644
+index 419b06a229..607355f06c 100644
 --- a/arch/arm/mach-socfpga/Kconfig
 +++ b/arch/arm/mach-socfpga/Kconfig
-@@ -158,6 +158,10 @@ config TARGET_SOCFPGA_ARIES_MCVEVK
+@@ -149,6 +149,10 @@ config TARGET_SOCFPGA_ARIES_MCVEVK
  	bool "Aries MCVEVK (Cyclone V)"
  	select TARGET_SOCFPGA_CYCLONE5
  
@@ -670,15 +670,15 @@ index f71389f8d2..8d681b70ed 100644
  config TARGET_SOCFPGA_ARRIA10_SOCDK
  	bool "Altera SOCFPGA SoCDK (Arria 10)"
  	select TARGET_SOCFPGA_ARRIA10
-@@ -219,6 +223,7 @@ config TARGET_SOCFPGA_TERASIC_SOCKIT
- endchoice
- 
- config SYS_BOARD
-+	default "achilles" if TARGET_SOCFPGA_ARRIA10_ACHILLES
+@@ -213,6 +217,7 @@ config SYS_BOARD
+ 	default "agilex-n6010" if TARGET_SOCFPGA_AGILEX_N6010
  	default "agilex-socdk" if TARGET_SOCFPGA_AGILEX_SOCDK
  	default "arria5-socdk" if TARGET_SOCFPGA_ARRIA5_SOCDK
++	default "achilles" if TARGET_SOCFPGA_ARRIA10_ACHILLES
  	default "arria10-socdk" if TARGET_SOCFPGA_ARRIA10_SOCDK
-@@ -248,6 +253,7 @@ config SYS_VENDOR
+ 	default "cyclone5-socdk" if TARGET_SOCFPGA_CYCLONE5_SOCDK
+ 	default "dbm-soc1" if TARGET_SOCFPGA_DEVBOARDS_DBM_SOC1
+@@ -241,6 +246,7 @@ config SYS_VENDOR
  	default "devboards" if TARGET_SOCFPGA_DEVBOARDS_DBM_SOC1
  	default "ebv" if TARGET_SOCFPGA_EBV_SOCRATES
  	default "keymile" if TARGET_SOCFPGA_ARRIA5_SECU1
@@ -686,7 +686,7 @@ index f71389f8d2..8d681b70ed 100644
  	default "softing" if TARGET_SOCFPGA_SOFTING_VINING_FPGA
  	default "terasic" if TARGET_SOCFPGA_TERASIC_DE0_NANO
  	default "terasic" if TARGET_SOCFPGA_TERASIC_DE1_SOC
-@@ -261,6 +267,7 @@ config SYS_CONFIG_NAME
+@@ -255,6 +261,7 @@ config SYS_CONFIG_NAME
  	default "socfpga_agilex_socdk" if TARGET_SOCFPGA_AGILEX_SOCDK
  	default "socfpga_arria5_secu1" if TARGET_SOCFPGA_ARRIA5_SECU1
  	default "socfpga_arria5_socdk" if TARGET_SOCFPGA_ARRIA5_SOCDK
