@@ -1,6 +1,6 @@
-From 3aec64bd664e6a80d0e9cf48aacdd047efa9fb73 Mon Sep 17 00:00:00 2001
+From 5b0fab133db94d56b8567ab952d362639b1e39f2 Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
-Date: Thu, 16 Dec 2021 14:09:48 -0500
+Date: Thu, 16 Dec 2021 14:31:55 -0500
 Subject: [PATCH 1/1] add achilles support for u-boot-socfpga_v2021.07
 
 Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
@@ -20,9 +20,9 @@ Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
  .../achilles/fit_spl_fpga_periph_only.its     |  30 ++
  board/reflexces/achilles/fit_uboot.its        |  43 +++
  board/reflexces/achilles/socfpga.c            |   6 +
- configs/socfpga_arria10_achilles_defconfig    |  61 ++++
+ configs/socfpga_arria10_achilles_defconfig    |  64 ++++
  include/configs/socfpga_arria10_achilles.h    | 141 ++++++++
- 17 files changed, 966 insertions(+)
+ 17 files changed, 969 insertions(+)
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_emmc-u-boot.dtsi
@@ -926,10 +926,10 @@ index 0000000000..4c466cb944
 +#include <common.h>
 diff --git a/configs/socfpga_arria10_achilles_defconfig b/configs/socfpga_arria10_achilles_defconfig
 new file mode 100644
-index 0000000000..e85618eb51
+index 0000000000..48d271e33d
 --- /dev/null
 +++ b/configs/socfpga_arria10_achilles_defconfig
-@@ -0,0 +1,61 @@
+@@ -0,0 +1,64 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SOCFPGA=y
 +CONFIG_ENV_SIZE=0x2000
@@ -990,6 +990,9 @@ index 0000000000..e85618eb51
 +CONFIG_DM_USB=y
 +CONFIG_USB_DWC2=y
 +# CONFIG_USE_TINY_PRINTF is not set
++CONFIG_DM_I2C=y
++CONFIG_SYS_I2C_DW=y
++CONFIG_CMD_I2C=y
 +CONFIG_SYS_PROMPT="ACHILLES_A10SOM # "
 diff --git a/include/configs/socfpga_arria10_achilles.h b/include/configs/socfpga_arria10_achilles.h
 new file mode 100644
