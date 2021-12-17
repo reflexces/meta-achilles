@@ -2,7 +2,7 @@ DESCRIPTION = "REFLEX CES Achilles SOM web server home page"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM="file://${COMMON_LICENSE_DIR}/BSD-3-Clause;md5=550794465ba0ec5312d6919e203a55f9"
 PR = "r0"
-FILES_${PN} = "/www/pages/*"
+FILES:${PN} = "/www/pages/*"
 
 SRC_URI += "file://achilles-board-image.png "
 SRC_URI += "file://grnled.jpg "

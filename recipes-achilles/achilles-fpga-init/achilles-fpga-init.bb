@@ -26,12 +26,12 @@ do_install() {
 	install -m 0755 ${WORKDIR}/*.sh ${D}${bindir}
 }
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"
 
-FILES_${PN}-network = "${base_libdir}/systemd/system/achilles-fpga-init.service \
+FILES:${PN}-network = "${base_libdir}/systemd/system/achilles-fpga-init.service \
                        ${bindir}/achilles-fpga-init.sh"
 
 
 NATIVE_SYSTEMD_SUPPORT = "1"
 SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} = "achilles-fpga-init.service"
+SYSTEMD_SERVICE:${PN} = "achilles-fpga-init.service"

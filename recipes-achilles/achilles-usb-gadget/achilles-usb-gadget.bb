@@ -40,24 +40,24 @@ do_install() {
 
 PACKAGES =+ "${PN}-network ${PN}-udhcpd"
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"
 
-FILES_${PN} = "${base_libdir}/systemd/system/achilles-gadget-init.service \
+FILES:${PN} = "${base_libdir}/systemd/system/achilles-gadget-init.service \
                ${sysconfdir}/systemd/ \
                ${datadir}/${PN}/ \
                ${datadir}/${PN}/achilles_fat_image.img \
               "
 
-FILES_${PN}-network = "${base_libdir}/systemd/system/network-gadget-init.service \
+FILES:${PN}-network = "${base_libdir}/systemd/system/network-gadget-init.service \
                        ${bindir}/achilles-gadget-init.sh \
 		       ${datadir}/${PN}"
 
-FILES_${PN}-udhcpd = "${sysconfdir}/udhcpd.conf"
+FILES:${PN}-udhcpd = "${sysconfdir}/udhcpd.conf"
 
-RRECOMMENDS_${PN} = "${PN}-network ${PN}-udhcpd"
-RREPLACES_${PN} = "${PN}-storage"
+RRECOMMENDS:${PN} = "${PN}-network ${PN}-udhcpd"
+RREPLACES:${PN} = "${PN}-storage"
 
 
 NATIVE_SYSTEMD_SUPPORT = "1"
 SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} = "achilles-gadget-init.service"
+SYSTEMD_SERVICE:${PN} = "achilles-gadget-init.service"

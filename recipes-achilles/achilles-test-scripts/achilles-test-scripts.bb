@@ -17,4 +17,4 @@ do_install() {
     install -m 0755 ${WORKDIR}/mount_fat.sh ${D}/home/root
 }
 
-FILES_${PN} += "/home/root" 
+FILES:${PN} += "/home/root" 
