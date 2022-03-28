@@ -18,7 +18,7 @@ PV = "1.0${PR}+git${SRCPV}"
 SRC_URI = "file://achilles-gadget-init.service \
            file://achilles-gadget-init.sh \
            file://udhcpd.conf \
-           git://github.com/dnegvesky/achilles-drivers.git \
+           git://github.com/dnegvesky/achilles-drivers.git;protocol=https \
           "
 
 do_install() {
