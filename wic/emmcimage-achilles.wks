@@ -2,7 +2,7 @@
 # long-description: Create an eMMC image for the REFLEX CES Achilles Arria 10 SoC SOM.
 # partition 1: boot files (VFAT)
 # partition 2: u-boot spl (A2)
-# partition 3: rootfs (EXT3)
+# partition 3: rootfs (EXT4)
 
 part --source bootimg-partition --ondisk mmcblk --fstype=vfat --label boot --active --align 1024 --size 100M
 part --source rawcopy --sourceparams="file=u-boot-splx4.sfp" --ondisk mmcblk --system-id=a2 --align 4 --fixed-size 10M
