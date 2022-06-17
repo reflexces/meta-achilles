@@ -21,15 +21,21 @@
 MACHINE=$(hostname)
 
 case $MACHINE in
-achilles)
-	DEVKIT_NAME="REFLEX CES Achilles Arria 10 SoC SOM"
+	achilles-indus)
+		DEVKIT_NAME="REFLEX CES Achilles Indus Arria 10 SoC SOM"
 	;;
-comxpress)
-	DEVKIT_NAME="REFLEX CES COMXpress Stratix 10 Module"
+	achilles-lite)
+		DEVKIT_NAME="REFLEX CES Achilles Lite Arria 10 SoC SOM"
 	;;
-undef)
+	achilles-turbo)
+		DEVKIT_NAME="REFLEX CES Achilles Turbo Arria 10 SoC SOM"
+	;;
+	comxpress)
+		DEVKIT_NAME="REFLEX CES COMXpress Stratix 10 Module"
+	;;
+	*)
 	DEVKIT_NAME="Unknown Development Kit"
-	exit -1
+		exit -1
 	;;
 esac
 
@@ -69,39 +75,39 @@ echo -e "</span>"
 echo -e "<p>This Board Interface web page is being served by the web server application running on the Hard Processor System (HPS) on this development board. You can use this web page to interact with your board by blinking the LEDs, reading the temperature, and reading the System ID."
 echo -e "</div>"
 
-if [ "$MACHINE" == "achilles" ]; then
-echo -e "<div class=\"bup-links\">"
-echo -e "<h4>Developer Resources</h4>"
-echo -e "<ul>"
-echo -e "<li><a href=\"https://www.reflexces.com\" target=\"_blank\">REFLEX CES Webpage</a></li> "
-echo -e "<li><a href=\"https://www.altera.com/products/soc/soc-quick-start-guide/arria10soc-dev-kit-quick-start.html\" target=\"_blank\">Arria 10 SoC Quick Start Guide</a></li> "
-echo -e "<li><a href=\"https://www.altera.com/products/fpga/arria-series/arria-10/support.html\" target=\"_blank\">Hardware Resources</a></li> "
-echo -e "<li><a href=\"https://www.altera.com/products/soc/portfolio/arria-10-soc/design-tools.html\" target=\"_blank\">Software Resources</a></li> "
-echo -e "<li><a href=\"http://www.rocketboards.org\" target=\"_blank\">Rocketboards.org</a></li> "
-echo -e "</ul>"
-echo -e "</div>"
+if [ "$MACHINE" == "achilles-indus" ] || [ "$MACHINE" == "achilles-lite" ] || [ "$MACHINE" == "achilles-turbo" ]; then
+	echo -e "<div class=\"bup-links\">"
+	echo -e "<h4>Developer Resources</h4>"
+	echo -e "<ul>"
+	echo -e "<li><a href=\"https://www.reflexces.com\" target=\"_blank\">REFLEX CES Webpage</a></li> "
+	echo -e "<li><a href=\"https://www.altera.com/products/soc/soc-quick-start-guide/arria10soc-dev-kit-quick-start.html\" target=\"_blank\">Arria 10 SoC Quick Start Guide</a></li> "
+	echo -e "<li><a href=\"https://www.altera.com/products/fpga/arria-series/arria-10/support.html\" target=\"_blank\">Hardware Resources</a></li> "
+	echo -e "<li><a href=\"https://www.altera.com/products/soc/portfolio/arria-10-soc/design-tools.html\" target=\"_blank\">Software Resources</a></li> "
+	echo -e "<li><a href=\"http://www.rocketboards.org\" target=\"_blank\">Rocketboards.org</a></li> "
+	echo -e "</ul>"
+	echo -e "</div>"
 elif [ "$MACHINE" == "comxpress" ]; then
-echo -e "<div class=\"bup-links\">"
-echo -e "<h4>Developer Resources</h4>"
-echo -e "<ul>"
-echo -e "<li><a href=\"https://www.reflexces.com\" target=\"_blank\">REFLEX CES Webpage</a></li> "
-echo -e "<li><a href=\"https://www.altera.com/products/soc/soc-quick-start-guide/stratix10soc-dev-kit-quick-start.html\" target=\"_blank\">Stratix 10 SoC Quick Start Guide</a></li> "
-echo -e "<li><a href=\"https://www.altera.com/products/fpga/stratix-series/Stratix-10/support.html\" target=\"_blank\">Hardware Resources</a></li> "
-echo -e "<li><a href=\"https://www.altera.com/products/soc/portfolio/stratix-10-soc/design-tools.html\" target=\"_blank\">Software Resources</a></li> "
-echo -e "<li><a href=\"http://www.rocketboards.org\" target=\"_blank\">Rocketboards.org</a></li> "
-echo -e "</ul>"
-echo -e "</div>"
+	echo -e "<div class=\"bup-links\">"
+	echo -e "<h4>Developer Resources</h4>"
+	echo -e "<ul>"
+	echo -e "<li><a href=\"https://www.reflexces.com\" target=\"_blank\">REFLEX CES Webpage</a></li> "
+	echo -e "<li><a href=\"https://www.altera.com/products/soc/soc-quick-start-guide/stratix10soc-dev-kit-quick-start.html\" target=\"_blank\">Stratix 10 SoC Quick Start Guide</a></li> "
+	echo -e "<li><a href=\"https://www.altera.com/products/fpga/stratix-series/Stratix-10/support.html\" target=\"_blank\">Hardware Resources</a></li> "
+	echo -e "<li><a href=\"https://www.altera.com/products/soc/portfolio/stratix-10-soc/design-tools.html\" target=\"_blank\">Software Resources</a></li> "
+	echo -e "<li><a href=\"http://www.rocketboards.org\" target=\"_blank\">Rocketboards.org</a></li> "
+	echo -e "</ul>"
+	echo -e "</div>"
 fi
 
 echo -e "<div class=\"bup-form\">"
 echo "<hr style=\"border: 1px solid; color:#06c\"><br>"
 
-if [ "$MACHINE" == "achilles" ]; then
+if [ "$MACHINE" == "achilles-indus" ] || [ "$MACHINE" == "achilles-lite" ] || [ "$MACHINE" == "achilles-turbo" ]; then
 	echo -e "<span><strong><h1>$DEVKIT_NAME Features</h1></strong><br/>"
-        echo -e "<div><img src=\"../achilles-board-image.png\" style=\"width:640px;height:478px;\"></div>"
+	echo -e "<div><img src=\"../achilles-board-image.png\" style=\"width:640px;height:478px;\"></div>"
 elif [ "$MACHINE" == "comxpress" ]; then
 	echo -e "<span><strong><h1>$DEVKIT_NAME Features</h1></strong><br/></span>"
-        echo -e "<div><img src=\"../comxpress-board-image.png\" style=\"width:640px;height:478px;\"></div>"
+	echo -e "<div><img src=\"../comxpress-board-image.png\" style=\"width:640px;height:478px;\"></div>"
 fi
 
 echo -e "<div id=\"interactive\" class=\"bup-form\">"
@@ -234,22 +240,23 @@ SCROLL_START=0
 #LED1_BLINKING=`cat /sys/class/leds/fpga_led1/trigger | cut -d "[" -f2 | cut -d "]" -f1`
 
 if [ "$LED0_BLINKING" = "timer" ]; then
-LED0_STATUS=-1
+	LED0_STATUS=-1
 else
-LED0_STATUS=`cat /sys/class/gpio/gpio2033/value`
+	LED0_STATUS=`cat /sys/class/gpio/gpio2033/value`
 fi
 
 if [ "$LED1_BLINKING" = "timer" ]; then
-LED1_STATUS=-1
+	LED1_STATUS=-1
 else
-LED1_STATUS=`cat /sys/class/gpio/gpio2034/value`
+	LED1_STATUS=`cat /sys/class/gpio/gpio2034/value`
 fi
 
 SCROLL_START=`./scroll_client 0`
+
 if [ $SCROLL_START -ge 1 ]; then
-SCROLL_START=1
+	SCROLL_START=1
 else
-SCROLL_START=0
+	SCROLL_START=0
 fi
 
 echo -e "<p>You can observe the LEDs that are connected to the FPGA on the board from the picture below.</p>"
@@ -259,25 +266,24 @@ echo -e "<tr><td></td><td align=center width=19 height=10>0</td> <td align=cente
 echo -e "<tr>"
 
 if [ "$SCROLL_START" == "1" ]; then
-echo -e "<td align=left ><strong>LED Status:</strong> </td> <td align=center colspan=4><img src=\"../runningled.gif\"></td>"
+	echo -e "<td align=left ><strong>LED Status:</strong> </td> <td align=center colspan=4><img src=\"../runningled.gif\"></td>"
 else
-echo -e "<td><strong>LED Status:</strong></td>"
-if [ "$LED0_STATUS" == "1" ]; then
-	echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
-elif [ "$LED0_STATUS" == "0" ]; then
-	echo -e "<td align=center width=19 height=46> <img src=\"../grnled.jpg\"> </td>"
-else
-	echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
-fi
+	echo -e "<td><strong>LED Status:</strong></td>"
+	if [ "$LED0_STATUS" == "1" ]; then
+		echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
+    elif [ "$LED0_STATUS" == "0" ]; then
+		echo -e "<td align=center width=19 height=46> <img src=\"../grnled.jpg\"> </td>"
+	else
+		echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
+	fi
 
-if [ "$LED1_STATUS" == "1" ]; then
-	echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
-elif [ "$LED1_STATUS" == "0" ]; then
-	echo -e "<td align=center width=19 height=46> <img src=\"../redled.jpg\"> </td>"
-else
-	echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
-fi
-
+	if [ "$LED1_STATUS" == "1" ]; then
+		echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
+	elif [ "$LED1_STATUS" == "0" ]; then
+		echo -e "<td align=center width=19 height=46> <img src=\"../redled.jpg\"> </td>"
+	else
+		echo -e "<td align=center width=19 height=46> <img src=\"../offled.jpg\"> </td>"
+	fi
 fi
 
 echo -e "</tr>"
@@ -291,13 +297,13 @@ echo -e "<p>You can start running a short \"lightshow\" on the LEDs that are con
 echo -e "<FORM name=\"interactive\" action=\"/cgi-bin/index.sh#interactive\" method=\"post\">"
 
 
-	echo -e "<P>"
-	echo -e "<strong><font size=\"2\"> LED Lightshow: </font></strong> "
-#	echo -e "<INPUT type=\"text\" id=\"lightshow\" class=\"box\" size=\"22\" name=\"scroll_freq\" onChange=\"valuevalidation(this.value, 0);\" placeholder=\"Type LED Running Delay (ms)\">"
-#	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"scroll\" value=\"START\" onclick=\"if(validatedelay()) return this.clicked  = true; else return this.clicked = false;\">"
-	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"scroll\" value=\"START\" >"
-#	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"scroll\" value=\"STOP\" >"
-	echo -e "</P>"
+echo -e "<P>"
+echo -e "<strong><font size=\"2\"> LED Lightshow: </font></strong> "
+#echo -e "<INPUT type=\"text\" id=\"lightshow\" class=\"box\" size=\"22\" name=\"scroll_freq\" onChange=\"valuevalidation(this.value, 0);\" placeholder=\"Type LED Running Delay (ms)\">"
+#echo -e "<INPUT type=\"submit\" class=\"box\" name=\"scroll\" value=\"START\" onclick=\"if(validatedelay()) return this.clicked  = true; else return this.clicked = false;\">"
+echo -e "<INPUT type=\"submit\" class=\"box\" name=\"scroll\" value=\"START\" >"
+#echo -e "<INPUT type=\"submit\" class=\"box\" name=\"scroll\" value=\"STOP\" >"
+echo -e "</P>"
 
 echo -e "</FORM>"
 
@@ -315,43 +321,43 @@ echo -e "<p><br>You can turn on, turn off, or blink the LEDs that are connected 
 #echo -e "<span><strong><h1>debug: LED0 STATUS = $LED0_STATUS</h1></strong><br/>"
 
 echo -e "<FORM action=\"/cgi-bin/index.sh#interactive\" method=\"post\">"
-    echo -e "<P>"
-    echo -e "<strong><font size=\"2\"> GRN LED: </font></strong> "	
-	if [ "$SCROLL_START" == 0 ]; then
+echo -e "<P>"
+echo -e "<strong><font size=\"2\"> GRN LED: </font></strong> "	
+if [ "$SCROLL_START" == 0 ]; then
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_0\" value=\"ON\" >"
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_0\" value=\"OFF\" >"
 	echo -e "&nbsp &nbsp &nbsp &nbsp &nbsp"
 #	echo -e "<INPUT type=\"text\" id=\"led0_id\" class=\"box\" size=\"22\" name=\"led_0_freq\" placeholder=\"Type LED Toggling Delay (sec)\" onChange=\"valuevalidation(this.value, 1);\">  " 	
 	echo -e "<INPUT type=\"text\" id=\"led0_id\" class=\"box\" size=\"22\" name=\"led_0_freq\" placeholder=\"Type LED Toggling Delay (sec)\" >"
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_0\" value=\"BLINK\" >"
-	else
+else
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_0\" value=\"ON\" disabled>"
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_0\" value=\"OFF\" disabled>"
 	echo -e "&nbsp &nbsp &nbsp &nbsp &nbsp"
 	echo -e "<INPUT type=\"text\" id=\"led0_id\" class=\"box\" size=\"22\" name=\"led_0_freq\" placeholder=\"Type LED Toggling Delay (sec)\"  disabled>  "
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_0\" value=\"BLINK\" disabled>"
-	fi	
-    echo -e "</P>"
+fi	
+echo -e "</P>"
 echo -e "</FORM>"
 
 echo -e "<FORM action=\"/cgi-bin/index.sh#interactive\" method=\"post\">"
-	echo -e "<P>"
-    echo -e "<strong><font size=\"2\"> RED LED: </font></strong> "	
-	if [ "$SCROLL_START" == 0 ]; then
+echo -e "<P>"
+   echo -e "<strong><font size=\"2\"> RED LED: </font></strong> "	
+if [ "$SCROLL_START" == 0 ]; then
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_1\" value=\"ON\" >"
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_1\" value=\"OFF\" >"	
 	echo -e "&nbsp &nbsp &nbsp &nbsp &nbsp"
 #	echo -e "<INPUT type=\"text\" id=\"led1_id\" class=\"box\" size=\"22\" name=\"led_1_freq\" placeholder=\"Type LED Toggling Delay (sec)\" onChange=\"valuevalidation(this.value, 2);\">  "
 	echo -e "<INPUT type=\"text\" id=\"led1_id\" class=\"box\" size=\"22\" name=\"led_1_freq\" placeholder=\"Type LED Toggling Delay (sec)\" >"
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_1\" value=\"BLINK\" >"
-	else
+else
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_1\" value=\"ON\" disabled>"
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_1\" value=\"OFF\" disabled>"	
 	echo -e "&nbsp &nbsp &nbsp &nbsp &nbsp"
 	echo -e "<INPUT type=\"text\" id=\"led1_id\" class=\"box\" size=\"22\" name=\"led_1_freq\" placeholder=\"Type LED Toggling Delay (sec)\" disabled>  "
 	echo -e "<INPUT type=\"submit\" class=\"box\" name=\"led_1\" value=\"BLINK\" disabled>"
-	fi	
-    echo -e "</P>"
+fi	
+echo -e "</P>"
 echo -e "</FORM>"
 
 # SSH connection
@@ -383,7 +389,6 @@ echo -e "<span><strong><h1>Achilles GHRD System ID</h1></strong><br>"
 echo -e "<p>The Achilles GHRD System ID stores information about the hardware revision and feature options enabled in the design.<br><br><font face="courier, arial" size="3">GHRD System ID = $SYS_ID</font></p>"
 echo -e "<p>To decode the information stored in the System ID, refer to the $SYSTEM_ID_INFO file.</p>"
 
-
 echo -e "</div>"
 
 echo -e "</div>"
@@ -394,8 +399,8 @@ echo -e "<div class=\"footer-container-blur\">"
 echo -e "<div class=\"footer-container-shadow\">"
 echo -e "<div id=\"footer\" class=\"footer-container\">"
 
-	echo -e "<div id=\"footerCopyright\" class=\"footer-copyright\">"
-	echo -e "<p align=\"center\" style=\"width:900px; font-size:9px;\">Copyright &copy; 2020 REFLEX CES. All Rights Reserved.<br/>"
+echo -e "<div id=\"footerCopyright\" class=\"footer-copyright\">"
+echo -e "<p align=\"center\" style=\"width:900px; font-size:9px;\">Copyright &copy; 2022 REFLEX CES. All Rights Reserved.<br/>"
 echo -e "</div>"
 echo -e "</div>"
 echo -e "</div>"
