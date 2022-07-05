@@ -39,7 +39,7 @@ case $MACHINE in
 	;;
 esac
 
-SYSTEM_ID_INFO="<a href=\"https://github.com/reflexces/achilles-hardware/blob/ghrd-v20.1-pr/system_id_info.txt\" target=\"_blank\">system_id_info.txt</a> "
+SYSTEM_ID_INFO="<a href=\"https://github.com/reflexces/achilles-hardware/blob/ghrd-v22.1/system_id_info.txt\" target=\"_blank\">system_id_info.txt</a> "
 
 echo -e "Content-type: text/html"
 echo ""
