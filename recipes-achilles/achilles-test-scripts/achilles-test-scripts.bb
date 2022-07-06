@@ -21,10 +21,13 @@ do_install() {
     install -m 0755 ${WORKDIR}/ledtest.sh ${D}/home/root
     install -m 0755 ${WORKDIR}/memtest.sh ${D}/home/root
     install -m 0755 ${WORKDIR}/mount_fat.sh ${D}/home/root
-    install -m 0755 ${WORKDIR}/pr_overlay.sh ${D}/home/root
     install -m 0755 ${WORKDIR}/rtctest.sh ${D}/home/root
     install -m 0755 ${WORKDIR}/tempsensortest.sh ${D}/home/root
     install -m 0755 ${WORKDIR}/usbtest.sh ${D}/home/root
+
+    if ${@bb.utils.contains("GHRD_TYPE", "pr", "true", "false", d)}; then
+        install -m 0755 ${WORKDIR}/pr_overlay.sh ${D}/home/root
+    fi
 }
 
 FILES:${PN} += "/home/root" 
