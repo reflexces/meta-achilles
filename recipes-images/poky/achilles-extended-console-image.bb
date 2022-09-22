@@ -28,6 +28,8 @@ IMAGE_INSTALL += " \
 	kernel-image \
 	kernel-modules \
 	libiio \
+	libiio-iiod \
+	libiio-tests \
 	lighttpd \
 	lighttpd-module-cgi \
 	linuxptp \
