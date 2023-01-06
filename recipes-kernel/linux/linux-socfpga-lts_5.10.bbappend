@@ -1,12 +1,12 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/config:"
 
-KMACHINE:achilles-indus ?= "achilles"
-KMACHINE:achilles-lite ?= "achilles"
-KMACHINE:achilles-turbo ?= "achilles"
+KMACHINE:achilles-v2-indus ?= "achilles"
+KMACHINE:achilles-v2-lite ?= "achilles"
+KMACHINE:achilles-v2-turbo ?= "achilles"
 
-COMPATIBLE_MACHINE:achilles-indus = "achilles-indus"
-COMPATIBLE_MACHINE:achilles-lite = "achilles-lite"
-COMPATIBLE_MACHINE:achilles-turbo = "achilles-turbo"
+COMPATIBLE_MACHINE:achilles-v2-indus = "achilles-v2-indus"
+COMPATIBLE_MACHINE:achilles-v2-lite = "achilles-v2-lite"
+COMPATIBLE_MACHINE:achilles-v2-turbo = "achilles-v2-turbo"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 

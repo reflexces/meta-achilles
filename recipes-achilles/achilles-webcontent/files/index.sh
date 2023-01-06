@@ -21,14 +21,14 @@
 MACHINE=$(hostname)
 
 case $MACHINE in
-	achilles-indus)
-		DEVKIT_NAME="REFLEX CES Achilles Indus Arria 10 SoC SOM"
+	achilles-v2-indus)
+		DEVKIT_NAME="REFLEX CES Achilles v2 Indus Arria 10 SoC SOM"
 	;;
-	achilles-lite)
-		DEVKIT_NAME="REFLEX CES Achilles Lite Arria 10 SoC SOM"
+	achilles-v2-lite)
+		DEVKIT_NAME="REFLEX CES Achilles v2 Lite Arria 10 SoC SOM"
 	;;
-	achilles-turbo)
-		DEVKIT_NAME="REFLEX CES Achilles Turbo Arria 10 SoC SOM"
+	achilles-v2-turbo)
+		DEVKIT_NAME="REFLEX CES Achilles v2 Turbo Arria 10 SoC SOM"
 	;;
 	comxpress)
 		DEVKIT_NAME="REFLEX CES COMXpress Stratix 10 Module"
@@ -75,7 +75,7 @@ echo -e "</span>"
 echo -e "<p>This Board Interface web page is being served by the web server application running on the Hard Processor System (HPS) on this development board. You can use this web page to interact with your board by blinking the LEDs, reading the temperature, and reading the System ID."
 echo -e "</div>"
 
-if [ "$MACHINE" == "achilles-indus" ] || [ "$MACHINE" == "achilles-lite" ] || [ "$MACHINE" == "achilles-turbo" ]; then
+if [ "$MACHINE" == "achilles-v2-indus" ] || [ "$MACHINE" == "achilles-v2-lite" ] || [ "$MACHINE" == "achilles-v2-turbo" ]; then
 	echo -e "<div class=\"bup-links\">"
 	echo -e "<h4>Developer Resources</h4>"
 	echo -e "<ul>"
@@ -102,7 +102,7 @@ fi
 echo -e "<div class=\"bup-form\">"
 echo "<hr style=\"border: 1px solid; color:#06c\"><br>"
 
-if [ "$MACHINE" == "achilles-indus" ] || [ "$MACHINE" == "achilles-lite" ] || [ "$MACHINE" == "achilles-turbo" ]; then
+if [ "$MACHINE" == "achilles-v2-indus" ] || [ "$MACHINE" == "achilles-v2-lite" ] || [ "$MACHINE" == "achilles-v2-turbo" ]; then
 	echo -e "<span><strong><h1>$DEVKIT_NAME Features</h1></strong><br/>"
 	echo -e "<div><img src=\"../achilles-board-image.png\" style=\"width:640px;height:478px;\"></div>"
 elif [ "$MACHINE" == "comxpress" ]; then

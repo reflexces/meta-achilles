@@ -6,7 +6,7 @@ require conf/machine/include/socfpga.inc
 
 PREFERRED_VERSION_u-boot-socfpga ?= "v2021.07%"
 
-UBOOT_CONFIG ??= "achilles-${SOM_VER}"
+UBOOT_CONFIG ??= "achilles-v2-${SOM_VER}"
 
 SPL_BINARY = "spl/u-boot-splx4.sfp"
 UBOOT_BINARY = "u-boot.img"

@@ -6,7 +6,7 @@ SRC_URI:append = "\
 	file://0001-add-achilles-support-for-u-boot-socfpga_v2021.07.patch \
 	"
 
-SRC_URI:append:achilles-turbo = "\
+SRC_URI:append:achilles-v2-turbo = "\
 	file://0002-remove-sdram-size-check.patch \
 	"
 
@@ -22,8 +22,8 @@ do_compile:prepend() {
 do_compile:append:${MACHINE}() {
 	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_VER}_ghrd.core.rbf ${S}/achilles_${SOM_VER}_ghrd.core.rbf
 	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_VER}_ghrd.periph.rbf ${S}/achilles_${SOM_VER}_ghrd.periph.rbf
-	mkimage -E -f ${S}/board/reflexces/${MACHINE}/fit_spl_fpga_periph_only.its ${B}/fit_spl_fpga_periph_only.itb
-	mkimage -E -f ${S}/board/reflexces/${MACHINE}/fit_spl_fpga.its ${B}/fit_spl_fpga.itb
+	mkimage -E -f ${S}/board/reflexces/achilles-${SOM_VER}/fit_spl_fpga_periph_only.its ${B}/fit_spl_fpga_periph_only.itb
+	mkimage -E -f ${S}/board/reflexces/achilles-${SOM_VER}/fit_spl_fpga.its ${B}/fit_spl_fpga.itb
 }
 
 do_deploy:append() {
