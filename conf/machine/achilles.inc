@@ -6,14 +6,12 @@ require conf/machine/include/socfpga.inc
 
 PREFERRED_VERSION_u-boot-socfpga ?= "v2021.07%"
 
-UBOOT_CONFIG ??= "achilles-v2-${SOM_VER}"
+UBOOT_CONFIG ??= "mmc"
 
 SPL_BINARY = "spl/u-boot-splx4.sfp"
 UBOOT_BINARY = "u-boot.img"
 
-KMACHINE = "achilles"
-
-KERNEL_DEVICETREE ?= "socfpga_arria10_achilles.dtb"
+KMACHINE ?= "achilles"
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
 PREFERRED_VERSION_linux-socfpga-lts = "5.10.%"
