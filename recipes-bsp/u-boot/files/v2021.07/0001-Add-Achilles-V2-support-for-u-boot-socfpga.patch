@@ -1541,7 +1541,7 @@ index 0000000000..7e4938db18
 +#define CONFIG_SYS_NAND_BAD_BLOCK_POS        0x0
 +#endif
 +
-+#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_H__ */
++#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_INDUS_H__ */
 diff --git a/include/configs/socfpga_arria10_achilles_lite.h b/include/configs/socfpga_arria10_achilles_lite.h
 new file mode 100644
 index 0000000000..7e4938db18
@@ -1553,8 +1553,8 @@ index 0000000000..7e4938db18
 + *  Copyright (C) 2020 REFLEX CES <www.reflexces.com>
 + */
 +
-+#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_INDUS_H__
-+#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_INDUS_H__
++#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_LITE_H__
++#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_LITE_H__
 +
 +#include <asm/arch/base_addr_a10.h>
 +
@@ -1688,7 +1688,7 @@ index 0000000000..7e4938db18
 +#define CONFIG_SYS_NAND_BAD_BLOCK_POS        0x0
 +#endif
 +
-+#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_H__ */
++#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_LITE_H__ */
 diff --git a/include/configs/socfpga_arria10_achilles_turbo.h b/include/configs/socfpga_arria10_achilles_turbo.h
 new file mode 100644
 index 0000000000..6d35abe239
