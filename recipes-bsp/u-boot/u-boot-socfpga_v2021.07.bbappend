@@ -3,7 +3,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files/v2021.07:"
 DEPENDS:append = " achilles-firmware"
 
 SRC_URI:append = "\
-	file://0001-add-achilles-support-for-u-boot-socfpga_v2021.07.patch \
+	file://0001-Add-Achilles-V2-support-for-u-boot-socfpga.patch \
 	"
 
 SRC_URI:append:achilles-v2-turbo = "\

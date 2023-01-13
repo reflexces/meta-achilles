@@ -1,9 +1,8 @@
 From ec5da7e131b8b678a1fc5f0d33378a0a0fe55679 Mon Sep 17 00:00:00 2001
 From: Dan Negvesky <dnegvesky@reflexces.com>
 Date: Wed, 15 Jun 2022 18:39:59 -0400
-Subject: [PATCH 1/1] add achilles support for u-boot-socfpga_v2021.07
+Subject: [PATCH] Add Achilles V2 support for u-boot-socfpga
 
-Signed-off-by: Dan Negvesky <dnegvesky@reflexces.com>
 ---
  arch/arm/dts/Makefile                         |   3 +
  .../dts/socfpga_arria10_achilles-u-boot.dtsi  |  71 ++++++++
