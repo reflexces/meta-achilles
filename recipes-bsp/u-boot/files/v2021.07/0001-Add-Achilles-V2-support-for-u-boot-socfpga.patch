@@ -526,7 +526,7 @@ index 0000000000..9ffe1e02cf
 +++ b/board/reflexces/achilles-indus/MAINTAINERS
 @@ -0,0 +1,6 @@
 +SOCFPGA BOARD
-+M:	Dan Negvesky <dnegvesky@reflexces.org>
++M:	Dan Negvesky <dnegvesky@reflexces.com>
 +S:	Maintained
 +F:	board/reflexces/achilles-indus/
 +F:	include/configs/socfpga_arria10_achilles_indus.h
@@ -756,7 +756,7 @@ index 0000000000..9b1f90d725
 +++ b/board/reflexces/achilles-lite/MAINTAINERS
 @@ -0,0 +1,6 @@
 +SOCFPGA BOARD
-+M:	Dan Negvesky <dnegvesky@reflexces.org>
++M:	Dan Negvesky <dnegvesky@reflexces.com>
 +S:	Maintained
 +F:	board/reflexces/achilles-lite/
 +F:	include/configs/socfpga_arria10_achilles_lite.h
@@ -986,7 +986,7 @@ index 0000000000..6fa70e33f9
 +++ b/board/reflexces/achilles-turbo/MAINTAINERS
 @@ -0,0 +1,6 @@
 +SOCFPGA BOARD
-+M:	Dan Negvesky <dnegvesky@reflexces.org>
++M:	Dan Negvesky <dnegvesky@reflexces.com>
 +S:	Maintained
 +F:	board/reflexces/achilles-turbo/
 +F:	include/configs/socfpga_arria10_achilles_turbo.h
