@@ -35,7 +35,7 @@ fi
 
 DTBO_NAME=""
 case "$BOARD_MODEL" in
-	"REFLEX CES Achilles SOM")
+		"reflexces,achilles-v2-indus" | "reflexces,achilles-v2-lite" | "reflexces,achilles-v2-turbo" | "reflexces,achilles-v2" | "REFLEX CES Achilles SOM")
 		DTBO_NAME="achilles_ghrd_base.dtbo"
 	;;
 	*)
