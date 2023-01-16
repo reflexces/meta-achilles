@@ -6,77 +6,77 @@ Subject: [PATCH] Add Achilles V2 support for u-boot-socfpga
 ---
  arch/arm/dts/Makefile                         |   3 +
  .../dts/socfpga_arria10_achilles-u-boot.dtsi  |  71 ++++++++
- arch/arm/dts/socfpga_arria10_achilles.dtsi    | 162 ++++++++++++++++++
- .../dts/socfpga_arria10_achilles_indus.dts    |  29 ++++
- .../arm/dts/socfpga_arria10_achilles_lite.dts |  29 ++++
- .../dts/socfpga_arria10_achilles_turbo.dts    |  29 ++++
+ arch/arm/dts/socfpga_arria10_achilles.dtsi    | 157 ++++++++++++++++++
+ .../dts/socfpga_arria10_achilles_v2_indus.dts |  29 ++++
+ .../dts/socfpga_arria10_achilles_v2_lite.dts  |  29 ++++
+ .../dts/socfpga_arria10_achilles_v2_turbo.dts |  29 ++++
  arch/arm/mach-socfpga/Kconfig                 |  21 +++
- board/reflexces/achilles-indus/Kconfig        |  18 ++
- board/reflexces/achilles-indus/MAINTAINERS    |   6 +
- board/reflexces/achilles-indus/Makefile       |   5 +
- board/reflexces/achilles-indus/fit_kernel.its |  44 +++++
- .../reflexces/achilles-indus/fit_spl_fpga.its |  30 ++++
+ board/reflexces/achilles-v2-indus/Kconfig     |  18 ++
+ board/reflexces/achilles-v2-indus/MAINTAINERS |   6 +
+ board/reflexces/achilles-v2-indus/Makefile    |   5 +
+ .../achilles-v2-indus/fit_kernel.its          |  44 +++++
+ .../achilles-v2-indus/fit_spl_fpga.its        |  30 ++++
  .../fit_spl_fpga_periph_only.its              |  30 ++++
- board/reflexces/achilles-indus/fit_uboot.its  |  43 +++++
- board/reflexces/achilles-indus/socfpga.c      |   6 +
- board/reflexces/achilles-lite/Kconfig         |  18 ++
- board/reflexces/achilles-lite/MAINTAINERS     |   6 +
- board/reflexces/achilles-lite/Makefile        |   5 +
- board/reflexces/achilles-lite/fit_kernel.its  |  44 +++++
- .../reflexces/achilles-lite/fit_spl_fpga.its  |  30 ++++
+ .../reflexces/achilles-v2-indus/fit_uboot.its |  43 +++++
+ board/reflexces/achilles-v2-indus/socfpga.c   |   6 +
+ board/reflexces/achilles-v2-lite/Kconfig      |  18 ++
+ board/reflexces/achilles-v2-lite/MAINTAINERS  |   6 +
+ board/reflexces/achilles-v2-lite/Makefile     |   5 +
+ .../reflexces/achilles-v2-lite/fit_kernel.its |  44 +++++
+ .../achilles-v2-lite/fit_spl_fpga.its         |  30 ++++
  .../fit_spl_fpga_periph_only.its              |  30 ++++
- board/reflexces/achilles-lite/fit_uboot.its   |  43 +++++
- board/reflexces/achilles-lite/socfpga.c       |   6 +
- board/reflexces/achilles-turbo/Kconfig        |  18 ++
- board/reflexces/achilles-turbo/MAINTAINERS    |   6 +
- board/reflexces/achilles-turbo/Makefile       |   5 +
- board/reflexces/achilles-turbo/fit_kernel.its |  44 +++++
- .../reflexces/achilles-turbo/fit_spl_fpga.its |  30 ++++
+ .../reflexces/achilles-v2-lite/fit_uboot.its  |  43 +++++
+ board/reflexces/achilles-v2-lite/socfpga.c    |   6 +
+ board/reflexces/achilles-v2-turbo/Kconfig     |  18 ++
+ board/reflexces/achilles-v2-turbo/MAINTAINERS |   6 +
+ board/reflexces/achilles-v2-turbo/Makefile    |   5 +
+ .../achilles-v2-turbo/fit_kernel.its          |  44 +++++
+ .../achilles-v2-turbo/fit_spl_fpga.its        |  30 ++++
  .../fit_spl_fpga_periph_only.its              |  30 ++++
- board/reflexces/achilles-turbo/fit_uboot.its  |  43 +++++
- board/reflexces/achilles-turbo/socfpga.c      |   6 +
- .../socfpga_arria10_achilles_indus_defconfig  |  64 +++++++
- .../socfpga_arria10_achilles_lite_defconfig   |  64 +++++++
- .../socfpga_arria10_achilles_turbo_defconfig  |  64 +++++++
- .../configs/socfpga_arria10_achilles_indus.h  | 141 +++++++++++++++
- .../configs/socfpga_arria10_achilles_lite.h   | 141 +++++++++++++++
- .../configs/socfpga_arria10_achilles_turbo.h  | 141 +++++++++++++++
- 37 files changed, 1505 insertions(+)
+ .../reflexces/achilles-v2-turbo/fit_uboot.its |  43 +++++
+ board/reflexces/achilles-v2-turbo/socfpga.c   |   6 +
+ ...ocfpga_arria10_achilles_v2_indus_defconfig |  64 +++++++
+ ...socfpga_arria10_achilles_v2_lite_defconfig |  64 +++++++
+ ...ocfpga_arria10_achilles_v2_turbo_defconfig |  64 +++++++
+ .../socfpga_arria10_achilles_v2_indus.h       | 141 +++++++++++++++
+ .../socfpga_arria10_achilles_v2_lite.h        | 141 +++++++++++++++
+ .../socfpga_arria10_achilles_v2_turbo.h       | 141 +++++++++++++++
+ 37 files changed, 1500 insertions(+)
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles.dtsi
- create mode 100644 arch/arm/dts/socfpga_arria10_achilles_indus.dts
- create mode 100644 arch/arm/dts/socfpga_arria10_achilles_lite.dts
- create mode 100644 arch/arm/dts/socfpga_arria10_achilles_turbo.dts
- create mode 100644 board/reflexces/achilles-indus/Kconfig
- create mode 100644 board/reflexces/achilles-indus/MAINTAINERS
- create mode 100644 board/reflexces/achilles-indus/Makefile
- create mode 100644 board/reflexces/achilles-indus/fit_kernel.its
- create mode 100644 board/reflexces/achilles-indus/fit_spl_fpga.its
- create mode 100644 board/reflexces/achilles-indus/fit_spl_fpga_periph_only.its
- create mode 100644 board/reflexces/achilles-indus/fit_uboot.its
- create mode 100644 board/reflexces/achilles-indus/socfpga.c
- create mode 100644 board/reflexces/achilles-lite/Kconfig
- create mode 100644 board/reflexces/achilles-lite/MAINTAINERS
- create mode 100644 board/reflexces/achilles-lite/Makefile
- create mode 100644 board/reflexces/achilles-lite/fit_kernel.its
- create mode 100644 board/reflexces/achilles-lite/fit_spl_fpga.its
- create mode 100644 board/reflexces/achilles-lite/fit_spl_fpga_periph_only.its
- create mode 100644 board/reflexces/achilles-lite/fit_uboot.its
- create mode 100644 board/reflexces/achilles-lite/socfpga.c
- create mode 100644 board/reflexces/achilles-turbo/Kconfig
- create mode 100644 board/reflexces/achilles-turbo/MAINTAINERS
- create mode 100644 board/reflexces/achilles-turbo/Makefile
- create mode 100644 board/reflexces/achilles-turbo/fit_kernel.its
- create mode 100644 board/reflexces/achilles-turbo/fit_spl_fpga.its
- create mode 100644 board/reflexces/achilles-turbo/fit_spl_fpga_periph_only.its
- create mode 100644 board/reflexces/achilles-turbo/fit_uboot.its
- create mode 100644 board/reflexces/achilles-turbo/socfpga.c
- create mode 100644 configs/socfpga_arria10_achilles_indus_defconfig
- create mode 100644 configs/socfpga_arria10_achilles_lite_defconfig
- create mode 100644 configs/socfpga_arria10_achilles_turbo_defconfig
- create mode 100644 include/configs/socfpga_arria10_achilles_indus.h
- create mode 100644 include/configs/socfpga_arria10_achilles_lite.h
- create mode 100644 include/configs/socfpga_arria10_achilles_turbo.h
+ create mode 100644 arch/arm/dts/socfpga_arria10_achilles_v2_indus.dts
+ create mode 100644 arch/arm/dts/socfpga_arria10_achilles_v2_lite.dts
+ create mode 100644 arch/arm/dts/socfpga_arria10_achilles_v2_turbo.dts
+ create mode 100644 board/reflexces/achilles-v2-indus/Kconfig
+ create mode 100644 board/reflexces/achilles-v2-indus/MAINTAINERS
+ create mode 100644 board/reflexces/achilles-v2-indus/Makefile
+ create mode 100644 board/reflexces/achilles-v2-indus/fit_kernel.its
+ create mode 100644 board/reflexces/achilles-v2-indus/fit_spl_fpga.its
+ create mode 100644 board/reflexces/achilles-v2-indus/fit_spl_fpga_periph_only.its
+ create mode 100644 board/reflexces/achilles-v2-indus/fit_uboot.its
+ create mode 100644 board/reflexces/achilles-v2-indus/socfpga.c
+ create mode 100644 board/reflexces/achilles-v2-lite/Kconfig
+ create mode 100644 board/reflexces/achilles-v2-lite/MAINTAINERS
+ create mode 100644 board/reflexces/achilles-v2-lite/Makefile
+ create mode 100644 board/reflexces/achilles-v2-lite/fit_kernel.its
+ create mode 100644 board/reflexces/achilles-v2-lite/fit_spl_fpga.its
+ create mode 100644 board/reflexces/achilles-v2-lite/fit_spl_fpga_periph_only.its
+ create mode 100644 board/reflexces/achilles-v2-lite/fit_uboot.its
+ create mode 100644 board/reflexces/achilles-v2-lite/socfpga.c
+ create mode 100644 board/reflexces/achilles-v2-turbo/Kconfig
+ create mode 100644 board/reflexces/achilles-v2-turbo/MAINTAINERS
+ create mode 100644 board/reflexces/achilles-v2-turbo/Makefile
+ create mode 100644 board/reflexces/achilles-v2-turbo/fit_kernel.its
+ create mode 100644 board/reflexces/achilles-v2-turbo/fit_spl_fpga.its
+ create mode 100644 board/reflexces/achilles-v2-turbo/fit_spl_fpga_periph_only.its
+ create mode 100644 board/reflexces/achilles-v2-turbo/fit_uboot.its
+ create mode 100644 board/reflexces/achilles-v2-turbo/socfpga.c
+ create mode 100644 configs/socfpga_arria10_achilles_v2_indus_defconfig
+ create mode 100644 configs/socfpga_arria10_achilles_v2_lite_defconfig
+ create mode 100644 configs/socfpga_arria10_achilles_v2_turbo_defconfig
+ create mode 100644 include/configs/socfpga_arria10_achilles_v2_indus.h
+ create mode 100644 include/configs/socfpga_arria10_achilles_v2_lite.h
+ create mode 100644 include/configs/socfpga_arria10_achilles_v2_turbo.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
 index f0a2a9d2ac..10af86f6b0 100644
@@ -86,9 +86,9 @@ index f0a2a9d2ac..10af86f6b0 100644
  	socfpga_agilex_socdk_qspi.dtb			\
  	socfpga_arria5_secu1.dtb			\
  	socfpga_arria5_socdk.dtb			\
-+	socfpga_arria10_achilles_indus.dtb		\
-+	socfpga_arria10_achilles_turbo.dtb		\
-+	socfpga_arria10_achilles_lite.dtb		\
++	socfpga_arria10_achilles_v2_indus.dtb		\
++	socfpga_arria10_achilles_v2_turbo.dtb		\
++	socfpga_arria10_achilles_v2_lite.dtb		\
  	socfpga_arria10_socdk_nand.dtb			\
  	socfpga_arria10_socdk_qspi.dtb			\
  	socfpga_arria10_socdk_sdmmc.dtb			\
@@ -125,7 +125,7 @@ index 0000000000..9855097ca6
 +		bootargs = "console=ttyS0,115200";
 +	};
 +
-+    chosen {
++	chosen {
 +		firmware-loader = <&fs_loader0>;
 +	};
 +
@@ -167,14 +167,14 @@ index 0000000000..9855097ca6
 +};
 +
 +&watchdog1 {
-+        u-boot,dm-pre-reloc;
++	u-boot,dm-pre-reloc;
 +};
 diff --git a/arch/arm/dts/socfpga_arria10_achilles.dtsi b/arch/arm/dts/socfpga_arria10_achilles.dtsi
 new file mode 100644
 index 0000000000..a37c8cb3ea
 --- /dev/null
 +++ b/arch/arm/dts/socfpga_arria10_achilles.dtsi
-@@ -0,0 +1,162 @@
+@@ -0,0 +1,157 @@
 +/*
 + * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
 + *
@@ -197,6 +197,7 @@ index 0000000000..a37c8cb3ea
 +
 +/ {
 +	compatible = "altr,socfpga-arria10", "altr,socfpga";
++	chassis-type = "embedded";
 +
 +	aliases {
 +		ethernet0 = &gmac1;
@@ -223,7 +224,7 @@ index 0000000000..a37c8cb3ea
 +&mmc {
 +	status = "okay";
 +	cap-sd-highspeed;
-+    cap-mmc-highspeed;
++	cap-mmc-highspeed;
 +	broken-cd;
 +	bus-width = <8>;
 +};
@@ -317,12 +318,6 @@ index 0000000000..a37c8cb3ea
 +		compatible = "nxp,pcf8563";
 +		reg = <0x51>;
 +	};
-+
-+	eeprom@54 {
-+		compatible = "atmel,24c02";
-+		reg = <0x54>;
-+		pagesize = <16>;
-+	};
 +};
 +
 +&uart0 {
@@ -337,11 +332,11 @@ index 0000000000..a37c8cb3ea
 +&watchdog1 {
 +	status = "okay";
 +};
-diff --git a/arch/arm/dts/socfpga_arria10_achilles_indus.dts b/arch/arm/dts/socfpga_arria10_achilles_indus.dts
+diff --git a/arch/arm/dts/socfpga_arria10_achilles_v2_indus.dts b/arch/arm/dts/socfpga_arria10_achilles_v2_indus.dts
 new file mode 100644
 index 0000000000..d843725a09
 --- /dev/null
-+++ b/arch/arm/dts/socfpga_arria10_achilles_indus.dts
++++ b/arch/arm/dts/socfpga_arria10_achilles_v2_indus.dts
 @@ -0,0 +1,29 @@
 +/*
 + * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
@@ -364,7 +359,7 @@ index 0000000000..d843725a09
 +#include "socfpga_arria10_achilles.dtsi"
 +
 +/ {
-+	model = "REFLEX CES Achilles Indus SOM";
++	model = "reflexces,achilles-v2-indus";
 +
 +	memory@0 {
 +		name = "memory";
@@ -372,11 +367,11 @@ index 0000000000..d843725a09
 +		reg = <0x0 0x80000000>; /* 2GB */
 +	};
 +};
-diff --git a/arch/arm/dts/socfpga_arria10_achilles_lite.dts b/arch/arm/dts/socfpga_arria10_achilles_lite.dts
+diff --git a/arch/arm/dts/socfpga_arria10_achilles_v2_lite.dts b/arch/arm/dts/socfpga_arria10_achilles_v2_lite.dts
 new file mode 100644
 index 0000000000..7964cc7505
 --- /dev/null
-+++ b/arch/arm/dts/socfpga_arria10_achilles_lite.dts
++++ b/arch/arm/dts/socfpga_arria10_achilles_v2_lite.dts
 @@ -0,0 +1,29 @@
 +/*
 + * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
@@ -399,7 +394,7 @@ index 0000000000..7964cc7505
 +#include "socfpga_arria10_achilles.dtsi"
 +
 +/ {
-+	model = "REFLEX CES Achilles Lite SOM";
++	model = "reflexces,achilles-v2-lite";
 +
 +	memory@0 {
 +		name = "memory";
@@ -407,11 +402,11 @@ index 0000000000..7964cc7505
 +		reg = <0x0 0x80000000>; /* 2GB */
 +	};
 +};
-diff --git a/arch/arm/dts/socfpga_arria10_achilles_turbo.dts b/arch/arm/dts/socfpga_arria10_achilles_turbo.dts
+diff --git a/arch/arm/dts/socfpga_arria10_achilles_v2_turbo.dts b/arch/arm/dts/socfpga_arria10_achilles_v2_turbo.dts
 new file mode 100644
 index 0000000000..27d33c6d03
 --- /dev/null
-+++ b/arch/arm/dts/socfpga_arria10_achilles_turbo.dts
++++ b/arch/arm/dts/socfpga_arria10_achilles_v2_turbo.dts
 @@ -0,0 +1,29 @@
 +/*
 + * Copyright (C) 2021 REFLEX CES <www.reflexces.com>
@@ -434,7 +429,7 @@ index 0000000000..27d33c6d03
 +#include "socfpga_arria10_achilles.dtsi"
 +
 +/ {
-+	model = "REFLEX CES Achilles Turbo SOM";
++	model = "reflexces,achilles-v2-turbo";
 +
 +	memory@0 {
 +		name = "memory";
@@ -450,16 +445,16 @@ index 419b06a229..94a337a48f 100644
  	bool "Aries MCVEVK (Cyclone V)"
  	select TARGET_SOCFPGA_CYCLONE5
  
-+config TARGET_SOCFPGA_ARRIA10_ACHILLES_INDUS
-+	bool "Altera SOCFPGA Achilles Indus SOM (Arria 10)"
++config TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS
++	bool "Altera SOCFPGA Achilles V2 Indus SOM (Arria 10)"
 +	select TARGET_SOCFPGA_ARRIA10
 +
-+config TARGET_SOCFPGA_ARRIA10_ACHILLES_LITE
-+	bool "Altera SOCFPGA Achilles Lite SOM (Arria 10)"
++config TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_LITE
++	bool "Altera SOCFPGA Achilles V2 Lite SOM (Arria 10)"
 +	select TARGET_SOCFPGA_ARRIA10
 +
-+config TARGET_SOCFPGA_ARRIA10_ACHILLES_TURBO
-+	bool "Altera SOCFPGA Achilles Turbo SOM (Arria 10)"
++config TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO
++	bool "Altera SOCFPGA Achilles V2 Turbo SOM (Arria 10)"
 +	select TARGET_SOCFPGA_ARRIA10
 +
  config TARGET_SOCFPGA_ARRIA10_SOCDK
@@ -469,9 +464,9 @@ index 419b06a229..94a337a48f 100644
  	default "agilex-n6010" if TARGET_SOCFPGA_AGILEX_N6010
  	default "agilex-socdk" if TARGET_SOCFPGA_AGILEX_SOCDK
  	default "arria5-socdk" if TARGET_SOCFPGA_ARRIA5_SOCDK
-+	default "achilles-indus" if TARGET_SOCFPGA_ARRIA10_ACHILLES_INDUS
-+	default "achilles-lite" if TARGET_SOCFPGA_ARRIA10_ACHILLES_LITE
-+	default "achilles-turbo" if TARGET_SOCFPGA_ARRIA10_ACHILLES_TURBO
++	default "achilles-v2-indus" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS
++	default "achilles-v2-lite" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_LITE
++	default "achilles-v2-turbo" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO
  	default "arria10-socdk" if TARGET_SOCFPGA_ARRIA10_SOCDK
  	default "cyclone5-socdk" if TARGET_SOCFPGA_CYCLONE5_SOCDK
  	default "dbm-soc1" if TARGET_SOCFPGA_DEVBOARDS_DBM_SOC1
@@ -479,9 +474,9 @@ index 419b06a229..94a337a48f 100644
  	default "devboards" if TARGET_SOCFPGA_DEVBOARDS_DBM_SOC1
  	default "ebv" if TARGET_SOCFPGA_EBV_SOCRATES
  	default "keymile" if TARGET_SOCFPGA_ARRIA5_SECU1
-+	default "reflexces" if TARGET_SOCFPGA_ARRIA10_ACHILLES_INDUS
-+	default "reflexces" if TARGET_SOCFPGA_ARRIA10_ACHILLES_LITE
-+	default "reflexces" if TARGET_SOCFPGA_ARRIA10_ACHILLES_TURBO
++	default "reflexces" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS
++	default "reflexces" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_LITE
++	default "reflexces" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO
  	default "softing" if TARGET_SOCFPGA_SOFTING_VINING_FPGA
  	default "terasic" if TARGET_SOCFPGA_TERASIC_DE0_NANO
  	default "terasic" if TARGET_SOCFPGA_TERASIC_DE1_SOC
@@ -489,25 +484,25 @@ index 419b06a229..94a337a48f 100644
  	default "socfpga_agilex_socdk" if TARGET_SOCFPGA_AGILEX_SOCDK
  	default "socfpga_arria5_secu1" if TARGET_SOCFPGA_ARRIA5_SECU1
  	default "socfpga_arria5_socdk" if TARGET_SOCFPGA_ARRIA5_SOCDK
-+	default "socfpga_arria10_achilles_indus" if TARGET_SOCFPGA_ARRIA10_ACHILLES_INDUS
-+	default "socfpga_arria10_achilles_lite" if TARGET_SOCFPGA_ARRIA10_ACHILLES_LITE
-+	default "socfpga_arria10_achilles_turbo" if TARGET_SOCFPGA_ARRIA10_ACHILLES_TURBO
++	default "socfpga_arria10_achilles_v2_indus" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS
++	default "socfpga_arria10_achilles_v2_lite" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_LITE
++	default "socfpga_arria10_achilles_v2_turbo" if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO
  	default "socfpga_arria10_socdk" if TARGET_SOCFPGA_ARRIA10_SOCDK
  	default "socfpga_cyclone5_socdk" if TARGET_SOCFPGA_CYCLONE5_SOCDK
  	default "socfpga_dbm_soc1" if TARGET_SOCFPGA_DEVBOARDS_DBM_SOC1
-diff --git a/board/reflexces/achilles-indus/Kconfig b/board/reflexces/achilles-indus/Kconfig
+diff --git a/board/reflexces/achilles-v2-indus/Kconfig b/board/reflexces/achilles-v2-indus/Kconfig
 new file mode 100644
 index 0000000000..d90b048e5b
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/Kconfig
++++ b/board/reflexces/achilles-v2-indus/Kconfig
 @@ -0,0 +1,18 @@
-+if TARGET_SOCFPGA_ARRIA10_ACHILLES_INDUS
++if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS
 +
 +config SYS_CPU
 +	default "armv7"
 +
 +config SYS_BOARD
-+	default "achilles-indus"
++	default "achilles-v2-indus"
 +
 +config SYS_VENDOR
 +	default "reflexces"
@@ -516,37 +511,37 @@ index 0000000000..d90b048e5b
 +	default "socfpga_arria10"
 +
 +config SYS_CONFIG_NAME
-+	default "socfpga_arria10_achilles_indus"
++	default "socfpga_arria10_achilles_v2_indus"
 +
 +endif
-diff --git a/board/reflexces/achilles-indus/MAINTAINERS b/board/reflexces/achilles-indus/MAINTAINERS
+diff --git a/board/reflexces/achilles-v2-indus/MAINTAINERS b/board/reflexces/achilles-v2-indus/MAINTAINERS
 new file mode 100644
 index 0000000000..9ffe1e02cf
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/MAINTAINERS
++++ b/board/reflexces/achilles-v2-indus/MAINTAINERS
 @@ -0,0 +1,6 @@
 +SOCFPGA BOARD
 +M:	Dan Negvesky <dnegvesky@reflexces.com>
 +S:	Maintained
-+F:	board/reflexces/achilles-indus/
-+F:	include/configs/socfpga_arria10_achilles_indus.h
-+F:	configs/socfpga_arria10_achilles_indus_defconfig
-diff --git a/board/reflexces/achilles-indus/Makefile b/board/reflexces/achilles-indus/Makefile
++F:	board/reflexces/achilles-v2-indus/
++F:	include/configs/socfpga_arria10_achilles_v2_indus.h
++F:	configs/socfpga_arria10_achilles_v2_indus_defconfig
+diff --git a/board/reflexces/achilles-v2-indus/Makefile b/board/reflexces/achilles-v2-indus/Makefile
 new file mode 100644
 index 0000000000..80d0004346
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/Makefile
++++ b/board/reflexces/achilles-v2-indus/Makefile
 @@ -0,0 +1,5 @@
 +# SPDX-License-Identifier: GPL-2.0
 +#
 +# Copyright (C) 2015 Altera Corporation <www.altera.com>
 +
 +obj-y	:= socfpga.o
-diff --git a/board/reflexces/achilles-indus/fit_kernel.its b/board/reflexces/achilles-indus/fit_kernel.its
+diff --git a/board/reflexces/achilles-v2-indus/fit_kernel.its b/board/reflexces/achilles-v2-indus/fit_kernel.its
 new file mode 100644
 index 0000000000..d78c9845e7
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/fit_kernel.its
++++ b/board/reflexces/achilles-v2-indus/fit_kernel.its
 @@ -0,0 +1,44 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -574,7 +569,7 @@ index 0000000000..d78c9845e7
 +
 +		fdt {
 +			description = "Linux DTB";
-+			data = /incbin/("../../../socfpga_arria10_achilles_indus.dtb");
++			data = /incbin/("../../../socfpga_arria10_achilles_v2_indus.dtb");
 +			type = "flat_dt";
 +			os = "linux";
 +			arch = "arm";
@@ -592,11 +587,11 @@ index 0000000000..d78c9845e7
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-indus/fit_spl_fpga.its b/board/reflexces/achilles-indus/fit_spl_fpga.its
+diff --git a/board/reflexces/achilles-v2-indus/fit_spl_fpga.its b/board/reflexces/achilles-v2-indus/fit_spl_fpga.its
 new file mode 100644
 index 0000000000..a3f5606e81
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/fit_spl_fpga.its
++++ b/board/reflexces/achilles-v2-indus/fit_spl_fpga.its
 @@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -628,11 +623,11 @@ index 0000000000..a3f5606e81
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-indus/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-indus/fit_spl_fpga_periph_only.its
+diff --git a/board/reflexces/achilles-v2-indus/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-v2-indus/fit_spl_fpga_periph_only.its
 new file mode 100644
 index 0000000000..f3069d0a7c
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/fit_spl_fpga_periph_only.its
++++ b/board/reflexces/achilles-v2-indus/fit_spl_fpga_periph_only.its
 @@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -664,11 +659,11 @@ index 0000000000..f3069d0a7c
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-indus/fit_uboot.its b/board/reflexces/achilles-indus/fit_uboot.its
+diff --git a/board/reflexces/achilles-v2-indus/fit_uboot.its b/board/reflexces/achilles-v2-indus/fit_uboot.its
 new file mode 100644
 index 0000000000..1e2b396f7b
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/fit_uboot.its
++++ b/board/reflexces/achilles-v2-indus/fit_uboot.its
 @@ -0,0 +1,43 @@
 +// SPDX-License-Identifier: GPL-2.0
 + /*
@@ -707,17 +702,17 @@ index 0000000000..1e2b396f7b
 +	configurations {
 +		default = "conf";
 +		conf {
-+			description = "REFLEX CES Achilles Arria10 Indus SOM";
++			description = "REFLEX CES Arria10 Achilles v2 Indus SOM";
 +			loadables = "uboot";
 +			fdt = "fdt";
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-indus/socfpga.c b/board/reflexces/achilles-indus/socfpga.c
+diff --git a/board/reflexces/achilles-v2-indus/socfpga.c b/board/reflexces/achilles-v2-indus/socfpga.c
 new file mode 100644
 index 0000000000..4c466cb944
 --- /dev/null
-+++ b/board/reflexces/achilles-indus/socfpga.c
++++ b/board/reflexces/achilles-v2-indus/socfpga.c
 @@ -0,0 +1,6 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -725,19 +720,19 @@ index 0000000000..4c466cb944
 + */
 +
 +#include <common.h>
-diff --git a/board/reflexces/achilles-lite/Kconfig b/board/reflexces/achilles-lite/Kconfig
+diff --git a/board/reflexces/achilles-v2-lite/Kconfig b/board/reflexces/achilles-v2-lite/Kconfig
 new file mode 100644
 index 0000000000..8392eab729
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/Kconfig
++++ b/board/reflexces/achilles-v2-lite/Kconfig
 @@ -0,0 +1,18 @@
-+if TARGET_SOCFPGA_ARRIA10_ACHILLES_LITE
++if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_LITE
 +
 +config SYS_CPU
 +	default "armv7"
 +
 +config SYS_BOARD
-+	default "achilles-lite"
++	default "achilles-v2-lite"
 +
 +config SYS_VENDOR
 +	default "reflexces"
@@ -746,37 +741,37 @@ index 0000000000..8392eab729
 +	default "socfpga_arria10"
 +
 +config SYS_CONFIG_NAME
-+	default "socfpga_arria10_achilles_lite"
++	default "socfpga_arria10_achilles_v2_lite"
 +
 +endif
-diff --git a/board/reflexces/achilles-lite/MAINTAINERS b/board/reflexces/achilles-lite/MAINTAINERS
+diff --git a/board/reflexces/achilles-v2-lite/MAINTAINERS b/board/reflexces/achilles-v2-lite/MAINTAINERS
 new file mode 100644
 index 0000000000..9b1f90d725
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/MAINTAINERS
++++ b/board/reflexces/achilles-v2-lite/MAINTAINERS
 @@ -0,0 +1,6 @@
 +SOCFPGA BOARD
 +M:	Dan Negvesky <dnegvesky@reflexces.com>
 +S:	Maintained
-+F:	board/reflexces/achilles-lite/
-+F:	include/configs/socfpga_arria10_achilles_lite.h
-+F:	configs/socfpga_arria10_achilles_lite_defconfig
-diff --git a/board/reflexces/achilles-lite/Makefile b/board/reflexces/achilles-lite/Makefile
++F:	board/reflexces/achilles-v2-lite/
++F:	include/configs/socfpga_arria10_achilles_v2_lite.h
++F:	configs/socfpga_arria10_achilles_v2_lite_defconfig
+diff --git a/board/reflexces/achilles-v2-lite/Makefile b/board/reflexces/achilles-v2-lite/Makefile
 new file mode 100644
 index 0000000000..80d0004346
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/Makefile
++++ b/board/reflexces/achilles-v2-lite/Makefile
 @@ -0,0 +1,5 @@
 +# SPDX-License-Identifier: GPL-2.0
 +#
 +# Copyright (C) 2015 Altera Corporation <www.altera.com>
 +
 +obj-y	:= socfpga.o
-diff --git a/board/reflexces/achilles-lite/fit_kernel.its b/board/reflexces/achilles-lite/fit_kernel.its
+diff --git a/board/reflexces/achilles-v2-lite/fit_kernel.its b/board/reflexces/achilles-v2-lite/fit_kernel.its
 new file mode 100644
 index 0000000000..6b140166dc
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/fit_kernel.its
++++ b/board/reflexces/achilles-v2-lite/fit_kernel.its
 @@ -0,0 +1,44 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -804,7 +799,7 @@ index 0000000000..6b140166dc
 +
 +		fdt {
 +			description = "Linux DTB";
-+			data = /incbin/("../../../socfpga_arria10_achilles_lite.dtb");
++			data = /incbin/("../../../socfpga_arria10_achilles_v2_lite.dtb");
 +			type = "flat_dt";
 +			os = "linux";
 +			arch = "arm";
@@ -822,11 +817,11 @@ index 0000000000..6b140166dc
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-lite/fit_spl_fpga.its b/board/reflexces/achilles-lite/fit_spl_fpga.its
+diff --git a/board/reflexces/achilles-v2-lite/fit_spl_fpga.its b/board/reflexces/achilles-v2-lite/fit_spl_fpga.its
 new file mode 100644
 index 0000000000..a416c5462f
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/fit_spl_fpga.its
++++ b/board/reflexces/achilles-v2-lite/fit_spl_fpga.its
 @@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -858,11 +853,11 @@ index 0000000000..a416c5462f
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-lite/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-lite/fit_spl_fpga_periph_only.its
+diff --git a/board/reflexces/achilles-v2-lite/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-v2-lite/fit_spl_fpga_periph_only.its
 new file mode 100644
 index 0000000000..5f0b2a7d57
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/fit_spl_fpga_periph_only.its
++++ b/board/reflexces/achilles-v2-lite/fit_spl_fpga_periph_only.its
 @@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -894,11 +889,11 @@ index 0000000000..5f0b2a7d57
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-lite/fit_uboot.its b/board/reflexces/achilles-lite/fit_uboot.its
+diff --git a/board/reflexces/achilles-v2-lite/fit_uboot.its b/board/reflexces/achilles-v2-lite/fit_uboot.its
 new file mode 100644
 index 0000000000..1e81031362
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/fit_uboot.its
++++ b/board/reflexces/achilles-v2-lite/fit_uboot.its
 @@ -0,0 +1,43 @@
 +// SPDX-License-Identifier: GPL-2.0
 + /*
@@ -937,17 +932,17 @@ index 0000000000..1e81031362
 +	configurations {
 +		default = "conf";
 +		conf {
-+			description = "REFLEX CES Achilles Arria10 Lite SOM";
++			description = "REFLEX CES Arria10 Achilles v2 Lite SOM";
 +			loadables = "uboot";
 +			fdt = "fdt";
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-lite/socfpga.c b/board/reflexces/achilles-lite/socfpga.c
+diff --git a/board/reflexces/achilles-v2-lite/socfpga.c b/board/reflexces/achilles-v2-lite/socfpga.c
 new file mode 100644
 index 0000000000..4c466cb944
 --- /dev/null
-+++ b/board/reflexces/achilles-lite/socfpga.c
++++ b/board/reflexces/achilles-v2-lite/socfpga.c
 @@ -0,0 +1,6 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -955,19 +950,19 @@ index 0000000000..4c466cb944
 + */
 +
 +#include <common.h>
-diff --git a/board/reflexces/achilles-turbo/Kconfig b/board/reflexces/achilles-turbo/Kconfig
+diff --git a/board/reflexces/achilles-v2-turbo/Kconfig b/board/reflexces/achilles-v2-turbo/Kconfig
 new file mode 100644
 index 0000000000..20ffc53f54
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/Kconfig
++++ b/board/reflexces/achilles-v2-turbo/Kconfig
 @@ -0,0 +1,18 @@
-+if TARGET_SOCFPGA_ARRIA10_ACHILLES_TURBO
++if TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO
 +
 +config SYS_CPU
 +	default "armv7"
 +
 +config SYS_BOARD
-+	default "achilles-turbo"
++	default "achilles-v2-turbo"
 +
 +config SYS_VENDOR
 +	default "reflexces"
@@ -976,37 +971,37 @@ index 0000000000..20ffc53f54
 +	default "socfpga_arria10"
 +
 +config SYS_CONFIG_NAME
-+	default "socfpga_arria10_achilles_turbo"
++	default "socfpga_arria10_achilles_v2_turbo"
 +
 +endif
-diff --git a/board/reflexces/achilles-turbo/MAINTAINERS b/board/reflexces/achilles-turbo/MAINTAINERS
+diff --git a/board/reflexces/achilles-v2-turbo/MAINTAINERS b/board/reflexces/achilles-v2-turbo/MAINTAINERS
 new file mode 100644
 index 0000000000..6fa70e33f9
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/MAINTAINERS
++++ b/board/reflexces/achilles-v2-turbo/MAINTAINERS
 @@ -0,0 +1,6 @@
 +SOCFPGA BOARD
 +M:	Dan Negvesky <dnegvesky@reflexces.com>
 +S:	Maintained
-+F:	board/reflexces/achilles-turbo/
-+F:	include/configs/socfpga_arria10_achilles_turbo.h
-+F:	configs/socfpga_arria10_achilles_turbo_defconfig
-diff --git a/board/reflexces/achilles-turbo/Makefile b/board/reflexces/achilles-turbo/Makefile
++F:	board/reflexces/achilles-v2-turbo/
++F:	include/configs/socfpga_arria10_achilles_v2_turbo.h
++F:	configs/socfpga_arria10_achilles_v2_turbo_defconfig
+diff --git a/board/reflexces/achilles-v2-turbo/Makefile b/board/reflexces/achilles-v2-turbo/Makefile
 new file mode 100644
 index 0000000000..80d0004346
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/Makefile
++++ b/board/reflexces/achilles-v2-turbo/Makefile
 @@ -0,0 +1,5 @@
 +# SPDX-License-Identifier: GPL-2.0
 +#
 +# Copyright (C) 2015 Altera Corporation <www.altera.com>
 +
 +obj-y	:= socfpga.o
-diff --git a/board/reflexces/achilles-turbo/fit_kernel.its b/board/reflexces/achilles-turbo/fit_kernel.its
+diff --git a/board/reflexces/achilles-v2-turbo/fit_kernel.its b/board/reflexces/achilles-v2-turbo/fit_kernel.its
 new file mode 100644
 index 0000000000..0415fead02
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/fit_kernel.its
++++ b/board/reflexces/achilles-v2-turbo/fit_kernel.its
 @@ -0,0 +1,44 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -1034,7 +1029,7 @@ index 0000000000..0415fead02
 +
 +		fdt {
 +			description = "Linux DTB";
-+			data = /incbin/("../../../socfpga_arria10_achilles_turbo.dtb");
++			data = /incbin/("../../../socfpga_arria10_achilles_v2_turbo.dtb");
 +			type = "flat_dt";
 +			os = "linux";
 +			arch = "arm";
@@ -1052,11 +1047,11 @@ index 0000000000..0415fead02
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-turbo/fit_spl_fpga.its b/board/reflexces/achilles-turbo/fit_spl_fpga.its
+diff --git a/board/reflexces/achilles-v2-turbo/fit_spl_fpga.its b/board/reflexces/achilles-v2-turbo/fit_spl_fpga.its
 new file mode 100644
 index 0000000000..3238f43c57
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/fit_spl_fpga.its
++++ b/board/reflexces/achilles-v2-turbo/fit_spl_fpga.its
 @@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -1088,11 +1083,11 @@ index 0000000000..3238f43c57
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-turbo/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-turbo/fit_spl_fpga_periph_only.its
+diff --git a/board/reflexces/achilles-v2-turbo/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-v2-turbo/fit_spl_fpga_periph_only.its
 new file mode 100644
 index 0000000000..6dc5fe1359
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/fit_spl_fpga_periph_only.its
++++ b/board/reflexces/achilles-v2-turbo/fit_spl_fpga_periph_only.its
 @@ -0,0 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -1124,11 +1119,11 @@ index 0000000000..6dc5fe1359
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-turbo/fit_uboot.its b/board/reflexces/achilles-turbo/fit_uboot.its
+diff --git a/board/reflexces/achilles-v2-turbo/fit_uboot.its b/board/reflexces/achilles-v2-turbo/fit_uboot.its
 new file mode 100644
 index 0000000000..2678d4610f
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/fit_uboot.its
++++ b/board/reflexces/achilles-v2-turbo/fit_uboot.its
 @@ -0,0 +1,43 @@
 +// SPDX-License-Identifier: GPL-2.0
 + /*
@@ -1167,17 +1162,17 @@ index 0000000000..2678d4610f
 +	configurations {
 +		default = "conf";
 +		conf {
-+			description = "REFLEX CES Achilles Arria10 Turbo SOM";
++			description = "REFLEX CES Arria10 Achilles v2 Turbo SOM";
 +			loadables = "uboot";
 +			fdt = "fdt";
 +		};
 +	};
 +};
-diff --git a/board/reflexces/achilles-turbo/socfpga.c b/board/reflexces/achilles-turbo/socfpga.c
+diff --git a/board/reflexces/achilles-v2-turbo/socfpga.c b/board/reflexces/achilles-v2-turbo/socfpga.c
 new file mode 100644
 index 0000000000..4c466cb944
 --- /dev/null
-+++ b/board/reflexces/achilles-turbo/socfpga.c
++++ b/board/reflexces/achilles-v2-turbo/socfpga.c
 @@ -0,0 +1,6 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
@@ -1185,11 +1180,11 @@ index 0000000000..4c466cb944
 + */
 +
 +#include <common.h>
-diff --git a/configs/socfpga_arria10_achilles_indus_defconfig b/configs/socfpga_arria10_achilles_indus_defconfig
+diff --git a/configs/socfpga_arria10_achilles_v2_indus_defconfig b/configs/socfpga_arria10_achilles_v2_indus_defconfig
 new file mode 100644
 index 0000000000..240c3e96f0
 --- /dev/null
-+++ b/configs/socfpga_arria10_achilles_indus_defconfig
++++ b/configs/socfpga_arria10_achilles_v2_indus_defconfig
 @@ -0,0 +1,64 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SOCFPGA=y
@@ -1198,10 +1193,10 @@ index 0000000000..240c3e96f0
 +CONFIG_DM_GPIO=y
 +CONFIG_SPL_TEXT_BASE=0xFFE00000
 +CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
-+CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES_INDUS=y
++CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS=y
 +CONFIG_IDENT_STRING="socfpga_arria10"
 +CONFIG_SPL_FS_FAT=y
-+CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_indus"
++CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_v2_indus"
 +CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_FIT=y
 +CONFIG_SPL_FIT=y
@@ -1209,7 +1204,7 @@ index 0000000000..240c3e96f0
 +CONFIG_USE_BOOTARGS=y
 +CONFIG_BOOTARGS="console=ttyS0,115200"
 +CONFIG_BOOTCOMMAND="run fatscript;run prog_core;bridge enable;run distro_bootcmd"
-+CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_indus.dtb"
++CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_v2_indus.dtb"
 +CONFIG_SYS_CONSOLE_IS_IN_ENV=y
 +CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE=y
 +CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
@@ -1254,12 +1249,12 @@ index 0000000000..240c3e96f0
 +CONFIG_DM_I2C=y
 +CONFIG_SYS_I2C_DW=y
 +CONFIG_CMD_I2C=y
-+CONFIG_SYS_PROMPT="ACHILLES_INDUS # "
-diff --git a/configs/socfpga_arria10_achilles_lite_defconfig b/configs/socfpga_arria10_achilles_lite_defconfig
++CONFIG_SYS_PROMPT="ACHILLES_V2_INDUS # "
+diff --git a/configs/socfpga_arria10_achilles_v2_lite_defconfig b/configs/socfpga_arria10_achilles_v2_lite_defconfig
 new file mode 100644
 index 0000000000..cd06a5c972
 --- /dev/null
-+++ b/configs/socfpga_arria10_achilles_lite_defconfig
++++ b/configs/socfpga_arria10_achilles_v2_lite_defconfig
 @@ -0,0 +1,64 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SOCFPGA=y
@@ -1268,10 +1263,10 @@ index 0000000000..cd06a5c972
 +CONFIG_DM_GPIO=y
 +CONFIG_SPL_TEXT_BASE=0xFFE00000
 +CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
-+CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES_LITE=y
++CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_LITE=y
 +CONFIG_IDENT_STRING="socfpga_arria10"
 +CONFIG_SPL_FS_FAT=y
-+CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_lite"
++CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_v2_lite"
 +CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_FIT=y
 +CONFIG_SPL_FIT=y
@@ -1279,7 +1274,7 @@ index 0000000000..cd06a5c972
 +CONFIG_USE_BOOTARGS=y
 +CONFIG_BOOTARGS="console=ttyS0,115200"
 +CONFIG_BOOTCOMMAND="run fatscript;run prog_core;bridge enable;run distro_bootcmd"
-+CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_lite.dtb"
++CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_v2_lite.dtb"
 +CONFIG_SYS_CONSOLE_IS_IN_ENV=y
 +CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE=y
 +CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
@@ -1324,12 +1319,12 @@ index 0000000000..cd06a5c972
 +CONFIG_DM_I2C=y
 +CONFIG_SYS_I2C_DW=y
 +CONFIG_CMD_I2C=y
-+CONFIG_SYS_PROMPT="ACHILLES_LITE # "
-diff --git a/configs/socfpga_arria10_achilles_turbo_defconfig b/configs/socfpga_arria10_achilles_turbo_defconfig
++CONFIG_SYS_PROMPT="ACHILLES_V2_LITE # "
+diff --git a/configs/socfpga_arria10_achilles_v2_turbo_defconfig b/configs/socfpga_arria10_achilles_v2_turbo_defconfig
 new file mode 100644
 index 0000000000..47855e17e8
 --- /dev/null
-+++ b/configs/socfpga_arria10_achilles_turbo_defconfig
++++ b/configs/socfpga_arria10_achilles_v2_turbo_defconfig
 @@ -0,0 +1,64 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SOCFPGA=y
@@ -1338,10 +1333,10 @@ index 0000000000..47855e17e8
 +CONFIG_DM_GPIO=y
 +CONFIG_SPL_TEXT_BASE=0xFFE00000
 +CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
-+CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES_TURBO=y
++CONFIG_TARGET_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO=y
 +CONFIG_IDENT_STRING="socfpga_arria10"
 +CONFIG_SPL_FS_FAT=y
-+CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_turbo"
++CONFIG_DEFAULT_DEVICE_TREE="socfpga_arria10_achilles_v2_turbo"
 +CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_FIT=y
 +CONFIG_SPL_FIT=y
@@ -1349,7 +1344,7 @@ index 0000000000..47855e17e8
 +CONFIG_USE_BOOTARGS=y
 +CONFIG_BOOTARGS="console=ttyS0,115200"
 +CONFIG_BOOTCOMMAND="run fatscript;run prog_core;bridge enable;run distro_bootcmd"
-+CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_turbo.dtb"
++CONFIG_DEFAULT_FDT_FILE="socfpga_arria10_achilles_v2_turbo.dtb"
 +CONFIG_SYS_CONSOLE_IS_IN_ENV=y
 +CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE=y
 +CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
@@ -1394,20 +1389,20 @@ index 0000000000..47855e17e8
 +CONFIG_DM_I2C=y
 +CONFIG_SYS_I2C_DW=y
 +CONFIG_CMD_I2C=y
-+CONFIG_SYS_PROMPT="ACHILLES_TURBO # "
-diff --git a/include/configs/socfpga_arria10_achilles_indus.h b/include/configs/socfpga_arria10_achilles_indus.h
++CONFIG_SYS_PROMPT="ACHILLES_V2_TURBO # "
+diff --git a/include/configs/socfpga_arria10_achilles_v2_indus.h b/include/configs/socfpga_arria10_achilles_v2_indus.h
 new file mode 100644
 index 0000000000..7e4938db18
 --- /dev/null
-+++ b/include/configs/socfpga_arria10_achilles_indus.h
++++ b/include/configs/socfpga_arria10_achilles_v2_indus.h
 @@ -0,0 +1,141 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + *  Copyright (C) 2020 REFLEX CES <www.reflexces.com>
 + */
 +
-+#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_INDUS_H__
-+#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_INDUS_H__
++#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS_H__
++#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS_H__
 +
 +#include <asm/arch/base_addr_a10.h>
 +
@@ -1541,20 +1536,20 @@ index 0000000000..7e4938db18
 +#define CONFIG_SYS_NAND_BAD_BLOCK_POS        0x0
 +#endif
 +
-+#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_INDUS_H__ */
-diff --git a/include/configs/socfpga_arria10_achilles_lite.h b/include/configs/socfpga_arria10_achilles_lite.h
++#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_INDUS_H__ */
+diff --git a/include/configs/socfpga_arria10_achilles_v2_lite.h b/include/configs/socfpga_arria10_achilles_v2_lite.h
 new file mode 100644
 index 0000000000..7e4938db18
 --- /dev/null
-+++ b/include/configs/socfpga_arria10_achilles_lite.h
++++ b/include/configs/socfpga_arria10_achilles_v2_lite.h
 @@ -0,0 +1,141 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + *  Copyright (C) 2020 REFLEX CES <www.reflexces.com>
 + */
 +
-+#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_LITE_H__
-+#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_LITE_H__
++#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_LITE_H__
++#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_LITE_H__
 +
 +#include <asm/arch/base_addr_a10.h>
 +
@@ -1688,20 +1683,20 @@ index 0000000000..7e4938db18
 +#define CONFIG_SYS_NAND_BAD_BLOCK_POS        0x0
 +#endif
 +
-+#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_LITE_H__ */
-diff --git a/include/configs/socfpga_arria10_achilles_turbo.h b/include/configs/socfpga_arria10_achilles_turbo.h
++#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_LITE_H__ */
+diff --git a/include/configs/socfpga_arria10_achilles_v2_turbo.h b/include/configs/socfpga_arria10_achilles_v2_turbo.h
 new file mode 100644
 index 0000000000..6d35abe239
 --- /dev/null
-+++ b/include/configs/socfpga_arria10_achilles_turbo.h
++++ b/include/configs/socfpga_arria10_achilles_v2_turbo.h
 @@ -0,0 +1,141 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + *  Copyright (C) 2020 REFLEX CES <www.reflexces.com>
 + */
 +
-+#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_TURBO_H__
-+#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_TURBO_H__
++#ifndef __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO_H__
++#define __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO_H__
 +
 +#include <asm/arch/base_addr_a10.h>
 +
@@ -1835,7 +1830,7 @@ index 0000000000..6d35abe239
 +#define CONFIG_SYS_NAND_BAD_BLOCK_POS        0x0
 +#endif
 +
-+#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_TURBO_H__ */
++#endif	/* __CONFIG_SOCFPGA_ARRIA10_ACHILLES_V2_TURBO_H__ */
 -- 
 2.25.1
 
