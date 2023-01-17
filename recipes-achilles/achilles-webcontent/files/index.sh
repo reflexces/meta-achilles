@@ -63,7 +63,7 @@ echo -e "</head>"
 
 echo -e "<body class=\"body-container\" onload=\"start()\">"
 echo -e "<div class=\"bup-header\">"
-echo -e "<img src=\"../reflexces-R-red.png\" alt=\"REFLEX R\" style=\"float:left; padding:15px 0px 15px 10px;\"/>"
+echo -e "<img src=\"../reflexces-R.png\" alt=\"REFLEX R\" style=\"float:left; padding:15px 0px 15px 10px;\"/>"
 echo -e "<div class=\"bup-header-right\"><span>Board Interface Web Page</span><br/>"
 echo -e $DEVKIT_NAME
 echo -e "</div>"
@@ -100,7 +100,7 @@ elif [ "$MACHINE" == "comxpress" ]; then
 fi
 
 echo -e "<div class=\"bup-form\">"
-echo "<hr style=\"border: 1px solid; color:#06c\"><br>"
+echo "<hr style=\"border: 1px solid; color:#004bb3\"><br>"
 
 if [ "$MACHINE" == "achilles-v2-indus" ] || [ "$MACHINE" == "achilles-v2-lite" ] || [ "$MACHINE" == "achilles-v2-turbo" ]; then
 	echo -e "<span><strong><h1>$DEVKIT_NAME Features</h1></strong><br/>"
@@ -111,7 +111,7 @@ elif [ "$MACHINE" == "comxpress" ]; then
 fi
 
 echo -e "<div id=\"interactive\" class=\"bup-form\">"
-echo "<hr style=\"border: 1px solid; color:#06c\"><br>"
+echo "<hr style=\"border: 1px solid; color:#004bb3\"><br>"
 echo -e "<span><strong><h1>Interacting with $DEVKIT_NAME</h1></strong><br/>"
 echo -e "</span>"
 
@@ -376,7 +376,7 @@ echo -e "</FORM>"
 #	RETRY_COUNT=$((${RETRY_COUNT} + 1))
 #done
 
-echo -e "<br> <hr style=\"border: 1px solid; color:#06c\"> <br>"
+echo -e "<br> <hr style=\"border: 1px solid; color:#004bb3\"> <br>"
 echo -e "<span><strong><h1>Connect to Linux Console on board over SSH Connection</h1></strong><br>"
 echo -e "<p>You may connect your host system to SSH server running on the board using the IP address shown below. In your host system terminal, type the following:<br><br> <font face="courier, arial" size="3">ssh root@$IP</font></p>"
 echo -e "<p>You must have an SSH client installed in your host system. If SSH is not available, install the openssh package on your host.</p>"
@@ -384,7 +384,7 @@ echo -e "<p>When the SSH connection is established, you can run various test scr
  
 # GHRD System ID
 SYS_ID=`devmem 0xFF200000 32`
-echo -e "<br> <hr style=\"border: 1px solid; color:#06c\"> <br>"
+echo -e "<br> <hr style=\"border: 1px solid; color:#004bb3\"> <br>"
 echo -e "<span><strong><h1>Achilles GHRD System ID</h1></strong><br>"
 echo -e "<p>The Achilles GHRD System ID stores information about the hardware revision and feature options enabled in the design.<br><br><font face="courier, arial" size="3">GHRD System ID = $SYS_ID</font></p>"
 echo -e "<p>To decode the information stored in the System ID, refer to the $SYSTEM_ID_INFO file.</p>"

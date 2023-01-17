@@ -12,7 +12,7 @@ SRC_URI += "file://not_found.html "
 SRC_URI += "file://offled.jpg "
 SRC_URI += "file://progress.js "
 SRC_URI += "file://redled.jpg "
-SRC_URI += "file://reflexces-R-red.png "
+SRC_URI += "file://reflexces-R.png "
 SRC_URI += "file://style.css "
 SRC_URI += "file://validation_script.js "
 
@@ -27,7 +27,7 @@ do_install() {
 	install -m 0755 offled.jpg ${D}/www/pages/
 	install -m 0755 progress.js ${D}/www/pages/
 	install -m 0755 redled.jpg ${D}/www/pages/
-	install -m 0755 reflexces-R-red.png ${D}/www/pages/
+	install -m 0755 reflexces-R.png ${D}/www/pages/
 	install -m 0755 style.css ${D}/www/pages/
 	install -m 0755 validation_script.js ${D}/www/pages/
 	install -m 0755 index.sh ${D}/www/pages/cgi-bin

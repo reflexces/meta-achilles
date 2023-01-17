@@ -1,4 +1,4 @@
-body.body-container{background-color:#e6ebee;text-align:left; margin-top:0px; margin:auto; width:930px; position:relative;  }
+body.body-container{background-color:#e6e6e6;text-align:left; margin-top:0px; margin:auto; width:930px; position:relative;  }
 span.page-container { width:930px; text-align:left; display:block; }
 div.bup-content {background-color:#fff; float:left; clear:none; }
 div.page-container { width:930px; text-align:left; }
@@ -17,7 +17,7 @@ a:visited { color:#06c; }
 
 
 /*header*/
-div.bup-header{ background-color:#fff; height:65px; border-bottom:#006699 solid medium; }
+div.bup-header{ background-color:#fff; height:65px; border-bottom:#004bb3 solid medium; }
 div.bup-header-right {float:right; text-align:right; line-height:1.2em; width:auto; font-size:18px; padding:12px 15px 15px 0; font-family:Arial, Helvetica, sans-serif;} /* top and right attributes needed for firefox 2 */
 div.bup-header-right span{font-size:14px; font-weight:bold;}
 
@@ -96,10 +96,10 @@ div.dev-kit-flash {margin:0; padding:0; float:left; clear:none; position:relativ
 
 
 /*footer*/
-div.footer-gutter { position:relative; top:10px; width:930px; height:10px; background-color:#e6ebee; clear:both; }
+div.footer-gutter { position:relative; top:10px; width:930px; height:10px; background-color:#e6e6e6; clear:both; }
 div.footer-container-blur {	width:930px; height:60px; margin:0px 0 0 2px; background-color:#999; clear:both; }
 div.footer-container-shadow { width:930px; height:60px; position:relative; bottom:1px; right:1px; background-color:#666; }
-div.footer-container { width:930px; height:60px; font-size:11px; position:relative; bottom:1px; right:1px; background-color:#8cafd5; color:#fff; }
+div.footer-container { width:930px; height:60px; font-size:11px; position:relative; bottom:1px; right:1px; background-color:#004bb3; color:#fff; }
 div.footer-copyright { text-align:center; padding:1.5em 0em 0em 0em;}
 
 /*popup*/
