@@ -18,7 +18,7 @@ SRC_URI += " \
 # nothing to install if GHRD_TYPE = "std"
 ALLOW_EMPTY:${PN} = "1"
 
-do_install[deptask] = "do_deploy"
+do_install[deptask] = "${@bb.utils.contains('GHRD_TYPE', 'pr', 'do_deploy', '', d)}"
 
 do_install () {
 	if ${@bb.utils.contains("GHRD_TYPE", "pr", "true", "false", d)}; then

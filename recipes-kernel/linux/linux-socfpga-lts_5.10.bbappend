@@ -6,7 +6,7 @@ COMPATIBLE_MACHINE = "achilles-.*"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-SRC_URI:append:${MACHINE} = " \
+SRC_URI:append = " \
 	file://socfpga-5.10-lts/cfg/pcf8563.cfg \
 	file://socfpga-5.10-lts/cfg/tmp102.cfg \
 	file://socfpga-5.10-lts/cfg/usb-gadget.cfg \
