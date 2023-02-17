@@ -9,7 +9,9 @@ PREFERRED_VERSION_u-boot-socfpga ?= "v2021.07%"
 UBOOT_CONFIG ??= "mmc"
 
 SPL_BINARY = "spl/u-boot-splx4.sfp"
-UBOOT_BINARY = "u-boot.img"
+
+UBOOT_SUFFIX = "img"
+UBOOT_BINARY = "u-boot.${UBOOT_SUFFIX}"
 
 KMACHINE ?= "achilles"
 

@@ -1,12 +1,8 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/config:"
 
-KMACHINE:achilles-v2-indus ?= "achilles"
-KMACHINE:achilles-v2-lite ?= "achilles"
-KMACHINE:achilles-v2-turbo ?= "achilles"
+KMACHINE:achilles-v2 ?= "achilles"
 
-COMPATIBLE_MACHINE:achilles-v2-indus = "achilles-v2-indus"
-COMPATIBLE_MACHINE:achilles-v2-lite = "achilles-v2-lite"
-COMPATIBLE_MACHINE:achilles-v2-turbo = "achilles-v2-turbo"
+COMPATIBLE_MACHINE = "achilles-.*"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
@@ -21,7 +17,8 @@ SRC_URI:append:${MACHINE} = " \
 	file://socfpga-5.10-lts/devicetree-overlay/blink_led_default.dtso \
 	file://socfpga-5.10-lts/devicetree-overlay/blink_led_fast.dtso \
 	file://socfpga-5.10-lts/devicetree-overlay/blink_led_slow.dtso \
-	"
+"
+
 inherit deploy
 
 do_compile:append:${MACHINE}() {
@@ -33,14 +30,14 @@ do_compile:append:${MACHINE}() {
 		install -m 0644 ${WORKDIR}/socfpga-5.10-lts/devicetree-overlay/blink_led_fast.dtso ${S}/arch/arm/boot/dts/blink_led_fast.dts
 		install -m 0644 ${WORKDIR}/socfpga-5.10-lts/devicetree-overlay/blink_led_slow.dtso ${S}/arch/arm/boot/dts/blink_led_slow.dts
 		make achilles_ghrd_base.dtb achilles_sysid.dtb blink_led_default.dtb blink_led_fast.dtb blink_led_slow.dtb
-    fi
+	fi
 }
 
 do_deploy:append:${MACHINE}() {
 	if ${@bb.utils.contains("GHRD_TYPE", "pr", "true", "false", d)}; then
 		install -d ${DEPLOY_DIR_IMAGE}/devicetree
 		install -m 0644 ${B}/arch/arm/boot/dts/*.dtb ${DEPLOY_DIR_IMAGE}/devicetree
-    fi
+	fi
 }
 
 addtask deploy after do_compile

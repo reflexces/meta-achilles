@@ -2,13 +2,9 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files/v2021.07:"
 
 DEPENDS:append = " achilles-firmware"
 
-SRC_URI:append = "\
-	file://0001-Add-Achilles-V2-support-for-u-boot-socfpga.patch \
-	"
+SRC_URI:append:achilles-v2 = " file://0001-Add-Achilles-V2-support-for-u-boot-socfpga.patch"
 
-SRC_URI:append:achilles-v2-turbo = "\
-	file://0002-remove-sdram-size-check.patch \
-	"
+SRC_URI:append:achilles-v2-turbo = " file://0002-remove-sdram-size-check.patch"
 
 inherit deploy
 
