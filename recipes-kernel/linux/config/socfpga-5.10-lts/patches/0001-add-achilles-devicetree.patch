@@ -9,12 +9,18 @@ Subject: [PATCH] add achilles devicetree
  .../dts/socfpga_arria10_achilles_v2_indus.dts |  29 ++++
  .../dts/socfpga_arria10_achilles_v2_lite.dts  |  29 ++++
  .../dts/socfpga_arria10_achilles_v2_turbo.dts |  29 ++++
- 5 file changed, 279 insertions(+)
+ .../boot/dts/socfpga_arria10_achilles_v5.dtsi |  30 ++++
+ .../dts/socfpga_arria10_achilles_v5_indus.dts |  29 ++++
+ .../dts/socfpga_arria10_achilles_v5_lite.dts  |  29 ++++
+ 8 files changed, 367 insertions(+)
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles.dts
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles.dtsi
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v2_indus.dts
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v2_lite.dts
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v2_turbo.dts
+ create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v5.dtsi
+ create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts
+ create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts
 
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles.dts b/arch/arm/boot/dts/socfpga_arria10_achilles.dts
 new file mode 100644
@@ -318,6 +324,112 @@ index 000000000000..a052b9c6a038
 +
 +/ {
 +	model = "reflexces,achilles-v2-turbo";
++
++	memory@0 {
++		name = "memory";
++		device_type = "memory";
++		reg = <0x0 0xC0000000>; /* 3GB */
++	};
++};
+diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v5.dtsi b/arch/arm/boot/dts/socfpga_arria10_achilles_v5.dtsi
+new file mode 100644
+index 000000000000..b0398404aa4c
+--- /dev/null
++++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v5.dtsi
+@@ -0,0 +1,30 @@
++/*
++ * Copyright (C) 2023 REFLEX CES <www.reflexces.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
++/dts-v1/;
++#include "socfpga_arria10_achilles.dtsi"
++
++/ {
++};
++
++&i2c0 {
++	eeprom-fru@56 {
++		compatible = "atmel,24c256";
++		reg = <0x56>;
++		pagesize = <64>;
++	};
++};
+diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts
+new file mode 100644
+index 000000000000..872981a4f609
+--- /dev/null
++++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts
+@@ -0,0 +1,29 @@
++/*
++ * Copyright (C) 2023 REFLEX CES <www.reflexces.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
++/dts-v1/;
++#include "socfpga_arria10_achilles_v5.dtsi"
++
++/ {
++	model = "reflexces,achilles-v5-indus";
++
++	memory@0 {
++		name = "memory";
++		device_type = "memory";
++		reg = <0x0 0xC0000000>; /* 3GB */
++	};
++};
+diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts
+new file mode 100644
+index 000000000000..e116424c0991
+--- /dev/null
++++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts
+@@ -0,0 +1,29 @@
++/*
++ * Copyright (C) 2023 REFLEX CES <www.reflexces.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
++/dts-v1/;
++#include "socfpga_arria10_achilles_v5.dtsi"
++
++/ {
++	model = "reflexces,achilles-v5-lite";
 +
 +	memory@0 {
 +		name = "memory";

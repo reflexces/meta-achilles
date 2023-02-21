@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/config:"
 
-KMACHINE:achilles-v2 ?= "achilles"
+KMACHINE:achilles-v2 ?= "achilles-v2"
+KMACHINE:achilles-v5 ?= "achilles-v5"
 
 COMPATIBLE_MACHINE = "achilles-.*"
 
@@ -12,6 +13,9 @@ SRC_URI:append = " \
 	file://socfpga-5.10-lts/cfg/usb-gadget.cfg \
 	file://socfpga-5.10-lts/patches/0001-add-achilles-devicetree.patch \
 	file://lbdaf.scc \
+"
+
+SRC_URI:append:achilles-v2 = " \
 	file://socfpga-5.10-lts/devicetree-overlay/achilles_ghrd_base.dtso \
 	file://socfpga-5.10-lts/devicetree-overlay/achilles_sysid.dtso \
 	file://socfpga-5.10-lts/devicetree-overlay/blink_led_default.dtso \
@@ -21,9 +25,8 @@ SRC_URI:append = " \
 
 inherit deploy
 
-do_compile:append:${MACHINE}() {
+do_compile:append:achilles-v2() {
 	if ${@bb.utils.contains("GHRD_TYPE", "pr", "true", "false", d)}; then
-#		cd ${WORKDIR}
 		install -m 0644 ${WORKDIR}/socfpga-5.10-lts/devicetree-overlay/achilles_ghrd_base.dtso ${S}/arch/arm/boot/dts/achilles_ghrd_base.dts
 		install -m 0644 ${WORKDIR}/socfpga-5.10-lts/devicetree-overlay/achilles_sysid.dtso ${S}/arch/arm/boot/dts/achilles_sysid.dts
 		install -m 0644 ${WORKDIR}/socfpga-5.10-lts/devicetree-overlay/blink_led_default.dtso ${S}/arch/arm/boot/dts/blink_led_default.dts
@@ -33,7 +36,7 @@ do_compile:append:${MACHINE}() {
 	fi
 }
 
-do_deploy:append:${MACHINE}() {
+do_deploy:append:achilles-v2() {
 	if ${@bb.utils.contains("GHRD_TYPE", "pr", "true", "false", d)}; then
 		install -d ${DEPLOY_DIR_IMAGE}/devicetree
 		install -m 0644 ${B}/arch/arm/boot/dts/*.dtb ${DEPLOY_DIR_IMAGE}/devicetree

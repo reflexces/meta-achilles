@@ -28,14 +28,17 @@ UBOOT_EXTLINUX_ROOT:default ?= "root=/dev/mmcblk0p3"
 UBOOT_EXTLINUX_FDT:default ?= "../socfpga_arria10_achilles.dtb"
 
 IMAGE_BOOT_FILES ?= " \
-        ${KERNEL_DEVICETREE} \
-        ${KERNEL_IMAGETYPE} \
-        ${UBOOT_BINARY} \
-        extlinux.conf;extlinux/extlinux.conf \
-        fit_spl_fpga_periph_only.itb \
-        fit_spl_fpga.itb \
-        achilles_${SOM_VER}_ghrd.core.rbf \
-        "
+	${KERNEL_DEVICETREE} \
+	${KERNEL_IMAGETYPE} \
+	${UBOOT_BINARY} \
+	extlinux.conf;extlinux/extlinux.conf \
+"
+
+IMAGE_BOOT_FILES:achilles-v2 += " \
+	fit_spl_fpga_periph_only.itb \
+	fit_spl_fpga.itb \
+	achilles_${SOM_VER}_ghrd.core.rbf \
+"
 
 WKS_FILE ?= "emmcimage-achilles.wks"
-IMAGE_FSTYPES +="wic"
+IMAGE_FSTYPES += "wic"

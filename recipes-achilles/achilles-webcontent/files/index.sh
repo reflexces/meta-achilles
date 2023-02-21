@@ -30,6 +30,12 @@ case $MACHINE in
 	achilles-v2-turbo)
 		DEVKIT_NAME="REFLEX CES Achilles v2 Turbo Arria 10 SoC SOM"
 	;;
+	achilles-v5-indus)
+		DEVKIT_NAME="REFLEX CES Achilles v5 Indus Arria 10 SoC SOM"
+	;;
+	achilles-v5-lite)
+		DEVKIT_NAME="REFLEX CES Achilles v5 Lite Arria 10 SoC SOM"
+	;;
 	comxpress)
 		DEVKIT_NAME="REFLEX CES COMXpress Stratix 10 Module"
 	;;
@@ -75,7 +81,7 @@ echo -e "</span>"
 echo -e "<p>This Board Interface web page is being served by the web server application running on the Hard Processor System (HPS) on this development board. You can use this web page to interact with your board by blinking the LEDs, reading the temperature, and reading the System ID."
 echo -e "</div>"
 
-if [ "$MACHINE" == "achilles-v2-indus" ] || [ "$MACHINE" == "achilles-v2-lite" ] || [ "$MACHINE" == "achilles-v2-turbo" ]; then
+if [ "$MACHINE" == "achilles-v2-indus" ] || [ "$MACHINE" == "achilles-v2-lite" ] || [ "$MACHINE" == "achilles-v2-turbo" ] || [ "$MACHINE" == "achilles-v5-indus" ] || [ "$MACHINE" == "achilles-v5-lite" ]; then
 	echo -e "<div class=\"bup-links\">"
 	echo -e "<h4>Developer Resources</h4>"
 	echo -e "<ul>"
@@ -102,7 +108,7 @@ fi
 echo -e "<div class=\"bup-form\">"
 echo "<hr style=\"border: 1px solid; color:#004bb3\"><br>"
 
-if [ "$MACHINE" == "achilles-v2-indus" ] || [ "$MACHINE" == "achilles-v2-lite" ] || [ "$MACHINE" == "achilles-v2-turbo" ]; then
+if [ "$MACHINE" == "achilles-v2-indus" ] || [ "$MACHINE" == "achilles-v2-lite" ] || [ "$MACHINE" == "achilles-v2-turbo" ] || [ "$MACHINE" == "achilles-v5-indus" ] || [ "$MACHINE" == "achilles-v5-lite" ]; then
 	echo -e "<span><strong><h1>$DEVKIT_NAME Features</h1></strong><br/>"
 	echo -e "<div><img src=\"../achilles-board-image.png\" style=\"width:640px;height:478px;\"></div>"
 elif [ "$MACHINE" == "comxpress" ]; then
