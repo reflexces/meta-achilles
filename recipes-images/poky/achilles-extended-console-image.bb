@@ -4,9 +4,6 @@ require recipes-core/images/core-image-minimal.bb
 #this is in altera image recipe; delete this comment after you look this up to know what it does
 #require core-image-essential.inc
 
-DEPENDS += "bash perl gcc i2c-tools \
-"
-
 IMAGE_FEATURES += "allow-empty-password empty-root-password"
 
 IMAGE_INSTALL += " \
