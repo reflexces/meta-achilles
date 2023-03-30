@@ -1,8 +1,8 @@
 <hps>
   <system>
-    <config name='VERSION' value='18.1' />
+    <config name='VERSION' value='19.1' />
     <config name='DEVICE_FAMILY' value='Arria 10' />
-    <config name='TIME_AND_DATE' value='Wednesday January, 11, 2023 - 10:14:40 AM CET' />
+    <config name='TIME_AND_DATE' value='Saturday March, 11, 2023 - 06:27:52 PM CET' />
     <config name='DMA_Enable' value='No No No No No No No No' />
     <config name='eosc1_clk_hz' value='25000000.0' />
     <config name='emac0_clk_hz' value='250000000' />
@@ -41,7 +41,7 @@
     </peripheral>
     <peripheral name='usb0' used='false' />
     <peripheral name='usb1' used='true' />
-    <peripheral name='spim0' used='false' />
+    <peripheral name='spim0' used='true' />
     <peripheral name='spim1' used='false' />
     <peripheral name='spis0' used='false' />
     <peripheral name='spis1' used='false' />
@@ -136,7 +136,7 @@
     <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_sdmmc_usefpga.sel' value='0' />
     <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_usb0_usefpga.sel' value='0' />
     <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_usb1_usefpga.sel' value='0' />
-    <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_spim0_usefpga.sel' value='0' />
+    <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_spim0_usefpga.sel' value='1' />
     <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_spim1_usefpga.sel' value='0' />
     <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_spis0_usefpga.sel' value='0' />
     <config name='i_io48_pin_mux_fpga_interface_grp.pinmux_spis1_usefpga.sel' value='0' />
@@ -202,8 +202,8 @@
     <config name='i_clk_mgr_perpllgrp.cntr9clk.cnt' value='900' />
   </csr>
   <csr />
-  <!-- This section was added by Quartus Prime Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition -->
-  <!-- Generated on Wed Jan 11 10:21:24 2023 -->
+  <!-- This section was added by Quartus Prime Version 21.3.0 Build 170 09/23/2021 SC Pro Edition -->
+  <!-- Generated on Sun Mar 12 00:17:08 2023 -->
   <csr>
     <!-- OSC_CLK_1_HPS -->
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_1.rtrim'        value='1' />
@@ -325,7 +325,7 @@
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_15.pd_slw_rt'    value='1' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_15.pu_drv_strg'  value='8' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_15.pd_drv_strg'  value='10' />
-    <!-- hps_usr_led_g_n~pad, HPS_DEDICATED_16, input, weak pull up disable, is output, Fast Slew, 1_8 -->
+    <!-- hps_usr_led_g~pad, HPS_DEDICATED_16, input, weak pull up disable, is output, Fast Slew, 1_8 -->
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_16.rtrim'        value='1' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_16.input_buf_en' value='1' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_16.wk_pu_en'     value='0' />
@@ -333,7 +333,7 @@
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_16.pd_slw_rt'    value='1' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_16.pu_drv_strg'  value='8' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_16.pd_drv_strg'  value='10' />
-    <!-- hps_usr_led_r_n~pad, HPS_DEDICATED_17, input, weak pull up disable, is output, Fast Slew, 1_8 -->
+    <!-- hps_usr_led_r~pad, HPS_DEDICATED_17, input, weak pull up disable, is output, Fast Slew, 1_8 -->
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_17.rtrim'        value='1' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_17.input_buf_en' value='1' />
     <config name='i_io48_pin_mux_dedicated_io_grp.configuration_dedicated_io_17.wk_pu_en'     value='0' />
