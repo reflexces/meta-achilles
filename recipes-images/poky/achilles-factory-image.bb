@@ -2,6 +2,8 @@ require recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME = "achilles-factory-image"
 
+IMAGE_FEATURES += " ssh-server-dropbear"
+
 IMAGE_INSTALL += " achilles-factory "
 
 #overload timestamp function in image.bbclass
