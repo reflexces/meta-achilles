@@ -2,7 +2,10 @@ require recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME = "achilles-factory-image"
 
-IMAGE_FEATURES += " ssh-server-dropbear"
+IMAGE_FEATURES += " \
+        ssh-server-dropbear \
+        allow-empty-password \
+"
 
 IMAGE_INSTALL += " achilles-factory "
 
