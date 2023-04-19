@@ -47,6 +47,15 @@ IMAGE_INSTALL += " \
 	vim-vimrc \
 "
 
+# Define a function that modifies the systemd unit config files with the autologin arguments
+# NOTE: Can be replaced by IMAGE_FEATURES += " serial-autologin-root" with Yocto 4.1 and greater
+local_autologin () {
+    sed -i -e 's/^\(ExecStart *=.*getty \)/\1-a root /' ${IMAGE_ROOTFS}${systemd_system_unitdir}/serial-getty@.service
+}
+
+# Add the function so that it is executed after the rootfs has been generated
+ROOTFS_POSTPROCESS_COMMAND += "local_autologin; "
+
 export IMAGE_BASENAME = "extended-console-image"
 
 #	achilles-lighttpd-conf \
