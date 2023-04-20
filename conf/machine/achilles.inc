@@ -25,7 +25,6 @@ UBOOT_EXTLINUX_LABELS ?= "default"
 UBOOT_EXTLINUX_KERNEL_IMAGE:default ?= "../${KERNEL_IMAGETYPE}"
 UBOOT_EXTLINUX_KERNEL_ARGS:default ?= "rootwait rw earlycon"
 UBOOT_EXTLINUX_ROOT:default ?= "root=/dev/mmcblk0p3"
-UBOOT_EXTLINUX_FDT:default ?= "../socfpga_arria10_achilles.dtb"
 
 IMAGE_BOOT_FILES ?= " \
 	${KERNEL_DEVICETREE} \

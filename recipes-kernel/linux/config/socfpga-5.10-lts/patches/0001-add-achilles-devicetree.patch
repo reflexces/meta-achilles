@@ -1,10 +1,9 @@
-From 5765c3ecee627f699ae1590e5bd7e4e85681f224 Mon Sep 17 00:00:00 2001
+From 493fbdf605c71aad69593c8a847eb1e763343318 Mon Sep 17 00:00:00 2001
 From: Delbegue C <cdelbegue@reflexces.com>
-Date: Thu, 05 Jan 2023 13:27:10 +0100
+Date: Thu, 5 Jan 2023 13:27:10 +0100
 Subject: [PATCH] add achilles devicetree
 
 ---
- .../arm/boot/dts/socfpga_arria10_achilles.dts |  30 ++++
  .../boot/dts/socfpga_arria10_achilles.dtsi    | 162 ++++++++++++++++++
  .../dts/socfpga_arria10_achilles_v2_indus.dts |  29 ++++
  .../dts/socfpga_arria10_achilles_v2_lite.dts  |  29 ++++
@@ -12,8 +11,7 @@ Subject: [PATCH] add achilles devicetree
  .../boot/dts/socfpga_arria10_achilles_v5.dtsi |  30 ++++
  .../dts/socfpga_arria10_achilles_v5_indus.dts |  29 ++++
  .../dts/socfpga_arria10_achilles_v5_lite.dts  |  29 ++++
- 8 files changed, 367 insertions(+)
- create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles.dts
+ 7 files changed, 337 insertions(+)
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles.dtsi
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v2_indus.dts
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v2_lite.dts
@@ -22,45 +20,9 @@ Subject: [PATCH] add achilles devicetree
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts
  create mode 100644 arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts
 
-diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles.dts b/arch/arm/boot/dts/socfpga_arria10_achilles.dts
-new file mode 100644
-index 000000000000..7b97ab112584
---- /dev/null
-+++ b/arch/arm/boot/dts/socfpga_arria10_achilles.dts
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright (C) 2023 REFLEX CES <www.reflexces.com>
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU General Public License
-+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+/dts-v1/;
-+#include "socfpga_arria10_achilles.dtsi"
-+
-+/ {
-+	model = "REFLEX CES Achilles SOM";
-+	compatible = "altr,socfpga-arria10", "altr,socfpga";
-+
-+	memory@0 {
-+		name = "memory";
-+		device_type = "memory";
-+		reg = <0x0 0xC0000000>; /* 3GB */
-+	};
-+};
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles.dtsi b/arch/arm/boot/dts/socfpga_arria10_achilles.dtsi
 new file mode 100644
-index 000000000000..06a70db8b48b
+index 000000000000..89302282f834
 --- /dev/null
 +++ b/arch/arm/boot/dts/socfpga_arria10_achilles.dtsi
 @@ -0,0 +1,162 @@
@@ -228,7 +190,7 @@ index 000000000000..06a70db8b48b
 +};
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v2_indus.dts b/arch/arm/boot/dts/socfpga_arria10_achilles_v2_indus.dts
 new file mode 100644
-index 000000000000..82c7ab2a53c8
+index 000000000000..0b88bbe6d46d
 --- /dev/null
 +++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v2_indus.dts
 @@ -0,0 +1,29 @@
@@ -263,7 +225,7 @@ index 000000000000..82c7ab2a53c8
 +};
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v2_lite.dts b/arch/arm/boot/dts/socfpga_arria10_achilles_v2_lite.dts
 new file mode 100644
-index 000000000000..947803e1ca0f
+index 000000000000..820b31c4204f
 --- /dev/null
 +++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v2_lite.dts
 @@ -0,0 +1,29 @@
@@ -298,7 +260,7 @@ index 000000000000..947803e1ca0f
 +};
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v2_turbo.dts b/arch/arm/boot/dts/socfpga_arria10_achilles_v2_turbo.dts
 new file mode 100644
-index 000000000000..a052b9c6a038
+index 000000000000..f7dbc601ad6c
 --- /dev/null
 +++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v2_turbo.dts
 @@ -0,0 +1,29 @@
@@ -333,7 +295,7 @@ index 000000000000..a052b9c6a038
 +};
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v5.dtsi b/arch/arm/boot/dts/socfpga_arria10_achilles_v5.dtsi
 new file mode 100644
-index 000000000000..b0398404aa4c
+index 000000000000..5d2553220c4e
 --- /dev/null
 +++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v5.dtsi
 @@ -0,0 +1,30 @@
@@ -369,7 +331,7 @@ index 000000000000..b0398404aa4c
 +};
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts
 new file mode 100644
-index 000000000000..872981a4f609
+index 000000000000..ab345c73b7c0
 --- /dev/null
 +++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dts
 @@ -0,0 +1,29 @@
@@ -404,7 +366,7 @@ index 000000000000..872981a4f609
 +};
 diff --git a/arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts
 new file mode 100644
-index 000000000000..e116424c0991
+index 000000000000..9cc2440a9986
 --- /dev/null
 +++ b/arch/arm/boot/dts/socfpga_arria10_achilles_v5_lite.dts
 @@ -0,0 +1,29 @@
@@ -438,5 +400,5 @@ index 000000000000..e116424c0991
 +	};
 +};
 -- 
-2.25.1
+2.34.1
 

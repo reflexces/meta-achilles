@@ -17,7 +17,6 @@ PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
 PREFERRED_VERSION_linux-socfpga-lts = "5.10.%"
 
 KERNEL_IMAGETYPE = "zImage"
-KERNEL_DEVICETREE ?= "socfpga_arria10_achilles.dtb"
 
 SERIAL_CONSOLES ?= "115200;ttyS0"
 
