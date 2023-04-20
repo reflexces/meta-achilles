@@ -17,10 +17,8 @@ IMAGE_INSTALL += " \
 	gdb \
 	gdbserver \
 	git \
-	gnuplot \
 	i2c-tools \
 	iperf3 \
-	iw \
 	kernel-dev \
 	kernel-image \
 	kernel-modules \
@@ -31,15 +29,17 @@ IMAGE_INSTALL += " \
 	lighttpd-module-cgi \
 	linuxptp \
 	lmsensors \
+	lshw \
 	memtester \
+	mmc-utils \
 	net-tools \
 	nfs-utils-client \
 	openssh \
 	openssh-sftp-server \
 	packagegroup-core-ssh-openssh \
 	packagegroup-sdk-target \
-	pciutils \
 	perl \
+	stress \
 	tar \
 	tcpdump \
 	usbutils \
