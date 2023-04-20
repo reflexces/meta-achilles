@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sleep 3
+
 DT_MODEL=`cat /sys/firmware/devicetree/base/model`
 BOARD=`echo ${DT_MODEL:?} | cut -d "," -f 2`
 
@@ -13,9 +15,9 @@ if [ ! $? -eq 0 ]; then
     exit 42
 fi
 
-mount -o ro /dev/sda1 ${USBKEY:?}
+mount -o ro /dev/sda2 ${USBKEY:?}
 if [ ! $? -eq 0 ]; then
-    logger -s -p user.err "[GUI] - mount -o ro /dev/sda1 ${USBKEY:?} failed, returned $?"
+    logger -s -p user.err "[GUI] - mount -o ro /dev/sda2 ${USBKEY:?} failed, returned $?"
     exit 42
 fi
 
