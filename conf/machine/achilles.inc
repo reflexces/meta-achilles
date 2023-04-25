@@ -36,7 +36,7 @@ IMAGE_BOOT_FILES ?= " \
 IMAGE_BOOT_FILES:achilles-v2 += " \
 	fit_spl_fpga_periph_only.itb \
 	fit_spl_fpga.itb \
-	achilles_${SOM_VER}_ghrd.core.rbf \
+	achilles_${SOM_REV}_${SOM_VER}_ghrd.core.rbf \
 "
 
 WKS_FILE ?= "emmcimage-achilles.wks"

@@ -37,8 +37,8 @@ do_compile:prepend() {
 #}
 
 do_compile:append:achilles-v2() {
-	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_VER}_ghrd.core.rbf ${S}/achilles_${SOM_VER}_ghrd.core.rbf
-	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_VER}_ghrd.periph.rbf ${S}/achilles_${SOM_VER}_ghrd.periph.rbf
+	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_REV}_${SOM_VER}_ghrd.core.rbf ${S}/achilles_${SOM_REV}_${SOM_VER}_ghrd.core.rbf
+	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_REV}_${SOM_VER}_ghrd.periph.rbf ${S}/achilles_${SOM_REV}_${SOM_VER}_ghrd.periph.rbf
 	mkimage -E -f ${S}/board/reflexces/achilles-${SOM_REV}-${SOM_VER}/fit_spl_fpga_periph_only.its ${B}/fit_spl_fpga_periph_only.itb
 	mkimage -E -f ${S}/board/reflexces/achilles-${SOM_REV}-${SOM_VER}/fit_spl_fpga.its ${B}/fit_spl_fpga.itb
 }

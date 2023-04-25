@@ -608,7 +608,7 @@ index 0000000000..a3f5606e81
 +	images {
 +		fpga-core-1 {
 +			description = "FPGA core bitstream";
-+			data = /incbin/("../../../achilles_indus_ghrd.core.rbf");
++			data = /incbin/("../../../achilles_v2_indus_ghrd.core.rbf");
 +			type = "fpga";
 +			arch = "arm";
 +			compression = "none";
@@ -644,7 +644,7 @@ index 0000000000..f3069d0a7c
 +	images {
 +		fpga-periph-1 {
 +			description = "FPGA peripheral bitstream";
-+			data = /incbin/("../../../achilles_indus_ghrd.periph.rbf");
++			data = /incbin/("../../../achilles_v2_indus_ghrd.periph.rbf");
 +			type = "fpga";
 +			arch = "arm";
 +			compression = "none";
@@ -838,7 +838,7 @@ index 0000000000..a416c5462f
 +	images {
 +		fpga-core-1 {
 +			description = "FPGA core bitstream";
-+			data = /incbin/("../../../achilles_lite_ghrd.core.rbf");
++			data = /incbin/("../../../achilles_v2_lite_ghrd.core.rbf");
 +			type = "fpga";
 +			arch = "arm";
 +			compression = "none";
@@ -874,7 +874,7 @@ index 0000000000..5f0b2a7d57
 +	images {
 +		fpga-periph-1 {
 +			description = "FPGA peripheral bitstream";
-+			data = /incbin/("../../../achilles_lite_ghrd.periph.rbf");
++			data = /incbin/("../../../achilles_v2_lite_ghrd.periph.rbf");
 +			type = "fpga";
 +			arch = "arm";
 +			compression = "none";
@@ -1068,7 +1068,7 @@ index 0000000000..3238f43c57
 +	images {
 +		fpga-core-1 {
 +			description = "FPGA core bitstream";
-+			data = /incbin/("../../../achilles_turbo_ghrd.core.rbf");
++			data = /incbin/("../../../achilles_v2_turbo_ghrd.core.rbf");
 +			type = "fpga";
 +			arch = "arm";
 +			compression = "none";
@@ -1104,7 +1104,7 @@ index 0000000000..6dc5fe1359
 +	images {
 +		fpga-periph-1 {
 +			description = "FPGA peripheral bitstream";
-+			data = /incbin/("../../../achilles_turbo_ghrd.periph.rbf");
++			data = /incbin/("../../../achilles_v2_turbo_ghrd.periph.rbf");
 +			type = "fpga";
 +			arch = "arm";
 +			compression = "none";
