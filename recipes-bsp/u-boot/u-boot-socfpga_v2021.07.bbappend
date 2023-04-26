@@ -36,7 +36,7 @@ do_compile:prepend() {
 #	fi
 #}
 
-do_compile:append:achilles-v2() {
+do_compile:append() {
 	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_REV}_${SOM_VER}_ghrd.core.rbf ${S}/achilles_${SOM_REV}_${SOM_VER}_ghrd.core.rbf
 	cp ${DEPLOY_DIR_IMAGE}/achilles_${SOM_REV}_${SOM_VER}_ghrd.periph.rbf ${S}/achilles_${SOM_REV}_${SOM_VER}_ghrd.periph.rbf
 	mkimage -E -f ${S}/board/reflexces/achilles-${SOM_REV}-${SOM_VER}/fit_spl_fpga_periph_only.its ${B}/fit_spl_fpga_periph_only.itb
@@ -44,15 +44,12 @@ do_compile:append:achilles-v2() {
 }
 
 do_deploy:append() {
+	install -d ${DEPLOYDIR}
+	install -m 744 ${B}/*.itb ${DEPLOYDIR}
 	if ! "${@is_factory_build(d)}"; then
 		install -d ${DEPLOYDIR}
 		install -m 644 ${B}/${config}/spl/u-boot-splx4.sfp ${DEPLOYDIR}/u-boot-splx4.sfp
 #	else
 #		install -m 644 ${B}/${config}/hpsBootTarget_u-boot-with-spl.hex ${DEPLOYDIR}/hpsBootTarget.hex
 	fi
-}
-
-do_deploy:append:achilles-v2() {
-	install -d ${DEPLOYDIR}
-	install -m 744 ${B}/*.itb ${DEPLOYDIR}
 }

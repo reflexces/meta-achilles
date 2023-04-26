@@ -5,7 +5,7 @@ Subject: [PATCH] Add Achilles V5 support for u-boot-socfpga
 
 ---
  arch/arm/dts/Makefile                         |   2 +
- .../dts/socfpga_arria10_achilles-u-boot.dtsi  |  66 +++++++
+ .../dts/socfpga_arria10_achilles-u-boot.dtsi  |  71 ++++++++
  arch/arm/dts/socfpga_arria10_achilles_v5.dtsi | 163 ++++++++++++++++++
  .../dts/socfpga_arria10_achilles_v5_indus.dts |  29 ++++
  .../dts/socfpga_arria10_achilles_v5_lite.dts  |  29 ++++
@@ -14,19 +14,23 @@ Subject: [PATCH] Add Achilles V5 support for u-boot-socfpga
  board/reflexces/achilles-v5-indus/MAINTAINERS |   6 +
  board/reflexces/achilles-v5-indus/Makefile    |   5 +
  .../achilles-v5-indus/fit_kernel.its          |  44 +++++
+ .../achilles-v5-indus/fit_spl_fpga.its        |  30 ++++
+ .../fit_spl_fpga_periph_only.its              |  30 ++++
  .../reflexces/achilles-v5-indus/fit_uboot.its |  43 +++++
  board/reflexces/achilles-v5-indus/socfpga.c   |   6 +
  board/reflexces/achilles-v5-lite/Kconfig      |  18 ++
  board/reflexces/achilles-v5-lite/MAINTAINERS  |   6 +
  board/reflexces/achilles-v5-lite/Makefile     |   5 +
  .../reflexces/achilles-v5-lite/fit_kernel.its |  44 +++++
+ .../achilles-v5-lite/fit_spl_fpga.its         |  30 ++++
+ .../fit_spl_fpga_periph_only.its              |  30 ++++
  .../reflexces/achilles-v5-lite/fit_uboot.its  |  43 +++++
  board/reflexces/achilles-v5-lite/socfpga.c    |   6 +
  ...ocfpga_arria10_achilles_v5_indus_defconfig |  64 +++++++
  ...socfpga_arria10_achilles_v5_lite_defconfig |  64 +++++++
- .../socfpga_arria10_achilles_v5_indus.h       | 139 +++++++++++++++
- .../socfpga_arria10_achilles_v5_lite.h        | 139 +++++++++++++++
- 22 files changed, 953 insertions(+)
+ .../socfpga_arria10_achilles_v5_indus.h       | 141 +++++++++++++++
+ .../socfpga_arria10_achilles_v5_lite.h        | 141 +++++++++++++++
+ 26 files changed, 1082 insertions(+)
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_v5.dtsi
  create mode 100644 arch/arm/dts/socfpga_arria10_achilles_v5_indus.dts
@@ -35,12 +39,16 @@ Subject: [PATCH] Add Achilles V5 support for u-boot-socfpga
  create mode 100644 board/reflexces/achilles-v5-indus/MAINTAINERS
  create mode 100644 board/reflexces/achilles-v5-indus/Makefile
  create mode 100644 board/reflexces/achilles-v5-indus/fit_kernel.its
+ create mode 100644 board/reflexces/achilles-v5-indus/fit_spl_fpga.its
+ create mode 100644 board/reflexces/achilles-v5-indus/fit_spl_fpga_periph_only.its
  create mode 100644 board/reflexces/achilles-v5-indus/fit_uboot.its
  create mode 100644 board/reflexces/achilles-v5-indus/socfpga.c
  create mode 100644 board/reflexces/achilles-v5-lite/Kconfig
  create mode 100644 board/reflexces/achilles-v5-lite/MAINTAINERS
  create mode 100644 board/reflexces/achilles-v5-lite/Makefile
  create mode 100644 board/reflexces/achilles-v5-lite/fit_kernel.its
+ create mode 100644 board/reflexces/achilles-v5-lite/fit_spl_fpga.its
+ create mode 100644 board/reflexces/achilles-v5-lite/fit_spl_fpga_periph_only.its
  create mode 100644 board/reflexces/achilles-v5-lite/fit_uboot.its
  create mode 100644 board/reflexces/achilles-v5-lite/socfpga.c
  create mode 100644 configs/socfpga_arria10_achilles_v5_indus_defconfig
@@ -66,7 +74,7 @@ new file mode 100644
 index 0000000000..7f1f3fc925
 --- /dev/null
 +++ b/arch/arm/dts/socfpga_arria10_achilles-u-boot.dtsi
-@@ -0,0 +1,66 @@
+@@ -0,0 +1,71 @@
 +/*
 + * Copyright (C) 2023 REFLEX CES <www.reflexces.com>
 + *
@@ -103,6 +111,11 @@ index 0000000000..7f1f3fc925
 +		compatible = "u-boot,fs-loader";
 +		phandlepart = <&mmc 1>;
 +	};
++};
++
++&fpga_mgr {
++	u-boot,dm-pre-reloc;
++	altr,bitstream = "fit_spl_fpga_periph_only.itb";
 +};
 +
 +&mmc {
@@ -515,6 +528,78 @@ index 0000000000..1570df9cdc
 +		};
 +	};
 +};
+diff --git a/board/reflexces/achilles-v5-indus/fit_spl_fpga.its b/board/reflexces/achilles-v5-indus/fit_spl_fpga.its
+new file mode 100644
+index 0000000000..a3f5606e81
+--- /dev/null
++++ b/board/reflexces/achilles-v5-indus/fit_spl_fpga.its
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2022 REFLEX CES <www.reflexces.com>
++ *
++ */
++
++/dts-v1/;
++
++/ {
++	description = "FIT image with FPGA core bistream";
++	#address-cells = <1>;
++
++	images {
++		fpga-core-1 {
++			description = "FPGA core bitstream";
++			data = /incbin/("../../../achilles_v5_indus_ghrd.core.rbf");
++			type = "fpga";
++			arch = "arm";
++			compression = "none";
++		};
++	};
++
++	configurations {
++		default = "config-1";
++		config-1 {
++			description = "Configure FPGA core image";
++			fpga = "fpga-core-1";
++		};
++	};
++};
+diff --git a/board/reflexces/achilles-v5-indus/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-v5-indus/fit_spl_fpga_periph_only.its
+new file mode 100644
+index 0000000000..f3069d0a7c
+--- /dev/null
++++ b/board/reflexces/achilles-v5-indus/fit_spl_fpga_periph_only.its
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2022 REFLEX CES <www.reflexces.com>
++ *
++ */
++
++/dts-v1/;
++
++/ {
++	description = "FIT image with FPGA peripheral bistream";
++	#address-cells = <1>;
++
++	images {
++		fpga-periph-1 {
++			description = "FPGA peripheral bitstream";
++			data = /incbin/("../../../achilles_v5_indus_ghrd.periph.rbf");
++			type = "fpga";
++			arch = "arm";
++			compression = "none";
++		};
++	};
++
++	configurations {
++		default = "config-1";
++		config-1 {
++			description = "Boot with FPGA early IO release config";
++			fpga = "fpga-periph-1";
++		};
++	};
++};
 diff --git a/board/reflexces/achilles-v5-indus/fit_uboot.its b/board/reflexces/achilles-v5-indus/fit_uboot.its
 new file mode 100644
 index 0000000000..f9301524d0
@@ -670,6 +755,78 @@ index 0000000000..c095c7bf40
 +			description = "Linux boot configuration";
 +			kernel = "kernel";
 +			fdt = "fdt";
++		};
++	};
++};
+diff --git a/board/reflexces/achilles-v5-lite/fit_spl_fpga.its b/board/reflexces/achilles-v5-lite/fit_spl_fpga.its
+new file mode 100644
+index 0000000000..a416c5462f
+--- /dev/null
++++ b/board/reflexces/achilles-v5-lite/fit_spl_fpga.its
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2022 REFLEX CES <www.reflexces.com>
++ *
++ */
++
++/dts-v1/;
++
++/ {
++	description = "FIT image with FPGA core bistream";
++	#address-cells = <1>;
++
++	images {
++		fpga-core-1 {
++			description = "FPGA core bitstream";
++			data = /incbin/("../../../achilles_v5_lite_ghrd.core.rbf");
++			type = "fpga";
++			arch = "arm";
++			compression = "none";
++		};
++	};
++
++	configurations {
++		default = "config-1";
++		config-1 {
++			description = "Configure FPGA core image";
++			fpga = "fpga-core-1";
++		};
++	};
++};
+diff --git a/board/reflexces/achilles-v5-lite/fit_spl_fpga_periph_only.its b/board/reflexces/achilles-v5-lite/fit_spl_fpga_periph_only.its
+new file mode 100644
+index 0000000000..5f0b2a7d57
+--- /dev/null
++++ b/board/reflexces/achilles-v5-lite/fit_spl_fpga_periph_only.its
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2022 REFLEX CES <www.reflexces.com>
++ *
++ */
++
++/dts-v1/;
++
++/ {
++	description = "FIT image with FPGA peripheral bistream";
++	#address-cells = <1>;
++
++	images {
++		fpga-periph-1 {
++			description = "FPGA peripheral bitstream";
++			data = /incbin/("../../../achilles_v5_lite_ghrd.periph.rbf");
++			type = "fpga";
++			arch = "arm";
++			compression = "none";
++		};
++	};
++
++	configurations {
++		default = "config-1";
++		config-1 {
++			description = "Boot with FPGA early IO release config";
++			fpga = "fpga-periph-1";
 +		};
 +	};
 +};
@@ -879,7 +1036,7 @@ new file mode 100644
 index 0000000000..68c68bfda0
 --- /dev/null
 +++ b/include/configs/socfpga_arria10_achilles_v5_indus.h
-@@ -0,0 +1,139 @@
+@@ -0,0 +1,141 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + *  Copyright (C) 2020 REFLEX CES <www.reflexces.com>
@@ -998,6 +1155,8 @@ index 0000000000..68c68bfda0
 +	"fatscript=if fatload mmc 0:2 ${scriptaddr} ${scriptfile};" \
 +			"then source ${scriptaddr}; fi\0" \
 +	"socfpga_legacy_reset_compat=1\0" \
++	"prog_core=if load mmc 0:2 ${loadaddr} fit_spl_fpga.itb;" \
++		   "then fpga loadmk 0 ${loadaddr}:fpga-core-1; fi\0" \
 +	SOCFPGA_BOOT_SETTINGS \
 +	BOOTENV
 +
@@ -1024,7 +1183,7 @@ new file mode 100644
 index 0000000000..cbc78c4f17
 --- /dev/null
 +++ b/include/configs/socfpga_arria10_achilles_v5_lite.h
-@@ -0,0 +1,139 @@
+@@ -0,0 +1,141 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + *  Copyright (C) 2020 REFLEX CES <www.reflexces.com>
@@ -1143,6 +1302,8 @@ index 0000000000..cbc78c4f17
 +	"fatscript=if fatload mmc 0:2 ${scriptaddr} ${scriptfile};" \
 +			"then source ${scriptaddr}; fi\0" \
 +	"socfpga_legacy_reset_compat=1\0" \
++	"prog_core=if load mmc 0:2 ${loadaddr} fit_spl_fpga.itb;" \
++		   "then fpga loadmk 0 ${loadaddr}:fpga-core-1; fi\0" \
 +	SOCFPGA_BOOT_SETTINGS \
 +	BOOTENV
 +
