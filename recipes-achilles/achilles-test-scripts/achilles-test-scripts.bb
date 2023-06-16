@@ -15,6 +15,7 @@ SRC_URI = "file://eepromtest.sh \
            file://rtctest.sh \
            file://tempsensortest.sh \
            file://usbtest.sh \
+           file://achilles-fru.py \
 "
 
 S = "${WORKDIR}"
@@ -28,6 +29,7 @@ do_install() {
     install -m 0755 ${WORKDIR}/rtctest.sh ${D}/home/root
     install -m 0755 ${WORKDIR}/tempsensortest.sh ${D}/home/root
     install -m 0755 ${WORKDIR}/usbtest.sh ${D}/home/root
+    install -m 0755 ${WORKDIR}/achilles-fru.py ${D}/home/root
 
     if ${@bb.utils.contains("GHRD_TYPE", "pr", "true", "false", d)}; then
         install -m 0755 ${WORKDIR}/pr_overlay.sh ${D}/home/root
