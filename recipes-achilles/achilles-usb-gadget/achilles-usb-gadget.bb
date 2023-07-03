@@ -35,7 +35,7 @@ do_install() {
 	( cd ${D}${sysconfdir}/systemd/system/getty.target.wants && ln -s /lib/systemd/system/serial-getty@.service serial-getty@ttyGS0.service )
 
 	install -d ${D}${datadir}/${PN}
-	tar -xzvf ${WORKDIR}/git/achilles_fat_image.img.tgz -C ${D}${datadir}/${PN}
+	tar -xzvf ${WORKDIR}/git/achilles_fat_image.img.tgz --no-same-owner -C ${D}${datadir}/${PN}
 }
 
 PACKAGES =+ "${PN}-network ${PN}-udhcpd"
@@ -50,7 +50,8 @@ FILES:${PN} = "${base_libdir}/systemd/system/achilles-gadget-init.service \
 
 FILES:${PN}-network = "${base_libdir}/systemd/system/network-gadget-init.service \
                        ${bindir}/achilles-gadget-init.sh \
-		       ${datadir}/${PN}"
+                       ${datadir}/${PN} \
+                      "
 
 FILES:${PN}-udhcpd = "${sysconfdir}/udhcpd.conf"
 
