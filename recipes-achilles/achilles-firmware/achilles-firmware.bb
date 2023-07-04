@@ -7,12 +7,10 @@ inherit deploy
 DEPENDS = "${@bb.utils.contains('GHRD_TYPE', 'pr', 'virtual/kernel', '', d)}"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-SRCREV_FORMAT = "hardware"
-SRCREV_hardware = "${AUTOREV}"
-SRCREV = "${AUTOREV}"
+SRCREV = "0d53476852c84dcb1f5aaad63e9b732269ff0335"
 
 SRC_URI = " \
-	git://github.com/reflexces/achilles-hardware.git;destsuffix=hardware;name=hardware;protocol=https;branch=ghrd-v23.1 \
+	git://github.com/reflexces/achilles-hardware.git;destsuffix=hardware;protocol=https;branch=ghrd-v23.1 \
 "
 
 # nothing to install if GHRD_TYPE != "pr"

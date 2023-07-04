@@ -12,8 +12,8 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-SRCREV = "${AUTOREV}"
-PV = "1.0${PR}+git${SRCPV}"
+
+SRCREV="e9dcf0ed0fc1081c1c4496650cc7bef6f8c941f6"
 
 SRC_URI = "file://achilles-gadget-init.service \
            file://achilles-gadget-init.sh \
