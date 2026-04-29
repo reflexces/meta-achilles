@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://reflexces.github.io/meta-achilles/start-here.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Start Here - Achilles Arria 10 SoC SOM Documentation</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Start Here";
+        var mkdocs_page_input_path = "start-here.md";
+        var mkdocs_page_url = "/meta-achilles/start-here.html";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Achilles Arria 10 SoC SOM Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Start Here</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#achilles-gsrd-overview">Achilles GSRD Overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#gsrd-version-history-and-release-table">GSRD version history and release table</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#getting-started">Getting Started</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#using-precompiled-emmc-image">Using Precompiled eMMC Image</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#requesting-support">Requesting Support</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#hardware-and-software-prerequisites-see-gsrd-release-table-above-for-latest-supported-versions">Hardware and Software Prerequisites (see GSRD release table above for latest supported versions):</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#gsrd-features-demonstrated">GSRD Features Demonstrated</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="software.html">Software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="program-emmc.html">Program eMMC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Achilles Arria 10 SoC SOM Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Start Here</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/reflexces/meta-achilles/edit/master/docs/start-here.md">Edit on reflexces/meta-achilles</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="start-here">Start Here</h1>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<span class="nav-button active">Start Here</span>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<a href="software.html" class="nav-button">Software</a>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+
+<h2 id="achilles-gsrd-overview">Achilles GSRD Overview</h2>
+<p>The GSRD (Golden System Reference Design) example presented here for the Achilles SOM consists of a Hardware component and a Software component.  The GSRD demonstrates the following features:</p>
+<ul>
+<li>Quartus Prime Pro FPGA reference design with HPS system configuring the available hardware peripherals on Achilles SOM and Starter carrier board</li>
+<li>Generation of HPS software components required to boot to Linux:<ul>
+<li>SPL/U-Boot</li>
+<li>Linux kernel</li>
+<li>Achilles devicetree binary</li>
+<li>Root filesystem</li>
+</ul>
+</li>
+<li>FPGA configuration from HPS:<ul>
+<li>From SPL/U-Boot (peripheral image only)</li>
+<li>From U-Boot proper (core image only)</li>
+</ul>
+</li>
+<li>Application of devicetree overlay:<ul>
+<li>FPGA partial reconfiguration from Linux</li>
+<li>Dynamically update devicetree with new peripherals</li>
+</ul>
+</li>
+<li>Web server</li>
+<li>USB gadget support:<ul>
+<li>Achilles SOM appears as mass storage device</li>
+<li>Ethernet over USB</li>
+</ul>
+</li>
+</ul>
+<h5 id="gsrd-version-history-and-release-table">GSRD version history and release table</h5>
+<table>
+<thead>
+<tr>
+<th>GSRD Version</th>
+<th>Release Date</th>
+<th>GHRD Quartus Version</th>
+<th>meta-achilles branch</th>
+<th>U-Boot Version</th>
+<th>Kernel Version</th>
+<th>Root Filesystem Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1.0</td>
+<td>May 2020</td>
+<td>v20.1</td>
+<td>warrior</td>
+<td>v2019.10</td>
+<td>4.14.130-ltsi</td>
+<td>Angstrom v2019.06-warrior</td>
+</tr>
+<tr>
+<td>v2021.08</td>
+<td>August 2021</td>
+<td>v21.1</td>
+<td>gatesgarth</td>
+<td>v2021.01</td>
+<td>5.4.104-lts</td>
+<td>Yocto Poky gatesgarth 3.2.4</td>
+</tr>
+<tr>
+<td>v2021.12</td>
+<td>December 2021</td>
+<td>v21.3</td>
+<td>honister</td>
+<td>v2021.07</td>
+<td>5.10.60-lts</td>
+<td>Yocto Poky honister 3.4.1</td>
+</tr>
+<tr>
+<td>v2022.06</td>
+<td>June 2022</td>
+<td>v22.1*</td>
+<td>kirkstone</td>
+<td>v2021.07</td>
+<td>5.10.100-lts</td>
+<td>Yocto Poky kirkstone 4.0.1</td>
+</tr>
+<tr>
+<td>v2023.07</td>
+<td>June 2023</td>
+<td>v23.1*</td>
+<td>kirkstone</td>
+<td>v2021.07</td>
+<td>5.10.100-lts</td>
+<td>Yocto Poky kirkstone 4.0.8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getting-started">Getting Started</h3>
+<p>The 2022.06 GSRD release introduces a new and more user-friendly script (reflex-gsrd-build.sh) to complete all of the GSRD build tasks.  The three main tasks, which correspond to the navigation buttons at the top and bottom of this page, are:</p>
+<ol>
+<li>Build the FPGA reference design - <strong>Hardware</strong></li>
+<li>Build the HPS software components using the Yocto project tool flow - <strong>Software</strong></li>
+<li>Program the eMMC flash on the SOM using the generated WIC image from step 2. - <strong>Program eMMC</strong></li>
+</ol>
+<p>The script uses a series of menus to choose the build task(s) to run, apply the required settings for each task, and then begin processing those tasks.  For the best user experience, it is recommended to use the GSRD build script.  Advanced users may choose to run the individual build steps on each subsequent page.  From this <em>START HERE</em> page, follow these instructions to launch the full GSRD build script:</p>
+<ol>
+<li>
+<p>Open a terminal console and create a working directory for the build:</p>
+<pre class="highlight"><code class="language-bash">mkdir achilles-gsrd-2023.07
+cd achilles-gsrd-2023.07</code></pre>
+</li>
+<li>
+<p>Install required packages (most are used by Yocto but some are used by other build tasks).  Note that this is the only script that should be run with the <em>sudo</em> command:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/yocto-packages.sh
+chmod +x yocto-packages.sh
+sudo ./yocto-packages.sh</code></pre>
+</li>
+<li>
+<p>Download and run the GSRD Build Script: </p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/reflex-gsrd-build.sh
+chmod +x reflex-gsrd-build.sh
+./reflex-gsrd-build.sh</code></pre>
+</li>
+</ol>
+<p>Then follow the on-screen instructions to continue.</p>
+<p>The diagram below summarizes the Achilles GSRD Hardware and Software design flows.  Each color-coded section corresponds to a navigation button at the top and bottom of this page where you will find instructions for each step in the process.  The Yocto build process can perform multiple steps of the build process (U-Boot, Linux kernel, and root filesystem) to generate a single bootable image file for the Achilles eMMC boot flash.</p>
+<p><img src="images/achilles_design_flow_gsrd_2022.06.png" alt="Achilles GSRD Design Flow" height="1133"></p>
+<h4 id="using-precompiled-emmc-image">Using Precompiled eMMC Image</h4>
+<p>It is strongly recommended that you first test the working eMMC image provided here in order to become familiar with the the required process of booting the SOM from network, updating the eMMC, and demonstrating the features highlighted in the next section below.  You can then move onto modifying the GHRD or working with your own FPGA design, following the steps outlined here.  To use the precompiled binaries to update your Achilles SOM, go to the <strong>Program eMMC</strong> page and follow the instruction there to download and update the eMMC.</p>
+<h4 id="requesting-support">Requesting Support</h4>
+<p>To request support, registered users can visit the <a href="https://support.reflexces.com/">REFLEX CES support page</a> and submit a support ticket.</p>
+<h4 id="hardware-and-software-prerequisites-see-gsrd-release-table-above-for-latest-supported-versions">Hardware and Software Prerequisites (see GSRD release table above for latest supported versions):</h4>
+<p><strong>Hardware</strong></p>
+<ul>
+<li>Achilles Instant Development Kit, which includes a Turbo SOM (v2 PCB) and Starter carrier board</li>
+<li>Achilles Indus or Lite SOM and Starter carrier board</li>
+<li>Linux host build system (tested on Ubuntu 22.04; other distributions may work)</li>
+</ul>
+<p><strong>Software</strong></p>
+<ul>
+<li>Quartus Prime Pro v22.1 or newer (required if modifying/compiling the GHRD or bringing your own Quartus design)</li>
+<li>SoC EDS v20.1 with Arm DS v2020.0 or newer (required for custom software development &amp; debug)</li>
+</ul>
+<h4 id="gsrd-features-demonstrated">GSRD Features Demonstrated</h4>
+<p>Refer to the image below for the location of the connectors referenced in the list of features demonstrated.  </p>
+<p><img src="images/som-connectors.png" alt="SOM Connectors" height="250"></p>
+<p>Refer to the <strong>Program eMMC</strong> page to update your Achilles SOM with the new eMMC image file.  After programming is complete, the following features can be demonstrated:</p>
+<ol>
+<li>
+<p>FPGA configuration from HPS - take note of the messages displayed during the boot process.</p>
+<ul>
+<li>From SPL/U-Boot (peripheral image only)</li>
+<li>From U-Boot proper (core image only)</li>
+</ul>
+<p><img src="images/u-boot-startup-fpga-config.png" alt="U-Boot Startup" height="550"></p>
+</li>
+<li>
+<p>Application of devicetree overlay</p>
+<ul>
+<li>FPGA partial reconfiguration from Linux<br />
+  During Linux boot, the <strong>achilles-fpga-init</strong> systemd service applies an overlay to add the FPGA base static PR region to the live devicetree and enable the freeze_controller.  After this PR region is applied, you can use the <strong>pr_overlay.sh</strong> script provided in the <strong>/home/root</strong> folder to apply 3 different available overlays to partially reconfigure the PR region setup in the GHRD.  Use the -h or --help switch to view valid options:</li>
+</ul>
+<pre class="highlight"><code class="language-bash">root@achilles:~# ./pr_overlay.sh -h
+Usage: ./pr_overlay [options]
+Apply Achilles GHRD example PR region overlays
+Options:
+  -d, --default        Apply the blink_led_default.dtbo overlay.
+                       The HPS red LED blinks every 0.67 sec.
+
+  -f, --fast           Apply the blink_led_fast.dtbo overlay.
+                       The HPS red LED blinks every 0.34 sec.
+
+  -s, --slow           Apply the blink_led_slow.dtbo overlay.
+                       The HPS red LED blinks every 1.34 sec.
+
+  -h, --help           Display this help message and exit.</code></pre>
+<p>You can observe the change in the blinking rate of the LED by applying the fast or slow overlay.  Applying the default overlay will return the LED blink rate to the default that is seen after the initial board power-up FPGA configuration completes.</p>
+<pre class="highlight"><code class="language-bash">root@achilles:~# ./pr_overlay.sh -f
+[ 1853.379087] fpga_manager fpga0: writing blink_led_fast.pr_partition.rbf to SoCFPGA Arria10 FPGA Manager</code></pre>
+<ul>
+<li>Dynamically update devicetree with new peripherals<br />
+  An overlay is provided to add the GHRD Platform Designer System ID peripheral to the live devicetree.  Apply this overlay and observe the value of the System ID:</li>
+</ul>
+<pre class="highlight"><code class="language-bash">root@achilles:~# mkdir /sys/kernel/config/device-tree/overlays/sysid-overlay
+root@achilles:~# echo achilles_sysid.dtbo &gt; /sys/kernel/config/device-tree/overlays/sysid-overlay/path
+root@achilles:~# cat /sys/kernel/config/device-tree/overlays/sysid-overlay/status
+applied
+root@achilles:~# cat /sys/bus/platform/drivers/altera_sysid/ff200000.sysid/sysid/id
+537006847
+root@achilles:~# printf '0x%x\n' 536941311
+0x200212ff</code></pre>
+</li>
+<li>
+<p>Peripheral Test Scripts provided in <strong>/home/root</strong> folder</p>
+<ul>
+<li>eepromtest.sh - write &amp; read the EEPROM device on Carrier board</li>
+<li>ledtest.sh - blink the user LEDs</li>
+<li>memtest.sh - extensive DDR4 memory test </li>
+<li>mount_fat.sh - mount the FAT partition of the eMMC for updating</li>
+<li>rtctest.sh - test &amp; update the Real Time Clock</li>
+<li>tempsensortest.sh - read the board temperature</li>
+<li>usbtest.sh - test the USB OTG interface with a USB memory drive</li>
+</ul>
+</li>
+<li>
+<p>Web server - The Achilles SOM is running the <strong>lightpd</strong> open source webserver<br />
+   After powering on the Achilles Dev Kit, connect an Ethernet cable between the ETH1 or ETH2 RJ-45 connector and your network router.  In your terminal program connected to the Achilles target, identify the IP address assigned to the board using the <strong>ifconfig</strong> command.  Open a web browser on a PC connected to the same network and enter that IP address in the browser address bar.  Using the Board Interface webpage served by the Achilles SOM, you can perform some simple interactions with the board.</p>
+<p><img src="images/achilles-webserver.png" alt="Achilles Webserver" height="1000"></p>
+</li>
+<li>
+<p>USB gadget support - after powering on the Achilles Dev Kit, connect a USB cable between the Achilles USB OTG port and a host PC.</p>
+<ul>
+<li>Achilles SOM is automatically detected and appears as a mass storage device</li>
+</ul>
+<p><img src="images/usb-gadget-mass-storage.png" alt="USB Gadget Mass Storage" height="250"></p>
+<ul>
+<li>Open the start.htm webpage to view more information on connecting to and interacting with the Achilles SOM.</li>
+</ul>
+<p><img src="images/usb-gadget-start-htm.png" alt="USB Gadget Start HTM" height="300"></p>
+</li>
+<li>
+<p>Ethernet over USB
+   As shown on the start.htm page, you can connect to the same Board Interface webpage using "Ethernet over USB".  After powering on the Achilles Dev Kit, connect a USB cable between the Achilles USB OTG port and a host PC.  Open a browser on the host PC and connect to the board at address <strong>192.168.10.1</strong>.</p>
+</li>
+</ol>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<span class="nav-button active">Start Here</span>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<a href="software.html" class="nav-button">Software</a>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="hardware.html" class="btn btn-neutral float-right" title="Hardware">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/reflexces/meta-achilles" class="fa fa-code-fork" style="color: #fcfcfc"> reflexces/meta-achilles</a>
+        </span>
+    
+    
+      <span><a href="index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="hardware.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

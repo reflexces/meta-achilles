@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://reflexces.github.io/meta-achilles/program-emmc.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Program eMMC - Achilles Arria 10 SoC SOM Documentation</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Program eMMC";
+        var mkdocs_page_input_path = "program-emmc.md";
+        var mkdocs_page_url = "/meta-achilles/program-emmc.html";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Achilles Arria 10 SoC SOM Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="start-here.html">Start Here</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="software.html">Software</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Program eMMC</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#older-releases-for-turbo-som">Older releases for Turbo SOM</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#older-releases-for-v2-som-versions">Older releases for V2 SOM versions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#latest-releases-for-all-som-versions">Latest releases for all SOM versions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequisites-for-programming-emmc">Prerequisites for Programming eMMC</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#writing-full-wic-image-to-emmc">Writing Full WIC Image to eMMC</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#boot-the-initramfs-image">Boot the initramfs Image</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-1-program-the-emmc-through-usb-key">Option 1: Program the eMMC (through USB key)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-2-program-the-emmc-through-ethernet">Option 2: Program the eMMC (through Ethernet)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#updating-individual-emmc-partitions">Updating Individual eMMC Partitions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#partition-1-fat">Partition 1 (FAT)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#partition-2-a2">Partition 2 (A2)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#partition-3-ext4">Partition 3 (EXT4)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creating-your-own-emmc-image">Creating Your Own eMMC Image</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Achilles Arria 10 SoC SOM Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Program eMMC</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/reflexces/meta-achilles/edit/master/docs/program-emmc.md">Edit on reflexces/meta-achilles</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="program-emmc">Program eMMC</h1>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<a href="software.html" class="nav-button">Software</a>
+<span class="nav-button active">Program eMMC</span>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+
+<p>The scripted Yocto build process will generate a WIC image file with the partition layout as shown in the image below.</p>
+<p><img src="images/achilles-yocto-emmc.png" alt="Achilles Yocto eMMC Mapping" height="350"></p>
+<p>A script is available to make the eMMC programming process easier.  The script can be run as part of the full GSRD build process by running the GSRD build script (see the <strong>Start Here</strong> page), or it can run independently.  This script can run in Linux or Windows (using Nios II Command Shell or WSL shell).  To manually download and run the script:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/program-emmc.sh
+chmod +x program-emmc.sh
+./program-emmc.sh</code></pre>
+<p>The table below summarizes the files included in the WIC image and how each file is generated. The latest released version of each of these files can be downloaded from the <a href="https://github.com/reflexces/meta-achilles/releases/tag/kirkstone-2023.07">meta-achilles github release page</a></p>
+<table>
+<thead>
+<tr>
+<th>File Name</th>
+<th>Description</th>
+<th>Partition</th>
+<th>Source of File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>achilles-console...rootfs.tar.gz</td>
+<td>Poky root filesystem</td>
+<td>Partition 3 (EXT4)</td>
+<td>Yocto build</td>
+</tr>
+<tr>
+<td>u-boot-splx4.sfp</td>
+<td>SPL image with devicetree</td>
+<td>Partition 2 (A2)</td>
+<td>Yocto build or U-Boot make</td>
+</tr>
+<tr>
+<td>socfpga_arria10_achilles.dtb</td>
+<td>Devicetree binary</td>
+<td>Partition 1 (FAT)</td>
+<td>Yocto build or dtbs make</td>
+</tr>
+<tr>
+<td>achilles_ghrd.core.rbf</td>
+<td>FPGA core configuration file</td>
+<td>Partition 1 (FAT)</td>
+<td>quartus_cpf after Quartus GHRD build</td>
+</tr>
+<tr>
+<td>fit_spl_fpga_periph_only.itb</td>
+<td>FPGA periphery FIT image</td>
+<td>Partition 1 (FAT)</td>
+<td>U-Boot mkimage</td>
+</tr>
+<tr>
+<td>fit_spl_fpga.itb</td>
+<td>FPGA core FIT image</td>
+<td>Partition 1 (FAT)</td>
+<td>U-Boot mkimage</td>
+</tr>
+<tr>
+<td>zImage</td>
+<td>compressed Linux kernel image</td>
+<td>Partition 1 (FAT)</td>
+<td>Yocto build or kernel make</td>
+</tr>
+<tr>
+<td>u-boot.img</td>
+<td>U-Boot binary image</td>
+<td>Partition 1 (FAT)</td>
+<td>Yocto build or U-Boot make</td>
+</tr>
+<tr>
+<td>extlinux/extlinux.conf</td>
+<td>boot configuration file</td>
+<td>Partition 1 (FAT)</td>
+<td>Yocto build (achilles.conf)</td>
+</tr>
+</tbody>
+</table>
+<p>The precompiled WIC image can be downloaded from here, or they can be downloaded automatically by using the programming script:</p>
+<h5 id="older-releases-for-turbo-som">Older releases for Turbo SOM</h5>
+<table>
+<thead>
+<tr>
+<th>File Name</th>
+<th>Release</th>
+<th>md5sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/v1.0/achilles-console-image-achilles.wic">achilles-console-image-achilles.wic</a></td>
+<td>v1.0</td>
+<td>50b0461de133ac014e1280eede02550e</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/v2021.08/achilles-console-image-achilles.wic">achilles-console-image-achilles.wic</a></td>
+<td>v2021.08</td>
+<td>768cc168c3749e556b43ae7a05577769</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/v2021.12/achilles-console-image-achilles.wic">achilles-console-image-achilles.wic</a></td>
+<td>v2021.12</td>
+<td>d30dc277e67ad4ee68b9bd14b2b606b1</td>
+</tr>
+</tbody>
+</table>
+<h5 id="older-releases-for-v2-som-versions">Older releases for V2 SOM versions</h5>
+<table>
+<thead>
+<tr>
+<th>File Name</th>
+<th>Release</th>
+<th>md5sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/v2022.06/achilles-console-image-achilles-turbo.wic">achilles-console-image-achilles-turbo.wic</a></td>
+<td>v2022.06</td>
+<td>fe1a5445808a1029574eca0b013a0032</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/v2022.06/achilles-console-image-achilles-indus.wic">achilles-console-image-achilles-indus.wic</a></td>
+<td>v2022.06</td>
+<td>420b95936f74404c27a7a457b268fe40</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/v2022.06/achilles-console-image-achilles-lite.wic">achilles-console-image-achilles-lite.wic</a></td>
+<td>v2022.06</td>
+<td>d7d63cb45205b522050c4b3f04ba2b7d</td>
+</tr>
+</tbody>
+</table>
+<h5 id="latest-releases-for-all-som-versions">Latest releases for all SOM versions</h5>
+<table>
+<thead>
+<tr>
+<th>File Name</th>
+<th>Release</th>
+<th>md5sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/kirkstone-2023.07/achilles-console-image-achilles-v2-indus.wic">achilles-console-image-achilles-v2-indus.wic</a></td>
+<td>kirkstone-2023.07</td>
+<td>39bf9e40d72f77f59d3df6ac46fb2cea</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/kirkstone-2023.07/achilles-console-image-achilles-v2-lite.wic">achilles-console-image-achilles-v2-lite.wic</a></td>
+<td>kirkstone-2023.07</td>
+<td>e7cc780645b5ae2332e56fedd92e4489</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/kirkstone-2023.07/achilles-console-image-achilles-v2-turbo.wic">achilles-console-image-achilles-v2-turbo.wic</a></td>
+<td>kirkstone-2023.07</td>
+<td>ea4766829dce6c8853916aefee9086a3</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/kirkstone-2023.07/achilles-console-image-achilles-v5-indus.wic">achilles-console-image-achilles-v5-indus.wic</a></td>
+<td>kirkstone-2023.07</td>
+<td>35d28b87edadb77083c74f1220ab2680</td>
+</tr>
+<tr>
+<td><a href="https://github.com/reflexces/meta-achilles/releases/download/kirkstone-2023.07/achilles-console-image-achilles-v5-lite.wic">achilles-console-image-achilles-v5-lite.wic</a></td>
+<td>kirkstone-2023.07</td>
+<td>3b4b9867ca9d1fec690dd1486f4b845d</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prerequisites-for-programming-emmc">Prerequisites for Programming eMMC</h3>
+<p><strong>Note:</strong> when using the eMMC Programming script, you must still setup a TFTP server and complete Steps 1 - 3 below.  The remaining steps are done automatically by the programming script.</p>
+<p>In order to write a full eMMC image or update any partition of the eMMC, it is necessary to setup a TFTP server and boot the Achilles SOM from the network instead of booting from the eMMC.  This is necessary in most cases (especially for full WIC image programming) because we don't want to modify a live mounted eMMC that we just booted from.  Booting an initramfs from TFTP leaves the eMMC unmounted and safe to modify.  REFLEX CES provides the example design <strong>RefDesign_HPS_boot_from_FPGA</strong> in the Achilles board support package that faciltates this process.  You can configure the Arria® 10 FPGA with the .sof image that contains U-Boot running from FPGA on-chip RAM, which then boots the initramfs image containing the Linux kernel and minimal root filesystem running from RAM.  Once fully booted, you can then use standard Linux commands to program the eMMC.  It is not necessary to recompile this reference design in Quartus.  Downloading and configuring the FPGA with this design is done automatically by the programming script.</p>
+<!--  THIS IS NOW HANDLED BY THE PROGRAMMING SCRIPT
+The precompiled binaries for **RefDesign_HPS_boot_from_FPGA** can be download from here:
+
+| File Name                        | Description                       | md5sum                            |
+|----------------------------------|-----------------------------------|-----------------------------------|
+| RefDesign_HPS_boot_from_FPGA.sof | SOF programming file              | 2c20cb12f0cc71957f7a5e69b3f36076  |
+| linuxDT.dtb                      | Linux devicetree binary           | 4b7301146c1f148006440f7f63c2399b  |
+| zImage                           | Linux kernel image with initramfs | 957e27a44e286975ad674f9545106fc8  |
+| [[https://github.com/reflexces/meta-achilles/releases/download/v1.0/tftp-recovery-files.tar.gz][tftp-recovery-files.tar.gz]] | archive of all 3 files above   | 3e6352ae6a6721794cfceb91573ceba9 |
+-->
+
+<p>The zImage Linux kernel with embedded initramfs can be downloaded from the links in the table or by using the command line examples below:</p>
+<table>
+<thead>
+<tr>
+<th>SOM Version</th>
+<th>File Name</th>
+<th>Description</th>
+<th>md5sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V2 Turbo</td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Turbo/linuxDT.dtb">linuxDT.dtb</a></td>
+<td>Linux devicetree binary</td>
+<td>4b7301146c1f148006440f7f63c2399b</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Turbo/zImage">zImage</a></td>
+<td>Linux kernel image with initramfs</td>
+<td>957e27a44e286975ad674f9545106fc8</td>
+</tr>
+<tr>
+<td>V2 Indus</td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Indus/linuxDT.dtb">linuxDT.dtb</a></td>
+<td>Linux devicetree binary</td>
+<td>93d9b250c05ec63930ee4f2f2a967af2</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Indus/zImage">zImage</a></td>
+<td>Linux kernel image with initramfs</td>
+<td>1a43531bb37d4d421d5016c5e1c52879</td>
+</tr>
+<tr>
+<td>V2 Lite</td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Lite/linuxDT.dtb">linuxDT.dtb</a></td>
+<td>Linux devicetree binary</td>
+<td>ea379d51668c5a5574a5a8603dbac9b6</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Lite/zImage">zImage</a></td>
+<td>Linux kernel image with initramfs</td>
+<td>5b3e731a57cbeca4340f149f7a3e7ca4</td>
+</tr>
+<tr>
+<td>V5 Indus</td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Indus/linuxDT.dtb">linuxDT.dtb</a></td>
+<td>Linux devicetree binary</td>
+<td>d9ad385183620563336a89ae94a7a4e0</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Indus/zImage">zImage</a></td>
+<td>Linux kernel image with initramfs</td>
+<td>9bef9b5987012f0562103117792052f2</td>
+</tr>
+<tr>
+<td>V5 Lite</td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Lite/linuxDT.dtb">linuxDT.dtb</a></td>
+<td>Linux devicetree binary</td>
+<td>865f7c055a575bc8422f2c24ad0cbe50</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Lite/zImage">zImage</a></td>
+<td>Linux kernel image with initramfs</td>
+<td>efdf57b80dd2185cc520ba43eb3580b5</td>
+</tr>
+</tbody>
+</table>
+<p>For V2 Turbo SOM:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Turbo/linuxDT.dtb
+wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Turbo/zImage</code></pre>
+<p>For V2 Indus SOM:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Indus/linuxDT.dtb
+wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Indus/zImage</code></pre>
+<p>For V2 Lite SOM:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Lite/linuxDT.dtb
+wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V2/Lite/zImage</code></pre>
+<p>For V5 Indus SOM:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Indus/linuxDT.dtb
+wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Indus/zImage</code></pre>
+<p>For V5 Lite SOM:
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Lite/linuxDT.dtb
+wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/prog-files/tftp-boot-files/SomA10-V5/Lite/zImage</code></pre></p>
+<p>Whether you already have a TFTP server setup, or you need to <a href="https://www.rocketboards.org/foswiki/Documentation/BootingAlteraSoCFPGAFromNetworkUsingTFTPAndNFS">configure one first</a>, it is necessary to change or set some parameters to match the expected values specified in the U-Boot environment variables used in the  “RefDesign_HPS_boot_from_FPGA” reference design.  The default U-Boot environment values are summarized in the table below.  Refer to the Achilles Reference Manual "HPS Development" chapter for addtional details.</p>
+<table>
+<thead>
+<tr>
+<th>TFTP Server Parameter</th>
+<th>u-boot env variable setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server IP address (v2): 192.168.1.200</td>
+<td>serverip=192.168.1.200</td>
+</tr>
+<tr>
+<td>server path: SomA10-V2/Turbo/</td>
+<td>tftppath=SomA10-V2/Turbo/</td>
+</tr>
+<tr>
+<td>server path: SomA10-V2/Indus/</td>
+<td>tftppath=SomA10-V2/Indus/</td>
+</tr>
+<tr>
+<td>server path: SomA10-V2/Lite/</td>
+<td>tftppath=SomA10-V2/Lite/</td>
+</tr>
+<tr>
+<td>server IP address (v5): 192.168.200.200</td>
+<td>serverip=192.168.200.200</td>
+</tr>
+<tr>
+<td>server path: SomA10-V5/Indus/</td>
+<td>tftppath=SomA10-V5/Indus/</td>
+</tr>
+<tr>
+<td>server path: SomA10-V5/Lite/</td>
+<td>tftppath=SomA10-V5/Lite/</td>
+</tr>
+</tbody>
+</table>
+<p>These files must be located in the TFTP server path specified in the <strong>tftppath</strong> variable (see download information above):</p>
+<table>
+<thead>
+<tr>
+<th>File Name</th>
+<th>u-boot env variable setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>linuxDT.dtb</td>
+<td>fdtfile=linuxDT.dtb</td>
+</tr>
+<tr>
+<td>zImage</td>
+<td>bootimage=zImage</td>
+</tr>
+</tbody>
+</table>
+<p>With a network managed by a DHCP server, interrupt the boot process in U-Boot and modify some U-Boot environment variables with the commands:</p>
+<pre class="highlight"><code class="language-bash">setenv serverip &lt;tftp-server-ip-addr&gt;
+setenv rxcethboot "setenv bootargs console=ttyS0,115200 ip=dhcp ; bootz ${loadaddr} - ${fdtaddr}"
+setenv rxcethload "dhcp ; tftp ${loadaddr} ${tftppath}${bootimage} ; tftp ${fdtaddr} ${tftppath}${fdtimage} ;"
+# Restart the boot process
+run bootcmd</code></pre>
+<p>On a network without a DHCP server, interrupt the boot process in U-Boot and modify some U-Boot environment variables with the commands:</p>
+<pre class="highlight"><code class="language-bash">setenv ipaddr &lt;board-ip-addr&gt;
+setenv serverip &lt;tftp-server-ip-addr&gt;
+setenv rxcethboot "setenv bootargs console=ttyS0,115200 ip=none ; bootz ${loadaddr} - ${fdtaddr}"
+setenv rxcethload "tftp ${loadaddr} ${tftppath}${bootimage} ; tftp ${fdtaddr} ${tftppath}${fdtimage} ;"
+# Restart the boot process
+run bootcmd</code></pre>
+<p>After changing the variables, you can make them permanent by using the <strong>saveenv</strong> command before restarting the boot process by using the <strong>run bootcmd</strong> command.</p>
+<h3 id="writing-full-wic-image-to-emmc">Writing Full WIC Image to eMMC</h3>
+<p>Once the TFTP server is setup, you can perform a network boot and program the Achilles eMMC by following these steps.  Some knowledge of connecting to the Achilles SOM usinng terminal emulator software (e.g. PuTTY, Minicom, etc) and use of the Quartus Programmer is assumed for these steps.  Refer to the Achilles Reference Manual if you need assistance.</p>
+<h4 id="boot-the-initramfs-image">Boot the initramfs Image</h4>
+<ol>
+<li>
+<p>With the Achilles SOM and carrier board powered off, carefully remove the SOM from the carrier board and move the MSEL1 switch on the reverse side of the board to the ON position as shown in the image below.  This will enable the FPP x32 configuration mode of the Arria® 10 FPGA, as required for the HPS to configure the FPGA.</p>
+<p><img src="images/MSEL1_SW.png" alt="MSEL Switch Setting" height="300"></p>
+</li>
+<li>
+<p>Plug the SOM back into the carrier board.  Plug in a microUSB cable between the host PC and the microUSB connector on the carrier board labeled “BLASTER”.  Plug in an Ethernet cable between your network router and the RJ-45 Ethernet port labeled “ETH1”.  Verify that the BSEL pins are set as shown in the image below (0x5) to enable boot from 3.0V SD/MMC flash.<br />
+%IMAGE{"som-carrier.png" height="400"}%</p>
+</li>
+<li>
+<p>Open your preferred terminal emulator software.  Power on the board and establish a connection between the board and the terminal emulator.  If using the Achilles SOM in factory condition, you should not see any output on the terminal at this time because the new MSEL switch position will prevent FPGA configuration in AS mode.  If you have already programmed the eMMC with this example image and U-Boot loads the FPGA core.rbf file, you will need to interrupt the boot process at U-Boot to prevent core.rbf programming.  Otherwise, the Quartus programmer will fail in the next step.</p>
+</li>
+<li>
+<p>Open the Quartus Programmer tool and click the “Hardware Setup” button and establish a connection to the Achilles SOM (“Arria10 IDK”).  Auto detect the JTAG chain and accept all detected device defaults.  Click to select the Arria® 10 device in the list and click "Add File" to add a programming file.  Browse to the location of the .sof file downloaded from the link above and select it.  If a second Arria® 10 device appears in the list below the one with the file just added, then delete it.  Check the “Program/Configure” box, and click "Start" to program the FPGA.  Once programming completes, you should start to see output to the serial terminal.</p>
+</li>
+</ol>
+<h4 id="option-1-program-the-emmc-through-usb-key">Option 1: Program the eMMC (through USB key)</h4>
+<ol>
+<li>
+<p>Copy the Yocto generated WIC image on a USB key and plug the USB key in the USB OTG port of the Carrier Board.</p>
+<p><strong>NOTE:</strong> The USB adapter must be On-The-Go compliant.</p>
+</li>
+<li>
+<p>On Achilles SOM serial terminal emulator session, mount the USB key partition.</p>
+<pre class="highlight"><code class="language-bash">mkdir -p /mnt/key
+mount -o ro /dev/sda1 /mnt/key</code></pre>
+</li>
+<li>
+<p>On Achilles SOM serial terminal emulator session, clone the image file to the eMMC. There is no need to mount the eMMC device first to clone the full image.</p>
+<pre class="highlight"><code class="language-bash">dd if=/mnt/key/achilles-console-image-achilles-v5-indus.wic of=/dev/mmcblk0 &amp;&amp; sync</code></pre>
+</li>
+<li>
+<p>After the cloning process is complete, shut down the initramfs session on Achilles:</p>
+<pre class="highlight"><code class="language-bash">poweroff</code></pre>
+</li>
+<li>
+<p>Power cycle the Achilles board.  Do not just issue a <strong>reboot</strong> command from the Linux command prompt; you must power cycle the board after the <strong>dd</strong> process completes.  You should now observe the boot process in your terminal emulator.  First, the FPGA periphery image is loaded by the SPL.  The SPL then loads the u-boot.img file from the FAT partition and U-Boot starts.  The FPGA core image is then programmed by U-Boot and then the Linux kernel, devicetree, and root filesystem are loaded.  You should finally arrive at the Poky linux prompt.</p>
+</li>
+</ol>
+<h4 id="option-2-program-the-emmc-through-ethernet">Option 2: Program the eMMC (through Ethernet)</h4>
+<ol>
+<li>
+<p>If the board is connected on a network with a DHCP server, find the IP address assigned to the board.  Otherwise, set a static IP address to the board.</p>
+<p>Get Ethernet IP addresses on Achilles SOM via serial terminal emulator:</p>
+<pre class="highlight"><code class="language-bash">ip address show up</code></pre>
+<p>If needed, set eth0 static IP address on Achilles SOM via serial terminal emulator:</p>
+<pre class="highlight"><code class="language-bash">ip link set eth0 up
+ip address add 192.168.200.42/24 dev eth0</code></pre>
+</li>
+<li>
+<p>To copy the Yocto generated WIC image to the Achilles eMMC, open a terminal window on your Linux host and browse to the directory containing the WIC image.</p>
+</li>
+<li>
+<p>Copy the WIC image to the initramfs session running on the Achilles SOM:</p>
+<pre class="highlight"><code class="language-bash">scp achilles-console-image-achilles-v5-indus.wic root@&lt;board-ip-addr&gt;:/</code></pre>
+<p>Be sure to enter the correct IP address for the Achilles board that you noted in step 6.a above.
+Type <strong>yes</strong> to accept the connection and then enter the Achilles initramfs password <strong>root</strong>.
+The file will take about 2 minutes to transfer.</p>
+</li>
+<li>
+<p>After the transfer is complete, go back to the Achilles serial terminal emulator session and clone the image file to the eMMC. There is no need to mount the eMMC device first to clone the full image.</p>
+<pre class="highlight"><code class="language-bash">dd if=achilles-console-image-achilles-v5-indus.wic of=/dev/mmcblk0 &amp;&amp; sync</code></pre>
+</li>
+<li>
+<p>Continue at the step 5.d in the previous chapter.</p>
+</li>
+</ol>
+<h3 id="updating-individual-emmc-partitions">Updating Individual eMMC Partitions</h3>
+<p>If you want to update individual files on any of the partitions, follow the steps above to load the initramfs image over your network.  Then copy the files you want to update to the corresponding Achilles eMMC partition.  Note that you can update individual eMMC partitions on the REFLEX CES factory default eMMC layout with the binary files provided here, but you will need to update several U-Boot environment variables to point to the correct FAT partition.</p>
+<p>Mount the partition you want to update:</p>
+<h4 id="partition-1-fat">Partition 1 (FAT)</h4>
+<p>On Achilles SOM via serial terminal emulator:</p>
+<pre class="highlight"><code class="language-bash">mkdir -p /media/emmcp1; mount -t vfat /dev/mmcblk0p1 /media/emmcp1; cd /media/emmcp1</code></pre>
+<p>On Linux host, copy files to the mounted partition:</p>
+<pre class="highlight"><code class="language-bash">scp &lt;filename&gt; root@&lt;board-ip-addr&gt;:/media/emmcp1</code></pre>
+<h4 id="partition-2-a2">Partition 2 (A2)</h4>
+<p>It is not necessary to mount the raw A2 partition to update it with a new U-Boot/SPL image:
+On Linux host, copy files to root (/) on the initramfs session:
+<pre class="highlight"><code class="language-bash">scp &lt;u-boot-spl-image-name&gt; root@&lt;board-ip-addr&gt;:/</code></pre></p>
+<p>On Achilles SOM via serial terminal emulator:</p>
+<pre class="highlight"><code class="language-bash">dd if=&lt;u-boot-spl-image-name&gt; of=/dev/mmcblk0p2 &amp;&amp; sync</code></pre>
+<h4 id="partition-3-ext4">Partition 3 (EXT4)</h4>
+<p><strong>NOTE:</strong> This step is only required if you booted from the initramfs and the eMMC is not mounted.  If booting to Poky Linux from eMMC, it is not necessary to mount this partition since it is already mounted.
+On Achilles SOM via serial terminal emulator:</p>
+<pre class="highlight"><code class="language-bash">mkdir -p /media/emmcp3; mount -t ext4 /dev/mmcblk0p3 /media/emmcp3; cd /media/emmcp3</code></pre>
+<p>On Linux host, copy files to the mounted partition:</p>
+<p><pre class="highlight"><code class="language-bash">scp &lt;rootfs_archive.tar.xz&gt; root@&lt;board-ip-addr&gt;:/media/emmcp3</code></pre>
+or</p>
+<pre class="highlight"><code class="language-bash">scp &lt;new_fpga_prog_file.rbf&gt; root@&lt;board-ip-addr&gt;:/lib/firmware</code></pre>
+<p>When file copying is complete, shut down the initramfs session on Achilles:</p>
+<pre class="highlight"><code class="language-bash">poweroff</code></pre>
+<p>Power cycle the Achilles board.</p>
+<h3 id="creating-your-own-emmc-image">Creating Your Own eMMC Image</h3>
+<p>If you built the individual hardware and software system components and want to create your own eMMC image, you can follow the example available on the <a href="https://rocketboards.org/foswiki/Documentation/BuildingBootloaderCycloneVAndArria10#Arria_10_SoC_45_Boot_from_SD_Card">Building Bootloader</a> article page.  Scroll down to section <strong>C. Build SD Card Image</strong>.  Then follow the steps above to clone the image to the Achilles eMMC.</p>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<a href="software.html" class="nav-button">Software</a>
+<span class="nav-button active">Program eMMC</span>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="software.html" class="btn btn-neutral float-left" title="Software"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="resources.html" class="btn btn-neutral float-right" title="Resources">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/reflexces/meta-achilles" class="fa fa-code-fork" style="color: #fcfcfc"> reflexces/meta-achilles</a>
+        </span>
+    
+    
+      <span><a href="software.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="resources.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

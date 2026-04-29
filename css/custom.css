@@ -1,0 +1,92 @@
+/* Match fonts from www.refleces.com */
+body {
+  font-family: Inter, sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: Inter, sans-serif;
+}
+.wy-nav-content-wrap .wy-nav-content {
+  max-width: 100% !important;
+  margin: 0 auto;
+}
+.nav-button-container {
+  text-align: center;
+  margin: 10px 0;
+}
+.nav-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #FFFFFF;
+  color: #000000;
+  text-decoration: none;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  margin: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+.nav-button:hover, .nav-button:visited:hover {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+.nav-button:visited {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+.nav-button.active {
+  background-color: #000000;
+  color: #FFFFFF;
+  cursor: default;
+}
+/* Header */
+.wy-nav-top {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+.wy-nav-top a {
+  color: #FFFFFF;
+}
+/* Sidebar */
+.wy-side-nav-search {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+.wy-side-nav-search a {
+  font-family: Inter, sans-serif;
+  color: #FFFFFF;
+}
+.wy-side-nav-search input[type="text"] {
+  font-family: Inter, sans-serif;
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 1px solid #000000;
+}
+/* Links */
+a {
+  color: #000000;
+}
+a:hover {
+  color: #FFFFFF;
+  background-color: #000000;
+}
+/* Content */
+.wy-nav-content {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+/* Table headers */
+table th {
+  background-color: #000000;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 8px;
+}
+/* Image styling */
+.spaced-image {
+  margin-bottom: 20px;
+}
+.centered-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

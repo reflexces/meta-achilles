@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://reflexces.github.io/meta-achilles/software.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Software - Achilles Arria 10 SoC SOM Documentation</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Software";
+        var mkdocs_page_input_path = "software.md";
+        var mkdocs_page_url = "/meta-achilles/software.html";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Achilles Arria 10 SoC SOM Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="start-here.html">Start Here</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Software</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#software-build-instructions">Software Build Instructions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#option-1-yocto-build">Option 1: Yocto Build</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#achilles-yocto-bsp-layer-description">Achilles Yocto BSP Layer Description</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-2-build-u-boot-and-linux-kernel-individually">Option 2: Build U-Boot and Linux Kernel Individually</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#build-u-boot">Build U-Boot</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#generate-fit-images">Generate FIT Images</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#build-linux-kernel">Build Linux Kernel</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#devicetree-overlays">Devicetree Overlays</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="program-emmc.html">Program eMMC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Achilles Arria 10 SoC SOM Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Software</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/reflexces/meta-achilles/edit/master/docs/software.md">Edit on reflexces/meta-achilles</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="software">Software</h1>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<span class="nav-button active">Software</span>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+
+<h2 id="software-build-instructions">Software Build Instructions</h2>
+<p>All software compilation in this section must be done on a Linux host system.</p>
+<p>Three options are presented here for generating the software components used to update the eMMC boot flash:</p>
+<ol>
+<li>A script-driven Yocto build which will generate all required software components in a WIC image file that can be copied to the eMMC flash on the Achilles SOM.</li>
+<li>Build individual software components and create your own eMMC image file.</li>
+<li>Use the provided WIC image to update the eMMC, and then build the individual software components and only update the partitions as needed for your application.</li>
+</ol>
+<h3 id="option-1-yocto-build">Option 1: Yocto Build</h3>
+<p>For an overview of the Yocto Project, visit the <a href="https://www.yoctoproject.org/software-overview/">Yocto Project Getting Started</a> webpage.</p>
+<p>For the best user experience, it is recommended to use the GSRD build script described on the <strong>Start Here</strong> page.</p>
+<p>Advanced users may choose to run the <strong>reflex-yocto-build</strong> script separately by following these instructions.</p>
+<p>The Yocto build is done by simply running 2 scripts:</p>
+<ul>
+<li>yocto-packages.sh - detects your host build system Linux distribution and installs a set of essential packages required by Yocto </li>
+<li>reflex-yocto-build - script used to build individual components or a complete image for the Achilles SOM (use --help to see available build options). </li>
+</ul>
+<p>One advantage to the Yocto build is that at the end of the build process, you have a complete image ready to copy to the Achilles eMMC.  A disadvantage is that the intial build time can be long (over an hour depending on your host build system).  Subsequent builds complete much faster, as only required tasks will run (e.g. no need to fetch source code again).  Also, customizing the Yocto BSP layer to your application requirements has a steep learning curve if you are not familiar with the Yocto/OpenEmbedded build system.</p>
+<ol>
+<li>
+<p>If not already done in the <strong>Hardware</strong> section, open a system terminal console and create a working directory: </p>
+<pre class="highlight"><code class="language-bash">mkdir -p ~/achilles &amp;&amp; cd ~/achilles</code></pre>
+</li>
+<li>
+<p>Install packages required for the Yocto build: </p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/yocto-packages.sh
+chmod +x yocto-packages.sh
+sudo ./yocto-packages.sh </code></pre>
+</li>
+<li>
+<p>Download the Yocto Build Script: </p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/reflex-yocto-build
+chmod +x reflex-yocto-build</code></pre>
+</li>
+<li>
+<p>Choose one of the script build options below.</p>
+</li>
+</ol>
+<p>To see all available boards and build options: </p>
+<pre class="highlight"><code class="language-bash">./reflex-yocto-build --help</code></pre>
+<p>To build the default console image for the Achilles module (this option generates the WIC image file): </p>
+<pre class="highlight"><code class="language-bash">./reflex-yocto-build --board achilles-v5-indus --image console</code></pre>
+<p>To build U-Boot only:</p>
+<pre class="highlight"><code class="language-bash">./reflex-yocto-build --board achilles-v5-indus --image virtual/bootloader</code></pre>
+<p>To build the Linux kernel only:</p>
+<pre class="highlight"><code class="language-bash">./reflex-yocto-build --board achilles-v5-indus --image virtual/kernel</code></pre>
+<p>After the build completes successfully, all of the generated output files can be found in the directory <strong>achilles-build-files/tmp/deploy/images/achilles-v5-indus</strong>.  The main file of interest, <strong>achilles-console-image-achilles-v5-indus.wic</strong>, is copied to copied to the directory <strong>achilles-emmc-image</strong>.  This file can be used to program the entire eMMC.  Go to the <strong>Program eMMC</strong> page to view the table detailing the full list of files generated and for instructions to program the eMMC flash.</p>
+<p>For Achilles Yocto builds using the <strong>meta-achilles</strong> layer, starting with the <strong>kirkstone</strong> branch and newer, the FPGA FIT images and optional devicetree overlays (used by the Partial Reconfiguration GHRD example) are now automatically generated during the Yocto build process.</p>
+<p>For Yocto builds using the <strong>meta-achilles</strong> layer <strong>honister</strong> branch or older, these items are <strong>not</strong> automatically generated.  Instead, they are fetched from the <strong>achilles-hardware</strong> github repository and added to the WIC image during the Yocto build process.  If bringing your own Quartus hardware design, the FIT images will need to be manually generated and copied to the eMMC partition 1 (FAT partition).  FIT image generation is explained below under <strong>Option 2: Generate FIT Images</strong>.</p>
+<h4 id="achilles-yocto-bsp-layer-description">Achilles Yocto BSP Layer Description</h4>
+<p>The tree below describes the directory structure found in the <strong>meta-achilles</strong> Yocto BSP layer and the function of each recipe.  If you want to further examine <strong>meta-achilles</strong> or any other layer used in the Yocto build process, you can find them in the generated build directory within the <strong>layers</strong> sub-directory.</p>
+<pre class="highlight"><code class="language-bash">📁 meta-achilles
+├── 📁 conf (contains Achilles machine configuration file that defines HW configuration options, including U-Boot and kernel versions to build, instructions for files to include on the FAT partition of the WIC image, and other options)
+├── 📁 recipes-achilles (recipes specific to Achilles SOM to demonstrate various features)
+│   ├── 📁 achilles-firmware (recipe to add FPGA configuration files to image)
+│   ├── 📁 achilles-fpga-init (recipe to create a systemd service to apply devicetree overlay)
+│   └── 📁 achilles-usb-gadget (recipe to create a systemd service to enable USB Gadget support)
+├── 📁 recipes-bsp (recipe to patch and build U-Boot)
+├── 📁 recipes-core (recipes for misc. system configuration)
+├── 📁 recipes-images (recipes for complete images for Achilles SOM)
+├── 📁 recipes-kernel (recipes to patch, configure, and build Linux kernel)
+└── 📁 wic (contains WIC kick start file to configure the generated WIC image)</code></pre>
+<h3 id="option-2-build-u-boot-and-linux-kernel-individually">Option 2: Build U-Boot and Linux Kernel Individually</h3>
+<p>One advantage to building components individually is that the build time can be faster.  A disadvantage is that you need to manually create the image for programming the eMMC device, or update partitions separately.  You also still need a root filesystem, which can be built with other tools like Buildroot, or using "ready-made" root filesystem archives (e.g. Linaro).</p>
+<p>Download the <a href="https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain">Arm GNU Toolchain</a> to build the individual software components:</p>
+<pre class="highlight"><code class="language-bash">mkdir -p ~/armgcc &amp;&amp; cd ~/armgcc
+wget https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz
+tar xf gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.tar.xz</code></pre>
+<h4 id="build-u-boot">Build U-Boot</h4>
+<ol>
+<li>
+<p>If not already done previously, create a working directory: </p>
+<pre class="highlight"><code class="language-bash">mkdir -p ~/achilles &amp;&amp; cd ~/achilles</code></pre>
+</li>
+<li>
+<p>Setup the Arm tools build environment:</p>
+<pre class="highlight"><code class="language-bash">export ARCH=arm
+export CROSS_COMPILE=~/armgcc/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-</code></pre>
+</li>
+<li>
+<p>Clone the <strong>u-boot-socfpga</strong> source repository.  Create and switch to a new branch (achilles) for our build.  We are checking out a specific revision within the socfpga_v2021.01 branch:</p>
+<pre class="highlight"><code class="language-bash">git clone https://github.com/altera-opensource/u-boot-socfpga
+cd u-boot-socfpga
+git checkout -b achilles 24e26ba4a0d8fe816e32e760537a3f356823ba7b</code></pre>
+</li>
+<li>
+<p>Download and apply the Achilles U-Boot patch:</p>
+<pre class="highlight"><code class="language-bash"># For Achilles v2 only
+wget https://raw.githubusercontent.com/reflexces/meta-achilles/kirkstone-2023.07/recipes-bsp/u-boot/files/v2021.07/0001-Add-Achilles-V2-support-for-u-boot-socfpga.patch
+git apply 0001-Add-Achilles-V2-support-for-u-boot-socfpga.patch
+
+# For Achilles v5 only
+wget https://raw.githubusercontent.com/reflexces/meta-achilles/kirkstone-2023.07/recipes-bsp/u-boot/files/v2021.07/0001-Add-Achilles-V5-support-for-u-boot-socfpga.patch
+git apply 0001-Add-Achilles-V5-support-for-u-boot-socfpga.patch</code></pre>
+<p><strong>NOTE:</strong> If you are building U-Boot for Achilles v2 Turbo or Achilles v5 you need to apply a second patch:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/meta-achilles/kirkstone-2023.07/recipes-bsp/u-boot/files/v2021.07/0002-remove-sdram-size-check.patch
+git apply 0002-remove-sdram-size-check.patch</code></pre>
+</li>
+<li>
+<p>If you are bringing in your own FPGA design, run the Quartus handoff filter script to convert your hps.xml file to U-Boot header file to be used by the Achilles U-Boot devicetree.</p>
+<p><strong>NOTE:</strong> If you used the Achilles GHRD as a starting point for your design and did not make changes to the HPS, this step is not required.</p>
+<pre class="highlight"><code class="language-bash">./arch/arm/mach-socfpga/qts-filter-a10.sh &lt;path/to/your/quartus/project&gt;/hps_isw_handoff/hps.xml arch/arm/dts/socfpga_arria10_achilles_handoff.h</code></pre>
+</li>
+<li>
+<p>Configure and build U-Boot for your version of Achilles SOM:</p>
+<pre class="highlight"><code class="language-bash">make socfpga_arria10_achilles_v2_indus_defconfig
+#OR
+make socfpga_arria10_achilles_v2_lite_defconfig
+#OR
+make socfpga_arria10_achilles_v2_turbo_defconfig
+#OR
+make socfpga_arria10_achilles_v5_indus_defconfig
+#OR
+make socfpga_arria10_achilles_v5_lite_defconfig
+
+make -j 64</code></pre>
+</li>
+</ol>
+<!--
+Create the bootable SPL image containing four identical SPL binaries and header required by the boot ROM.  
+Note: You must be in the Embedded Command Shell environment (first step above) to run this command:
+
+<pre class="highlight"><code class="language-bash">mkpimage -hv 1 -o spl/spl_w_dtb-mkpimage.bin spl/u-boot-spl-dtb.bin spl/u-boot-spl-dtb.bin spl/u-boot-spl-dtb.bin spl/u-boot-spl-dtb.bin</code></pre>
+-->
+<h4 id="generate-fit-images">Generate FIT Images</h4>
+<p>This step is required only if you are not using the scripted build flow.</p>
+<p>Now we can generate the FIT images using the split .rbf FPGA programming files generated in the <strong>Hardware</strong> section.  These are used by the SPL and U-Boot to configure the FPGA.  The Achilles U-Boot patch has configured the U-Boot source code to have the SPL load only the peripheral FPGA image, and then U-Boot loads the core image.  This is significantly faster than having the SPL load both images. </p>
+<p><strong>NOTE:</strong> this process of generating FIT images is currently not run automatically during the Yocto build.  Instead, pre-generated FIT files using the Achilles GHRD .rbf files are fetched and included in the generated WIC eMMC image.  You must complete these steps if using your own custom FPGA design.</p>
+<p>First create symbolic links to point to the location of the .rbf files generated in the <strong>Hardware</strong> section.  References below are to the Achilles GHRD .rbf files.  Replace with your own file names if applicable, but do not rename the .its or .itb file references since these are defined in U-Boot source code.  The .its files define the locataion and names of the .rbf files to be used when creating the .itb files.</p>
+<pre class="highlight"><code class="language-bash">ln -s &lt;path/to/rbf/files&gt;/achilles_ghrd.periph.rbf
+ln -s &lt;path/to/rbf/files&gt;/achilles_ghrd.core.rbf
+tools/mkimage -E -f board/reflexces/achilles-v5-indus/fit_spl_fpga_periph_only.its fit_spl_fpga_periph_only.itb
+tools/mkimage -E -f board/reflexces/achilles-v5-indus/fit_spl_fpga.its fit_spl_fpga.itb</code></pre>
+<p>Now we have the following files that can be copied to the eMMC:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+<th>eMMC Partition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spl/u-boot-splx4.sfp</td>
+<td>Multiple SPL binaries with devicetree and header info</td>
+<td>Partition 2 (A2 raw)</td>
+</tr>
+<tr>
+<td>u-boot.img</td>
+<td>U-Boot binary image</td>
+<td>Partition 1 (VFAT)</td>
+</tr>
+<tr>
+<td>achilles_ghrd.core.rbf</td>
+<td>core.rbf image for FPGA core image configuration</td>
+<td>Partition 1 (VFAT)</td>
+</tr>
+<tr>
+<td>fit_spl_fpga_periph_only.itb</td>
+<td>FIT image for FPGA peripheral image configuration only</td>
+<td>Partition 1 (VFAT)</td>
+</tr>
+<tr>
+<td>fit_spl_fpga.itb</td>
+<td>FIT image for FPGA core image configuration</td>
+<td>Partition 1 (VFAT)</td>
+</tr>
+</tbody>
+</table>
+<p>If you compiled your own FPGA design or made modifications to the GHRD, you must manually copy the generated files listed above to the appropriate eMMC partition.  Refer to the instructions on the <strong>Program eMMC</strong> page.</p>
+<p>Note: Either the .rbf or .itb file can be used for FPGA core image configuration in U-Boot.  The .itb file is used by default U-Boot environment commands.  Both files are included for completeness of the example.
+To load the .rbf file from U-Boot, enter the command at the U-Boot prompt:</p>
+<pre class="highlight"><code class="language-bash">load mmc 0:1 ${loadaddr} achilles_ghrd.core.rbf
+fpga load 0 ${loadaddr} 0xE20000</code></pre>
+<h4 id="build-linux-kernel">Build Linux Kernel</h4>
+<ol>
+<li>
+<p>If not already done previously, create a working directory:</p>
+<pre class="highlight"><code class="language-bash">$ mkdir -p ~/achilles &amp;&amp; cd ~/achilles</code></pre>
+</li>
+<li>
+<p>Clone the <strong>linux-socfpga</strong> kernel source repository.  Create and switch to a new branch (achilles) for our build, specifying the branch corresponding to the kernel version you want to build:</p>
+<pre class="highlight"><code class="language-bash">git clone https://github.com/altera-opensource/linux-socfpga
+cd linux-socfpga
+git checkout -b achilles -t origin/socfpga-5.10.100-lts</code></pre>
+</li>
+<li>
+<p>Download and apply the Achilles Linux devicetree patch:</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/meta-achilles/kirkstone-2023.07/recipes-kernel/linux/config/socfpga-5.10-lts/patches/0001-add-achilles-devicetree.patch
+git apply 0001-add-achilles-devicetree.patch</code></pre>
+</li>
+<li>
+<p>If working in a different terminal session from the one used previously to build U-Boot, you will need to setup the Arm tools build environment again:</p>
+<pre class="highlight"><code class="language-bash">export ARCH=arm
+export CROSS_COMPILE=~/armgcc/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-</code></pre>
+<p>Configure and build the Linux kernel:</p>
+<pre class="highlight"><code class="language-bash">make mrproper
+make socfpga_defconfig</code></pre>
+</li>
+<li>
+<p>If you want to include support for USB Gadget (as done in the Yocto build), then add that kernel configuration fragment.  You can add any additional kernel configuration options as required for your application at this time.</p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/meta-achilles/kirkstone-2023.07/recipes-kernel/linux/config/socfpga-5.10-lts/cfg/usb-gadget.cfg
+./scripts/kconfig/merge_config.sh .config usb-gadget.cfg </code></pre>
+</li>
+<li>
+<p>Build the kernel image, Achilles devicetree, and kernel modules.</p>
+<pre class="highlight"><code class="language-bash">make -j 64 zImage socfpga_arria10_achilles_v5_indus.dtb modules</code></pre>
+</li>
+<li>
+<p>Install the kernel modules:</p>
+<pre class="highlight"><code class="language-bash">make modules_install INSTALL_MOD_PATH=modules_install 
+rm -rf modules_install/lib/modules/**/build 
+rm -rf modules_install/lib/modules/**/source
+mkdir -p linux-bin/a9
+ln -s arch/arm/boot/zImage linux-bin/a9/
+ln -s arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dtb linux-bin/a9/
+ln -s modules_install/lib/modules linux-bin/a9/</code></pre>
+</li>
+<li>
+<p>Archive the modules for transfer to the eMMC.</p>
+<pre class="highlight"><code class="language-bash">kernel_mod_dir=$(ls modules_install/lib/modules/)
+tar -czvf modules_install/lib/modules/modules.tar.gz modules_install/lib/modules/$kernel_mod_dir</code></pre>
+</li>
+</ol>
+<!--
+where x.x.xx is the kernel version number you built (use Linux tab-completion to help complete the full path name).
+-->
+
+<p>Now we have the following files that will be copied to the eMMC:</p>
+<table>
+<thead>
+<tr>
+<th>File Name</th>
+<th>Description</th>
+<th>eMMC Partition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arch/arm/boot/zImage</td>
+<td>Compressed kernel image</td>
+<td>Partition 1 (VFAT)</td>
+</tr>
+<tr>
+<td>arch/arm/boot/dts/socfpga_arria10_achilles_v5_indus.dtb</td>
+<td>Achilles Linux devicetree</td>
+<td>Partition 1 (VFAT)</td>
+</tr>
+<tr>
+<td>modules_install/lib/modules/modules.tar.gz</td>
+<td>Kernel modules archive</td>
+<td>Partition 3 (EXT4) /lib/modules</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devicetree-overlays">Devicetree Overlays</h3>
+<p>A devicetree overlay is used to dynamically add additional device nodes to the "live" devicetree currently loaded by the kernel.  An overlay can add peripherals that are implemented in FPGA logic (e.g. UART, soft Ethernet MAC, PIO, etc.) or external peripherals that connect to the hard interfaces in the HPS (e.g. I2C or SPI devices, USB, or Ethernet).  External peripherals would typically connect through the FMC connector to the baseboard that the Achilles SOM is plugged into, or through an FMC daughterboard plugged into the Achilles top FMC connectors.  Overlays can also be used to configure or reconfigure the FPGA.  Alternatively, any custom peripheral (in the FPGA or external) could be added to the base devicetree source file provided here in the GSRD, but reconfiguring PR regions through Linux can only be done with the use of an overlay.  Note that there are kernel configuration elements that are required to support this and they are included in the standard default <strong>defconfig</strong> file used to build the kernel for Arria 10 SoC devices.  More information is available in the kernel Documentation folder.</p>
+<p><strong>Creating and Compiling an Overlay</strong></p>
+<p>For Achilles Yocto builds using the <strong>meta-achilles layer</strong>, starting with the <strong>kirkstone</strong> branch and newer, the optional devicetree overlays (used by the Partial Reconfiguration GHRD example) are now automatically generated during the Yocto build process.</p>
+<p>For Yocto builds using the <strong>meta-achilles</strong> layer <strong>honister</strong> branch or older, you will still need to manually compile your devicetree overlays.  Pre-compiled binaries (.dtbo files) specific to the GHRD PR example are fetched and added to the generated eMMC image during the Yocto build.  To compile your own overlays, you will need to follow the steps above for <strong>Build Linux Kernel</strong> under Option 2 to clone the <strong>socfpga-linux</strong> repository and compile the .dtso files.  Several example devicetree source overlay (.dtso) files are included in the <strong>devicetree</strong> directory of the GHRD to demonstrate adding peripherals to the base devicetree, as well as configuring the partial reconfiguration region defined in the GHRD.  If you want to recompile the source files, or need to modify them to fit your application, follow these steps:</p>
+<p>Clone the <strong>linux-socfpga</strong> kernel source repository as instructed above.</p>
+<p>Copy the .dtso files to the kernel source tree folder containing all of the mainlined devicetrees (<strong>arch/arm/boot/dts</strong>).</p>
+<p>Compile the .dtso files using either of these 2 method:</p>
+<ul>
+<li>Use <strong>make</strong> as shown in the step above for building the Achilles kernel main devicetree.  If working in a different terminal session from the one used previously to build U-Boot, you will need to setup the Arm tools build environment again:
+  <pre class="highlight"><code class="language-bash">export ARCH=arm
+export CROSS_COMPILE=~/armgcc/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-</code></pre></li>
+</ul>
+<p>Then build the devicetree overlays:
+  <pre class="highlight"><code class="language-bash">make -j 64 achilles_ghrd_base.dtb achilles_sysid.dtb blink_led_default.dtb blink_led_fast.dtb blink_led_slow.dtb</code></pre></p>
+<p>Note that the <strong>make</strong> utility expects to see the .dts filename extension for devicetree input source files and will generate .dtb output files.  If you plan to use the test script provided in the <strong>meta-achilles</strong> layer to apply the overlays, you will need to manually rename the input .dtso to .dts, and the output .dtb to .dtbo.  There is no requirement in Linux to use these extensions; however, these are the extensions used in the GHRD example to differentiate them as devicetree overlays.</p>
+<ul>
+<li>Use the kernel source tree DTC tool.  <strong>DO NOT</strong> use the DTC tool from the Embedded Command Shell as instructed in AN 798 (link availabe on <strong>Resources</strong> page):
+  <pre class="highlight"><code class="language-bash">dtc -@ -I dts -O dtb -o achilles_ghrd_base.dtbo achilles_ghrd_base.dtso
+dtc -@ -I dts -O dtb -o achilles_sysid.dtbo achilles_sysid.dtso
+dtc -@ -I dts -O dtb -o blink_led_default.dtbo blink_led_default.dtso
+dtc -@ -I dts -O dtb -o blink_led_fast.dtbo blink_led_fast.dtso
+dtc -@ -I dts -O dtb -o blink_led_slow.dtbo blink_led_slow.dtso        </code></pre></li>
+</ul>
+<p>Copy the generated .dtbo files to the Achilles root filesystem <strong>/lib/firmware</strong> directory.  This is the default directory used by <strong>configfs</strong>, but other directories can be specified if desired.  Refer to the <strong>Program eMMC</strong> page for instructions on copying files to the various eMMC parititions.  In this case, you will be copying to partition 3 (the Linux EXT4 partition).</p>
+<p><strong>Applying an Overlay</strong></p>
+<p>A devicetree overlay is applied using the Linux <strong>configfs</strong>.  Create a <strong>configfs</strong> config_item and apply the overlay:
+<pre class="highlight"><code class="language-bash">mkdir /sys/kernel/config/device-tree/overlays/my-overlay-dir-name
+echo my-overlay-file.dtbo &gt; /sys/kernel/config/device-tree/overlays/my-overlay-dir-name/path</code></pre></p>
+<p>where <strong>my-overlay-dir-name</strong> can be any arbitrary descriptive name, typically similar to the .dtbo file name.</p>
+<p>You can check the status of the overlay:</p>
+<pre class="highlight"><code class="language-bash">cat /sys/kernel/config/device-tree/overlays/my-overlay-dir-name/status
+applied</code></pre>
+<p>A script is provided as part of the GSRD and can be used to apply the various PR region overlays to change the LED blink rate, as demonstrated on the <strong>Start Here</strong> page.  The script is located on the Achilles root filesystem at <strong>/home/root/pr_overlay.sh</strong>.</p>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<span class="nav-button active">Software</span>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="hardware.html" class="btn btn-neutral float-left" title="Hardware"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="program-emmc.html" class="btn btn-neutral float-right" title="Program eMMC">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/reflexces/meta-achilles" class="fa fa-code-fork" style="color: #fcfcfc"> reflexces/meta-achilles</a>
+        </span>
+    
+    
+      <span><a href="hardware.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="program-emmc.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

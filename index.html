@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://reflexces.github.io/meta-achilles/index.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Achilles Arria 10 SoC SOM Documentation</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = "/meta-achilles/index.html";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Achilles Arria 10 SoC SOM Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#som-specifications">SOM Specifications</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#fpga">FPGA</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fpga-hard-processor-system-hps">FPGA Hard Processor System (HPS)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fpga-configuration-hps-boot">FPGA Configuration &amp; HPS boot</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#communication-interfaces-on-som">Communication Interfaces on SOM</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#memory">Memory</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#peripherals">Peripherals</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fmc-connectivity-features">FMC Connectivity Features</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mechanical-thermal">Mechanical &amp; Thermal</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#achilles-som-block-diagram">Achilles SOM Block Diagram</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#som-carrier-board-options">SOM Carrier Board Options</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#option-1-achilles-starter-board-included-with-purchase-of-development-kit">Option 1: Achilles Starter Board (included with purchase of Development Kit)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-2-achilles-pcie-carrier-board-sold-separately">Option 2: Achilles PCIe Carrier Board (sold separately)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-3-custom-carrier">Option 3: Custom Carrier</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#development-kit-deliverables">Development Kit Deliverables</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#purchase">Purchase</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="start-here.html">Start Here</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="software.html">Software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="program-emmc.html">Program eMMC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Achilles Arria 10 SoC SOM Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/reflexces/meta-achilles/edit/master/docs/index.md">Edit on reflexces/meta-achilles</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="reflex-ces-achilles-arria-10-soc-som">REFLEX CES Achilles Arria 10 SoC SOM</h1>
+<div class="nav-button-container">
+<span class="nav-button active">Home</span>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<a href="software.html" class="nav-button">Software</a>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+
+<p><img alt="Achilles Module" class="spaced-image centered-image" src="images/Achilles_module.PNG" /></p>
+<p>The Achilles SoM by <a href="https://www.reflexces.com/">REFLEX CES</a> features an Altera® Arria® 10 SX SoC FPGA (System-on-Chip Field Programmable Gate Array), including a dual-core ARM® Cortex™-A9 MPCore processor and up to 660K programmable Logic Elements. The Achilles SoM is designed to enable easy integration for end-user applications, providing full flexibility with the Intel® Arria® 10 SX SoC FPGA device. The SOM is available to purchase as part of a development kit for evaluation and prototyping, or as a production-ready module designed into your electronic assembly. The SOM also features industry standard FMC connectors to allow for easy integration of additional connectivity, video interfaces, data converters, and many other options available through FMC daughter cards.</p>
+<p>Achilles offers developers an excellent out-of-box experience. The board support package includes full documentation and a suite of reference designs to quickly enable the FPGA development process.</p>
+<p>Ideal target markets include Automotive, Video Broadcast, Machine and Intelligent Vision, Industrial, Military, Test &amp; Measurement, and Medical.</p>
+<p>There are 6 versions of the SOM available:  </p>
+<table>
+<thead>
+<tr>
+<th>SOM Version</th>
+<th style="text-align: center;">v2 Lite</th>
+<th style="text-align: center;">v2 Indus</th>
+<th style="text-align: center;">v2 Turbo</th>
+<th style="text-align: center;">v5 Indus</th>
+<th style="text-align: center;">v5 Indus 12G</th>
+<th style="text-align: center;">v5 Lite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FPGA Density</td>
+<td style="text-align: center;">270 KLE</td>
+<td style="text-align: center;">660 KLE</td>
+<td style="text-align: center;">660 KLE</td>
+<td style="text-align: center;">660 KLE</td>
+<td style="text-align: center;">660 KLE</td>
+<td style="text-align: center;">270 KLE</td>
+</tr>
+<tr>
+<td>FPGA Speed Grade</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-1</td>
+<td style="text-align: center;">-2</td>
+</tr>
+<tr>
+<td>DDR4 SDRAM FPGA</td>
+<td style="text-align: center;">2 GB, 2133 MT/s</td>
+<td style="text-align: center;">2 GB, 2400 MT/s</td>
+<td style="text-align: center;">4 GB, 2400 MT/s</td>
+<td style="text-align: center;">4 GB, 2400 MT/s</td>
+<td style="text-align: center;">4 GB, 2400 MT/s</td>
+<td style="text-align: center;">4 GB, 2133 MT/s</td>
+</tr>
+<tr>
+<td>DDR4 SDRAM HPS</td>
+<td style="text-align: center;">2 GB, 2133 MT/s</td>
+<td style="text-align: center;">2 GB, 2400 MT/s</td>
+<td style="text-align: center;">3 GB, 2400 MT/s</td>
+<td style="text-align: center;">3 GB, 2400 MT/s</td>
+<td style="text-align: center;">3 GB, 2400 MT/s</td>
+<td style="text-align: center;">3 GB, 2133 MT/s</td>
+</tr>
+<tr>
+<td>eMMC</td>
+<td style="text-align: center;">8 GB</td>
+<td style="text-align: center;">32 GB</td>
+<td style="text-align: center;">32 GB</td>
+<td style="text-align: center;">32 GB</td>
+<td style="text-align: center;">32 GB</td>
+<td style="text-align: center;">32 GB</td>
+</tr>
+<tr>
+<td>FMC Connectors</td>
+<td style="text-align: center;">Bottom Only</td>
+<td style="text-align: center;">Top &amp; Bottom</td>
+<td style="text-align: center;">Top &amp; Bottom</td>
+<td style="text-align: center;">Top &amp; Bottom</td>
+<td style="text-align: center;">Bottom Only</td>
+<td style="text-align: center;">Bottom Only</td>
+</tr>
+<tr>
+<td>Design Status</td>
+<td style="text-align: center;">EOL</td>
+<td style="text-align: center;">EOL</td>
+<td style="text-align: center;">EOL</td>
+<td style="text-align: center;">Active</td>
+<td style="text-align: center;">Active</td>
+<td style="text-align: center;">Active</td>
+</tr>
+</tbody>
+</table>
+<p>Note: Achilles Development Kit comes with v5 Indus version SOM</p>
+<h3 id="som-specifications">SOM Specifications</h3>
+<h4 id="fpga">FPGA</h4>
+<ul>
+<li>Arria® 10 SX, 10AS066H2F34I1HG, F34 package, -1 speed grade</li>
+<li>Up to 660K Logic Elements (KLEs) with over 1M registers</li>
+<li>Up to 2,133 M20K memory blocks, offering 42 Mb of memory</li>
+<li>Up to 5.7 Mb of MLAB memory</li>
+<li>Up to 3,376 18 x 19 multipliers providing 1,519 GFLOPS of peak floating-point performance</li>
+</ul>
+<h4 id="fpga-hard-processor-system-hps">FPGA Hard Processor System (HPS)</h4>
+<ul>
+<li>Dual-core ARM® Cortex™-A9 MPCore processor</li>
+<li>Up to 1.5 GHz max processor frequency</li>
+<li>Enhanced with NEON Extension and Single &amp; Double Precision Floating point unit</li>
+<li>32 KB L1 Instruction &amp; Data Cache</li>
+<li>Shared 512KB L2 Cache</li>
+<li>256 KB on-chip RAM</li>
+</ul>
+<h4 id="fpga-configuration-hps-boot">FPGA Configuration &amp; HPS boot</h4>
+<ul>
+<li>AS configuration supported with EPCQL512, remote upgrade support and fail-safe functionality: AS, Configuration via Protocol (CvP)</li>
+<li>Up to 32 GB eMMC for HPS boot flash to store U-Boot, Linux kernel, and root filesystem</li>
+</ul>
+<h4 id="communication-interfaces-on-som">Communication Interfaces on SOM</h4>
+<ul>
+<li>2x 10/100/1000 Ethernet PHYs connected to HPS</li>
+<li>1x USB 3.0 device connectivity using Cypress FX3 super speed controller (Indus/Turbo only)</li>
+<li>1x USB 2.0 Device/Host PHY</li>
+<li>1x USB OTG support connected to the HPS</li>
+<li>1x I²C slave interface (HPS can drive external device)</li>
+<li>1x UART connected to the HPS (UART over USB interface)</li>
+<li>1x UART connected to System controller (MAX10 / UART over USB interface)</li>
+<li>1x PCIe Gen3 x8 Hard IP interface routed through FMC</li>
+</ul>
+<h4 id="memory">Memory</h4>
+<table>
+<thead>
+<tr>
+<th>SOM Version</th>
+<th style="text-align: center;">v2 Lite</th>
+<th style="text-align: center;">v2 Indus</th>
+<th style="text-align: center;">v2 Turbo</th>
+<th style="text-align: center;">v5 Indus</th>
+<th style="text-align: center;">v5 Indus 12G</th>
+<th style="text-align: center;">v5 Lite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 bank on-board DDR4</td>
+<td style="text-align: center;">2 GB, x32,</td>
+<td style="text-align: center;">2 GB, x32,</td>
+<td style="text-align: center;">4 GB, x32,</td>
+<td style="text-align: center;">4 GB, x32,</td>
+<td style="text-align: center;">4 GB, x32,</td>
+<td style="text-align: center;">4 GB, x32,</td>
+</tr>
+<tr>
+<td>connected to FPGA</td>
+<td style="text-align: center;">2133 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2133 MT/s</td>
+</tr>
+<tr>
+<td>1 bank on-board DDR4</td>
+<td style="text-align: center;">2 GB, x32,</td>
+<td style="text-align: center;">2 GB, x32,</td>
+<td style="text-align: center;">3 GB, x32,</td>
+<td style="text-align: center;">3 GB, x32,</td>
+<td style="text-align: center;">3 GB, x32,</td>
+<td style="text-align: center;">3 GB, x32,</td>
+</tr>
+<tr>
+<td>connected to FPGA</td>
+<td style="text-align: center;">2133 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2400 MT/s</td>
+<td style="text-align: center;">2133 MT/s</td>
+</tr>
+</tbody>
+</table>
+<h4 id="peripherals">Peripherals</h4>
+<ul>
+<li>1x Real Time Clock (RTC) connected to HPS I²C interface</li>
+<li>1x Temperature Sensor connected to HPS I²C interface</li>
+<li>1x EEPROM on Carrier board connected to HPS I²C interface (through FMC bottom right connector)</li>
+<li>2x User LEDs connected to FPGA I/O</li>
+<li>2x User LEDs connected to HPS I/O</li>
+</ul>
+<h4 id="fmc-connectivity-features">FMC Connectivity Features</h4>
+<ul>
+<li>1x FMC LPC bottom connector with HPS signals and 14 transceivers (Bottom-Right)</li>
+<li>1x FMC HPC (Indus/Turbo) or LPC (Lite) bottom connector (Bottom-Left)</li>
+<li>Up to 24 transceivers available:</li>
+<li>10x XCVR dedicated to FMC HPC Top connector or to the FMC HPC Bottom connector (Top or Bottom-Left)</li>
+<li>10x XCVR dedicated to FMC LPC Top connector or to the FMC LPC Bottom connector (Top or Bottom-Right)</li>
+<li>4x additional XCVR dedicated to the FMC LPC Bottom connector (Bottom-right)</li>
+<li>LVDS and LVCMOS (1.8V FMC VITA 57.1 compliant)</li>
+<li>80 LVDS bidirectional (or 160 Single ended) on FMC HPC Top connector (Top or Bottom-Left)</li>
+<li>32 LVDS bidirectional (or 64 Single ended) on FMC LPC Top connector (Top or Bottom-Left)</li>
+</ul>
+<h4 id="mechanical-thermal">Mechanical &amp; Thermal</h4>
+<ul>
+<li>Size: 86 mm x 95mm (3.4" x 3.8")</li>
+<li>Custom heat spreader, heat sink, and fan delivered with every module</li>
+</ul>
+<h5 id="achilles-som-block-diagram">Achilles SOM Block Diagram</h5>
+<p><img alt="Achilles Module" src="images/Achilles_block_diagram.PNG" /></p>
+<h3 id="som-carrier-board-options">SOM Carrier Board Options</h3>
+<p>The Achilles SOM cannot operate stand-alone and requires a carrier card. There are 3 options available:</p>
+<h4 id="option-1-achilles-starter-board-included-with-purchase-of-development-kit">Option 1: Achilles Starter Board (included with purchase of Development Kit)</h4>
+<ul>
+<li>Evaluation mode on desktop with AC power supply</li>
+<li>2x Ethernet RJ-45 connectors</li>
+<li>1x USB 3.0 Micro B connector (FPGA)</li>
+<li>1x USB OTG Mini AB (HPS)</li>
+<li>1x USB micro A connector for UART connection to HPS and MAX 10 System Controller interface and on-board USB Blaster II for FPGA programming</li>
+<li>1x I²C 4 pin header (HPS)</li>
+<li>1x PMBus connector for Digital Power System management, configure and interrogate the PSM Devices with LTpowerPlay using the Linear Powerplay DC1613A USB cable (cable not included)</li>
+<li>Size: 100 mm x 140 mm (3.94" x 5.51")</li>
+</ul>
+<div align="center">
+<b>Achilles Starter Board and Block Diagram</b>
+</div>
+<p><img alt="Achilles Starter Board" class="spaced-image centered-image" src="images/Achilles_Starter_Board_with_block_diagram.PNG" /></p>
+<h4 id="option-2-achilles-pcie-carrier-board-sold-separately">Option 2: Achilles PCIe Carrier Board (sold separately)</h4>
+<ul>
+<li>Evaluation mode plugged into PCIe slot OR on desktop with AC power supply (not included with PCIe Carrier)</li>
+<li>Includes all the interfaces available on the Starter Board, plus:</li>
+<li>PCIe Gen3 x8 card edge connector * 1x QSFP+ quad optical cage (4 XCVR @ 10.3125 Gbps per link)</li>
+<li>2x SFP+ single optical cage (2 XCVR @ 10.3125 Gbps per link)</li>
+<li>1x WiFi 802.11 b/g/n IoT module with SPI and SDIO interface to host controller</li>
+<li>1x 10 pin LCD connector * Size: PCIe Standard height, half length - 111.15 mm x 167.65 mm (4.38" x 6.60")</li>
+</ul>
+<div align="center">
+<b>Achilles PCIe Carrier Board and Block Diagram</b>
+</div>
+<p><img alt="Achilles PCIe Carrier Board" class="spaced-image centered-image" src="images/Achilles_PCIe_Carrier_with_block_diagram.PNG" /></p>
+<h4 id="option-3-custom-carrier">Option 3: Custom Carrier</h4>
+<ul>
+<li>Design your own carrier using our Carrier Design Guide</li>
+<li>Use REFLEX CES custom design services</li>
+</ul>
+<h4 id="development-kit-deliverables">Development Kit Deliverables</h4>
+<ul>
+<li>Achilles Arria® 10 SoC SOM</li>
+<li>Starter Board</li>
+<li>VHDL test and reference designs</li>
+<li>Documentation package</li>
+<li>Reference manual, Starter Guide, and Carrier Design Guide</li>
+<li>Starter board schematics</li>
+<li>SOM Super Pinout file (showing all FPGA/FMC connections, trace length, etc.)</li>
+<li>Mechanical files (3D DWF/STEP models and 2D drawing available upon request)</li>
+<li>LTPowerPlay project</li>
+</ul>
+<h4 id="purchase">Purchase</h4>
+<p>Please contact REFLEX CES Sales.</p>
+<p>Europe, Japan:<br />
+sales @ reflexces.com</p>
+<p>Americas, Asia Pacific:<br />
+salesusa @ reflexces.com</p>
+<div class="nav-button-container">
+<span class="nav-button active">Home</span>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<a href="hardware.html" class="nav-button">Hardware</a>
+<a href="software.html" class="nav-button">Software</a>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="start-here.html" class="btn btn-neutral float-right" title="Start Here">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/reflexces/meta-achilles" class="fa fa-code-fork" style="color: #fcfcfc"> reflexces/meta-achilles</a>
+        </span>
+    
+    
+    
+      <span><a href="start-here.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2026-04-29 19:30:29.807735+00:00
+-->

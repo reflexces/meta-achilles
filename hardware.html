@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://reflexces.github.io/meta-achilles/hardware.html" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Hardware - Achilles Arria 10 SoC SOM Documentation</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="css/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Hardware";
+        var mkdocs_page_input_path = "hardware.md";
+        var mkdocs_page_url = "/meta-achilles/hardware.html";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="index.html" class="icon icon-home"> Achilles Arria 10 SoC SOM Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="start-here.html">Start Here</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Hardware</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#ghrd-overview">GHRD Overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#compiling-the-ghrd-ghrd-v221-and-newer">Compiling the GHRD (ghrd-v22.1 and newer)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#compiling-the-ghrd-ghrd-v213-and-older">Compiling the GHRD (ghrd-v21.3 and older)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#preparing-for-software-handoff">Preparing for Software Handoff</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="software.html">Software</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="program-emmc.html">Program eMMC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Achilles Arria 10 SoC SOM Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html" class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Hardware</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/reflexces/meta-achilles/edit/master/docs/hardware.md">Edit on reflexces/meta-achilles</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="hardware">Hardware</h1>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<span class="nav-button active">Hardware</span>
+<a href="software.html" class="nav-button">Software</a>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+
+<h2 id="ghrd-overview">GHRD Overview</h2>
+<p>The hardware component, or “Golden Hardware Reference Design” (GHRD), is a complete Quartus reference design targeting the Arria® 10 FPGA. The design includes the Hard Processor Subsystem (HPS) and custom logic running in the FPGA logic fabric. The HPS is configured using the Platform Designer tool in Quartus. After the HPS subsystem is generated, its HDL output is integrated in a top level HDL file that can be modified to include the user’s custom logic. The GHRD is available on the REFLEX CES achilles-hardware github repository page and is automatically downloaded by the build scripts or can be manually cloned (more details below). The achilles-hardware repository branches are named according to the Quartus Prime Pro version tested with that release.</p>
+<p>Beginning with the ghrd-v22.1 branch, the GHRD is now generated from TCL scripts. If you want to use the Quartus GUI, you must first generate the design using the scripted flow. Use the GSRD build script (see instructions on the <strong>Start Here</strong> page) to specify the SOM version and the type of GHRD to build (standard or Partial Reconfiguration reference design).</p>
+<p>The latest recommended branch is ghrd-v23.1 . All versions of the Achilles SOM (V2 &amp; V5) are supported by this branch. While this branch is fully tested with Quartus Prime Pro v23.1, the user has the option to specify a different Quartus version. Only the version specified by any given branch name will be eligible for technical support when working with that branch.</p>
+<p>The script-generated Platform Designer .qsys design file enables the following HPS peripherals:</p>
+<p><strong>HPS Hard Peripherals</strong></p>
+<ul>
+<li>SDMMC</li>
+<li>EMAC1 (RGMII with MDIO)</li>
+<li>EMAC2 (RGMII with MDIO)</li>
+<li>USB1</li>
+<li>I2C0</li>
+<li>UART0</li>
+<li>GPIO (2x in HPS Dedicated I/O block)</li>
+<li>EMIF HPS (DDR4)</li>
+</ul>
+<p><strong>FPGA Soft Peripherals</strong></p>
+<ul>
+<li>JTAG to Avalon Master Bridge</li>
+<li>PIO</li>
+<li>System ID</li>
+<li>RS232 UART to communicate with MAX 10</li>
+</ul>
+<p>The GHRD is based on the Full_Featured.zip design archive available in the latest Achilles board support package Test Design folder. Refer to the README.txt file or the release notes in the header of the top level VHDL file of the GHRD for details of changes made to the Full_Featured design. Below is a block diagram of the GHRD.</p>
+<p><img src="images/achilles-ghrd-block-diagram.png" alt="Achilles GHRD Block Diagram" height="600"></p>
+<p>There are 2 variations of the GHRD: a standard flat version and a partial reconfiguration version. In both cases, one of the main functions demonstrated is using the HPS to configure the FPGA. This requires the Early I/O Release feature to be enabled in the Quartus project. This feature splits the FPGA configuration sequence into two parts. The first part is the periphery image, which configures the FPGA I/O, Shared I/O, and enables the HPS External Memory Interface (EMIF). The second part is the core image, which configures the FPGA fabric.</p>
+<p>In the flat design, there is only the base revision in the Quartus project. After full compilation, this version is used to generate programming files (periph.rbf and core.rbf) for full configuration of the FPGA from U-Boot/SPL. FPGA configuration file updates can be sent to the Achilles SOM remotely, but the entire FPGA needs to be reconfigured by rebooting the system and allowing the SPL and U-Boot to configure the FPGA periphery and core images.</p>
+<p>In the partial reconfiguration version, there is a base revision that defines the static region containing design logic that does not change, and the PR region containing logic that can be dynamically reconfigured. Additional revisions are used to define the function of each PR persona. In the GHRD, the PR region contains logic to blink the red LED connected to FPGA user I/O pins. The default configuration will cause the LED to blink once every 0.67 sec. Three additional revisions contain logic to make the LED blink fast, slow, or return to the default blinking rate. This version is used to generate programming files for the static region as well as partial reconfiguration files for each persona. This is a very simplified example used to demonstrate partial reconfiguration controlled by the HPS. Using a standard feature available in the most recent Linux kernels, we can apply a devicetree overlay from Linux to update the PR region with the desired persona configuration file.</p>
+<p>So why are there two different versions of the reference design? Due to the architecture of Arria 10 SoC, it is not possible to reconfigure only the core FPGA image from the HPS after the periphery image has been loaded. Only full FPGA reconfiguration is possible, which will reset the FPGA and reconfigure FPGA/HPS shared I/O and DDR memory controllers, causing the HPS to crash. By using partial reconfiguration and the associated Linux drivers available, the HPS can reconfigure only the specified regions of the FPGA while the memory controllers and shared I/O continue to operate. If you only need the HPS to configure the FPGA at power up and can tolerate down time for future upgrades, then you can use a standard flat design without specifying PR regions. Otherwise, if you need to support FPGA configuration file updates through Linux without rebooting your system, then you will need to implement PR regions in your design. Refer to the documentation links provided on the RESOURCES page for implementing the PR flow in your design.</p>
+<p>The image below describes the new GHRD build flow starting with the ghrd-v22.1 branch:</p>
+<ol>
+<li>The primary TCL script is <strong>achilles_ghrd_build_flow.tcl</strong> and is launched with the quartus_sh -t command from the <strong>achilles-ghrd-build.sh</strong> script.</li>
+<li>The <strong>achilles_ghrd_build_flow.tcl</strong> script then sources <strong>create_achilles_ghrd_project.tcl</strong>.</li>
+<li>Process are run within <strong>create_achilles_ghrd_project.tcl</strong> to create the the Quaruts project and make project assignments for the user specified SOM and GHRD</li>
+<li>Another process generates the <strong>achilles_qsys_script_GENERATED.tcl</strong>.</li>
+<li>If the user chose the Partial Reconfiguration GHRD, the PR revisions are created.</li>
+<li>The generated script then creates the Platform Designer .qsys file, instantiates the HPS and peripheral IP, and sets their configuration parameters.</li>
+<li>After the Platform Designer .qsys file and IP files are created, the Platform Designer system is generated.</li>
+<li>When this completes, the full Quartus compilation flow begins.</li>
+<li>Finally, after compilation finishes, the resulting .sof file is converted to the split <em>.periph.rbf</em> and <em>.core.rbf</em> configuration files which are used by the HPS to configure the FPGA.</li>
+</ol>
+<p><img src="images/achilles_ghrd_build_flow_2022.06.png" alt="Achilles GHRD Build Flow" height="868"></p>
+<p>Suggested Quartus Hardware reference designs available for Achilles SOM:</p>
+<table>
+<thead>
+<tr>
+<th>Design</th>
+<th>Description</th>
+<th>Quartus Version</th>
+<th>Location</th>
+<th>Branch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full_Featured.zip</td>
+<td>official REFLEX CES Achilles SOM HPS/FPGA reference design</td>
+<td>v18.1.0 Pro</td>
+<td>Achilles BSP "Test Design" folder</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>achilles_ghrd</td>
+<td>HPS/FPGA reference design - flat design hierarchy</td>
+<td>v20.1.0 Pro</td>
+<td>https://github.com/reflexces/achilles-hardware/tree/ghrd-v20.1</td>
+<td>ghrd-v20.1</td>
+</tr>
+<tr>
+<td>achilles_ghrd</td>
+<td>HPS/FPGA reference design - Partial Reconfiguration</td>
+<td>v20.1.0 Pro</td>
+<td>https://github.com/reflexces/achilles-hardware/tree/ghrd-v20.1-pr</td>
+<td>ghrd-v20.1-pr</td>
+</tr>
+<tr>
+<td>achilles_ghrd</td>
+<td>HPS/FPGA reference design - Partial Reconfiguration</td>
+<td>v21.1.0 Pro</td>
+<td>https://github.com/reflexces/achilles-hardware/tree/ghrd-v21.1-pr</td>
+<td>ghrd-v21.1-pr</td>
+</tr>
+<tr>
+<td>achilles_ghrd</td>
+<td>HPS/FPGA reference design - Partial Reconfiguration</td>
+<td>v21.3.0 Pro</td>
+<td>https://github.com/reflexces/achilles-hardware/tree/ghrd-v21.3-pr</td>
+<td>ghrd-v21.3-pr</td>
+</tr>
+<tr>
+<td>achilles_ghrd</td>
+<td>HPS/FPGA reference design - standard or PR example</td>
+<td>v22.1.0 Pro</td>
+<td>https://github.com/reflexces/achilles-hardware/tree/ghrd-v22.1</td>
+<td>ghrd-v22.1</td>
+</tr>
+<tr>
+<td>achilles_ghrd</td>
+<td>HPS/FPGA reference design - standard or PR example</td>
+<td>v23.1.0 Pro</td>
+<td>https://github.com/reflexces/achilles-hardware/tree/ghrd-v23.1</td>
+<td>ghrd-v23.1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Directory structure of the GHRD (ghrd-v21.3 and older)</strong>
+<pre class="highlight"><code class="language-bash">📁  achilles-hardware
+├── 📁 devicetree (contains devicetree overlay source files and pre-compiled dtbo binaries used for configuring the PR region; explained in more detail on the **Software** page)
+├── 📁 hps_isw_handoff (contains the software handoff files generated during compilation)
+├── 📁 output_files (contains the programming files generated during compilation; fetched during software build and included on eMMC image file)
+└── 📁 src (main source file directory)
+    └── 📁 ip (contains Platform Designer source files)</code></pre></p>
+<p><strong>Directory structure of the GHRD (ghrd-v22.1 and newer)</strong>
+<pre class="highlight"><code class="language-bash">📁 achilles-hardware
+├── 📁 precompiled
+|   ├── 📁 hps_isw_handoff (contains precompiled software handoff files for each SOM version, generated during compilation)
+|   └── 📁 rbf (contains precompiled FPGA configuration files for each SOM version; fetched during software build and included on eMMC image file)
+└── 📁 src
+    ├── 📁 hdl (contains VHDL source files)
+    └── 📁 script (contains Platform Designing source script files</code></pre></p>
+<h3 id="compiling-the-ghrd-ghrd-v221-and-newer">Compiling the GHRD (ghrd-v22.1 and newer)</h3>
+<p>For the best user experience, it is recommended to use the GSRD build script described on the <strong>Start Here</strong> page.</p>
+<p>Advanced users may choose to run the <strong>achilles-ghrd-build.sh</strong> script separately by following these instructions.</p>
+<ol>
+<li>
+<p>Open a terminal console and create a working directory for the build:</p>
+<pre class="highlight"><code class="language-bash">mkdir achilles-ghrd-2023.07
+cd achilles-ghrd-2023.07</code></pre>
+</li>
+<li>
+<p>Download and run the Achilles !GHRD Build Script.  Running the script without any arguments will display the usage instructions.  The !SOM version and GHRD type are the minimum required arguments for the script.  The example below will build the Partial Reconfiguration GHRD for the v5 Indus !SOM: </p>
+<pre class="highlight"><code class="language-bash">wget https://raw.githubusercontent.com/reflexces/build-scripts/2023.07/achilles-ghrd-build.sh
+chmod +x achilles-ghrd-build.sh
+./achilles-ghrd-build.sh -s v5-indus -g pr</code></pre>
+</li>
+</ol>
+<h3 id="compiling-the-ghrd-ghrd-v213-and-older">Compiling the GHRD (ghrd-v21.3 and older)</h3>
+<p>Detailed instructions for compiling the !GHRD are not provided here.  It is assumed that the user has sufficient knowledge of FPGA design and the Quartus development tools GUI to open a project and start the compilation process.  This can be done on either a Windows or Linux system using the Quartus GUI (command line build scripts are not provided).  The software build described on the <strong>Software</strong> page <strong>must</strong> be done on Linux.  It will simplify the process to work completely in Linux if possible, since you will not need to transfer files from Windows to Linux when moving on to the Software build stage.  To use the !GHRD as a starting point for your own design or to recompile it, download the ZIP archive using the github link above, or using <strong>git</strong> to clone the repository and checkout the desired branch:</p>
+<pre class="highlight"><code class="language-bash">git clone https://github.com/reflexces/achilles-hardware.git
+cd achilles-hardware
+git checkout ghrd-v21.3
+#OR
+git checkout ghrd-v21.3-pr</code></pre>
+<p>Open the Quartus project and start a full compilation.  If using the Partial Reconfiguration GHRD, remember to run a full compilation for each design revision persona after compiling the base revision.</p>
+<p><img src="images/compiling-revisions.png" alt="Compiling Revisions" height="250"></p>
+<p>Refer to the Partial Reconfiguration documentation listed on the <strong>Resources</strong> page for more information on the Partial Reconfiguration design flow.  After the Quartus project compilation successfully completes, you will find the required software handoff files in the <em>hps_isw_handoff</em> folder and the FPGA programming files in the <strong>output_files</strong> folder of the Quartus project directory.  Pre-compiled FPGA configuration files (.sof/.rbf) are provided with the !GHRD in the github repository and are fetched and included in the generated eMMC image during the software build stage.  If the !GHRD was modified, then you will need to convert the generated achilles_ghrd.sof (or your_project.sof) file to split .rbf files (peripheral and core images).  Do this by opening a command line terminal on your host build machine (Windows or Linux), browse to your project <strong>output_files</strong> directory, and run the following command:</p>
+<pre class="highlight"><code class="language-bash">quartus_cpf --convert --hps -o bitstream_compression=on achilles_ghrd.sof achilles_ghrd.rbf</code></pre>
+<p>Note: To run the quartus_cpf command, it may be necessary to specify the full path to your quartus/bin64 installation directory if not already set in your environment PATH variable (e.g. ~/intelFPGA_pro/20.1/quartus/bin64/quartus_cpf ...).</p>
+<p><font color="red">Warning: The .periph.rbf and .core.rbf configuration files must come from the same Quartus project and version. Attempting to mix configuration files from different projects or compilations will result in FPGA configuration failure.</font></p>
+<p>The above step is the same for both the flat and PR versions of the GHRD.  In the PR version, run this above command using the base revision .sof file (achilles_ghrd.sof) to generate the split .rbf files.  For each of the PR region persona revisions, there is a setting enabled in each of the corresponding .qsf files that generates the PR region .rbf files during compilation:</p>
+<pre class="highlight"><code class="language-bash">set_global_assignment -name GENERATE_PR_RBF_FILE ON</code></pre>
+<p>Without this .qsf setting, you would have to run a similar <strong>quartus_cpf</strong> command to convert the partial-mask file for the PR region for each persona revision in your design, for example:</p>
+<pre class="highlight"><code class="language-bash">quartus_cpf --convert blink_led_fast.pr_partition.pmsf blink_led_fast.pr_partition.rbf</code></pre>
+<p>These PR region .rbf files must be copied to the Achilles Linux root filesystem (<strong>/lib/firmware</strong> is default) and are then referenced in a devicetree overlay file and applied to the base devicetree that is loaded with the Linux kernel during the boot process.  The devicetree overlay process is described in more detail on the <strong>Software</strong> page.  The .rbf and devicetree overlay files are automatically copied to the generated root filesystem based on instructions in the <strong>achilles-firmware.bb</strong> recipe during the scripted build flow on the <strong>Software</strong> page.  If using your own .rbf files generated from your project, you must ensure that they are copied correctly to the root filesystem if not using the scripted flow.</p>
+<p>There is one additional step we need to manually perform to convert the periph.rbf and core.rbf files to the FIT image format used by U-Boot.  This is explained on the <strong>Software</strong> page under the <strong>Option 2: Generate FIT Images</strong> section.</p>
+<h3 id="preparing-for-software-handoff">Preparing for Software Handoff</h3>
+<!--The following steps are only required if you are bringing your own Quartus design or making changes to the !GHRD HPS system.  The Achilles U-Boot patch available in the *meta-achilles* Yocto BSP layer provided with this example already contains a functional U-Boot devicetree generated from this !GHRD with the peripherals described above.  If you only want to rebuild the software components, proceed to the *Software* page now.
+-->
+<p>If working in Windows to compile the FPGA design and transitioning to Linux at this time, open a terminal and create a top level working directory on your Linux host build system:</p>
+<pre class="highlight"><code class="language-bash">mkdir -p ~/achilles &amp;&amp; cd ~/achilles</code></pre>
+<p>Make a copy of the <strong>hps_isw_handoff</strong> folder to this working directory.  If you are already working in Linux at this time, you can work with the existing directory on your Linux PC.  You should have the following files in the <strong>hps_isw_handoff</strong> folder:</p>
+<pre class="highlight"><code class="language-bash">📁 achilles
+└── 📁 hps_isw_handoff
+    ├── emif.xml
+    ├── hps.xml
+    └── id</code></pre>
+<!--
+Start an Embedded Command Shell (default Quartus installation path is assumed):
+
+<pre class="highlight"><code class="language-bash">~/intelFPGA_pro/20.1/embedded/embedded_command_shell.sh</code></pre>
+
+Browse to the directory containing the *hps_isw_handoff* folder, but do not push into that folder - stay one level above.  This would be your Quartus project root folder (*achilles-hardware* if you cloned from github, or the *achilles* directory if created in the step above).
+
+Convert the handoff data into a U-Boot devicetree:
+
+<pre class="highlight"><code class="language-bash">bsp-create-settings --type uboot --bsp-dir software/bootloader --preloader-settings-dir "hps_isw_handoff" --settings software/bootloader/settings.bsp</code></pre>
+
+This will create the file **/software/bootloader/devicetree.dts**.  This file must be manually modified and copied into the U-Boot source tree (arch/arm/dts) after cloning the **u-boot-socfpga** Github repository and applying the [Achilles u-boot patch](https://github.com/reflexces/meta-achilles/blob/warrior/recipes-bsp/u-boot/files/v2019.10/0001-add-achilles-support-for-u-boot-socfpga-v2019.10.patch).  For details on the required modifications to **devicetree.dts**, refer to the [Building Bootloader](https://rocketboards.org/foswiki/Documentation/BuildingBootloader#Arria_10_SoC_45_Boot_from_SD_Card) article.  Again, this step is not required if you are simply rebuilding the !GHRD, since this file is already provided in the github repository.
+-->
+
+<p>Now you are ready to move on to building the <strong>Software</strong> components.</p>
+<div class="nav-button-container">
+<a href="index.html" class="nav-button">Home</a>
+<a href="start-here.html" class="nav-button">Start Here</a>
+<span class="nav-button active">Hardware</span>
+<a href="software.html" class="nav-button">Software</a>
+<a href="program-emmc.html" class="nav-button">Program eMMC</a>
+<a href="resources.html" class="nav-button">Resources</a>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="start-here.html" class="btn btn-neutral float-left" title="Start Here"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="software.html" class="btn btn-neutral float-right" title="Software">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/reflexces/meta-achilles" class="fa fa-code-fork" style="color: #fcfcfc"> reflexces/meta-achilles</a>
+        </span>
+    
+    
+      <span><a href="start-here.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="software.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
