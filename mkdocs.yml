@@ -1,0 +1,29 @@
+site_name: Achilles Arria 10 SoC SOM Documentation
+site_url: https://reflexces.github.io/meta-achilles/
+repo_url: https://github.com/reflexces/meta-achilles
+repo_name: reflexces/meta-achilles
+docs_dir: docs
+theme:
+  name: readthedocs
+  palette:
+    primary: blue
+  features:
+    - content.code.copy
+    - navigation.top
+docs_dir: docs
+use_directory_urls: false
+nav:
+  - Home: index.md
+  - Start Here: start-here.md
+  - Hardware: hardware.md
+  - Software: software.md
+  - Program eMMC: program-emmc.md
+  - Resources: resources.md
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - tables
+extra_css:
+  - css/custom.css
